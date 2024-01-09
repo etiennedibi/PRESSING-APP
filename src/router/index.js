@@ -5,7 +5,6 @@ import store from "../store";
 import Dashboard from "../views/Dashboard.vue";
 
 import RdvStory from "../views/rdvStory.vue";
-import RdvAccueil from "../views/rdvAcceuil.vue";
 import VisiteDeclaration from "../views/VisiteDeclaration.vue";
 
 import TaskDeclaration from "../views/TaskDeclaration.vue";
@@ -23,7 +22,6 @@ import StaffList from "../views/staffList.vue";
 import FicheEmploye from "../views/ficheEmploye.vue";
 import UserPaieFile from "../views/UserPaieFile.vue";
 import PaieStoty from "../views/PaieStoty.vue";
-import AddPaie from "../views/AddPaie.vue";
 import CVManage from "../views/cvManage.vue";
 
 
@@ -49,7 +47,6 @@ import ServiceManagment from "../views/serviceManagment.vue";
 
 import Messagerie from "../views/messagerie.vue";
 import param from "../views/param.vue";
-import chat from "../views/chat.vue";
 
 import login from "../views/login.vue";
 import passwordRecupBegin from "../views/passwordRecupBegin.vue";
@@ -87,15 +84,6 @@ const routes = [
     beforeEnter: ifAuthenticated,
   },
   {
-    path: "/chat",
-    name: "chat",
-    component: chat,
-    beforeEnter: ifAuthenticated,
-    meta: {
-      plainLayout: true,
-    }
-  },
-  {
     path: "/param",
     name: "param",
     component: param,
@@ -105,12 +93,6 @@ const routes = [
     path: "/RdvStory",
     name: "RdvStory",
     component: RdvStory,
-    beforeEnter: ifAuthenticated,
-  },
-  {
-    path: "/RdvAccueil",
-    name: "RdvAccueil",
-    component: RdvAccueil,
     beforeEnter: ifAuthenticated,
   },
   {
@@ -233,12 +215,6 @@ const routes = [
     path: "/PaieStoty",
     name: "PaieStoty",
     component: PaieStoty,
-    beforeEnter: ifAuthenticated,
-  },
-  {
-    path: "/AddPaie",
-    name: "AddPaie",
-    component: AddPaie,
     beforeEnter: ifAuthenticated,
   },
   {
