@@ -200,7 +200,7 @@ export default {
     deleteFileConfirm() {
       axios
         .delete(
-          "/api/v1/admin/delete_oneUser_paieFile/" + this.editedItem.id
+          "/admin/delete_oneUser_paieFile/" + this.editedItem.id
         )
         .then((response) => {
           this.VisiteaAddingResponse = response.data;

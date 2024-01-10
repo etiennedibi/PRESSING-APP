@@ -341,7 +341,7 @@ export default {
   methods: {
     submit1() {
 
-         axios({ url: "/api/v1/admin/store_projects", data: this.new_project, method: "POST" })
+         axios({ url: "/admin/store_projects", data: this.new_project, method: "POST" })
         .then((response) => {
           this.visitaAddingResponse = response.data;
           console.log(this.visitaAddingResponse);
@@ -372,7 +372,7 @@ export default {
     submit2() {
 
         if (this.$refs.form2.validate()) {
-           axios({ url: "/api/v1/admin/store_taches", data: this.new_task, method: "POST" })
+           axios({ url: "/admin/store_taches", data: this.new_task, method: "POST" })
           .then((response) => {
             this.taskAddingResponse = response.data;
             console.log(this.taskAddingResponse);

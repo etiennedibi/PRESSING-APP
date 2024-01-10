@@ -124,8 +124,8 @@ export default {
 .singInContentBox {
   height: 100vh;
   width: 100vw;
-   background-image: radial-gradient(circle, #51c1fa, #3f9ed2, #2c7dab, #185e85, #004061);
-  display: flex;
+    background-image: radial-gradient(circle, #00b6aa, #00b6aa, #00b6aa, #00b6aa, #00b6aa, #00b3b5, #00b0be, #00acc5, #00a2d5, #0095e4, #0084ec, #356eea);
+   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;

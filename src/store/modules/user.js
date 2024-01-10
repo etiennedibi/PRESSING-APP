@@ -50,7 +50,7 @@ const actions = {
     // Vue.prototype.$http
     axios
       .get(
-        "/api/v1/admin/getAllEmploys/"+localStorage.getItem("user-compagnie")
+        "/admin/getAllEmploys/"+localStorage.getItem("user-compagnie")
       )
       .then((res) => {
         // console.log(res.data.Employ);
@@ -63,7 +63,7 @@ const actions = {
     // Vue.prototype.$http
     axios
       .get(
-        "/api/v1/admin/getEmplyerById/"+localStorage.getItem("user-id")
+        "/admin/getEmplyerById/"+localStorage.getItem("user-id")
       )
       .then((res) => {
         // console.log(res.data.Employ);
@@ -76,7 +76,7 @@ const actions = {
     // Vue.prototype.$http localStorage.getItem("user-id")
     axios
       .get(
-        "/api/v1/admin/getAllDprtEmploys/"+localStorage.getItem("user-department")
+        "/admin/getAllDprtEmploys/"+localStorage.getItem("user-department")
       )
       .then((res) => {
         console.log(res.data.Employes);
@@ -89,7 +89,7 @@ const actions = {
     // Vue.prototype.$http localStorage.getItem("user-id")
     axios
       .get(
-        "/api/v1/admin/getAllEmployNumber/"+localStorage.getItem("user-compagnie")
+        "/admin/getAllEmployNumber/"+localStorage.getItem("user-compagnie")
       )
       .then((res) => {
         console.log(res.data.UserActif);

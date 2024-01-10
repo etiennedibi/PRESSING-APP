@@ -75,7 +75,7 @@ const actions = {
     // Vue.prototype.$http
     axios
       .get(
-        "/api/v1/admin/get_all_paieFile/"+localStorage.getItem("user-compagnie")
+        "/admin/get_all_paieFile/"+localStorage.getItem("user-compagnie")
       )
       .then((res) => {
         // console.log(res.data);
@@ -88,7 +88,7 @@ const actions = {
     // Vue.prototype.$http
     axios
       .get(
-        "/api/v1/admin/get_oneUser_paieFile/"+localStorage.getItem("user-id")
+        "/admin/get_oneUser_paieFile/"+localStorage.getItem("user-id")
       )
       .then((res) => {
         // console.log(res.data);
@@ -102,7 +102,7 @@ const actions = {
     // console.log("uoier", salared);
     axios
       .get(
-        "/api/v1/admin/get_oneUser_paieFile/"+salared
+        "/admin/get_oneUser_paieFile/"+salared
       )
       .then((res) => {
         // console.log(res.data.Paiefile[0]);
@@ -115,7 +115,7 @@ const actions = {
     // Vue.prototype.$http
     axios
       .get(
-        "/api/v1/admin/get_config_paie_compagnie/"+localStorage.getItem("user-compagnie")
+        "/admin/get_config_paie_compagnie/"+localStorage.getItem("user-compagnie")
       )
       .then((res) => {
         // console.log(res.data.result);
@@ -128,7 +128,7 @@ const actions = {
     // Vue.prototype.$http
     axios
       .get(
-        "/api/v1/admin/show_compagnies/"+localStorage.getItem("user-compagnie")
+        "/admin/show_compagnies/"+localStorage.getItem("user-compagnie")
       )
       .then((res) => {
         commit("SET_COMPAGNIE_INFO", res.data.result[0]);

@@ -122,7 +122,7 @@ export default {
   methods: {
     submit1() {
       if (this.$refs.form1.validate()) {
-        axios({ url: "/api/v1/admin/store_communique", data: this.new_message, method: "POST" })
+        axios({ url: "/admin/store_communique", data: this.new_message, method: "POST" })
         .then((response) => {
           this.messageaAddingResponse = response.data;
           console.log(response.data);

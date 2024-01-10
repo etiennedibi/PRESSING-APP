@@ -171,7 +171,7 @@ export default {
           formData.append('auteur', this.new_file.auteur);
           formData.append('compagnie_id', this.new_file.compagnie_id);
 
-        axios({ url: "/api/v1/users/store_file", data: formData, method: "POST" })
+        axios({ url: "/users/store_file", data: formData, method: "POST" })
         .then((response) => {
           this.fileAddingResponse = response.data;
           console.log(response.data);

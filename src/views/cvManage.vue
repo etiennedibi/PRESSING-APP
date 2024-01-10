@@ -191,7 +191,7 @@ export default {
           formData.append('cv', this.new_file.cv);
           formData.append('motscles', this.new_file.motscles);
         console.log(formData);
-        axios({ url: "/api/v1/admin/addCV", data: formData, method: "POST" })
+        axios({ url: "/admin/addCV", data: formData, method: "POST" })
         .then((response) => {
           this.fileAddingResponse = response.data;
           console.log(response.data);

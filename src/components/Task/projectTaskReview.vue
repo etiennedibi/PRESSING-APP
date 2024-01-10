@@ -473,7 +473,7 @@ export default {
     },
    editItemConfirm() {
       axios
-        ({ url: "/api/v1/admin/update_taches/"+this.editedItem.id, data: this.editedItem, method: "PUT" })
+        ({ url: "/admin/update_taches/"+this.editedItem.id, data: this.editedItem, method: "PUT" })
         .then((response) => {
           // console.log(response.data);
           this.VisiteaAddingResponse = response.data;
@@ -566,7 +566,7 @@ export default {
    deleteItemVarinteConfirm() {
       axios
         .delete(
-          "/api/v1/admin/destroy_taches/" + this.editedItem.id
+          "/admin/destroy_taches/" + this.editedItem.id
         )
         .then((response) => {
           this.VisiteaAddingResponse = response.data;
@@ -605,7 +605,7 @@ export default {
     },
      acceptVisite() {
       axios
-        ({ url: "/api/v1/admin/marquer_tache_faite/"+this.editedItem.id, method: "PUT" })
+        ({ url: "/admin/marquer_tache_faite/"+this.editedItem.id, method: "PUT" })
         .then((response) => {
           this.VisiteaAddingResponse = response.data;
 

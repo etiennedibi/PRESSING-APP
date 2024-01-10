@@ -8,29 +8,29 @@
           :class="{ visitMenu: isActive0}" 
         >
           <img src="@/assets/icone/visit.png" alt="" srcset="" />
-          <p>Visite</p>
+          <p>Prestation</p>
           <div class="menuBox" v-if="visteMenuClick">
           <div class="menuTitle">
-             GESTION DES VISITES 
+             GESTION DES PRESTATIONS 
               <v-icon color="red" v-on:click.stop="visteMenuClick = false">mdi-close-circle</v-icon>
           </div>
           <div v-on:click.stop="visteMenuClick = false">
             <router-link :to="{ name: 'VisiteDeclaration' }">
               <div class="tab1">
                 <v-icon color="mainBlueColor">mdi-arrow-right-thin</v-icon>
-                <p>GESTION DES RDV</p>
+                <p>COMMANDES</p>
               </div>
             </router-link>
             <router-link :to="{ name: 'RdvAccueil' }">
               <div class="tab1">
                 <v-icon color="mainBlueColor">mdi-arrow-right-thin</v-icon>
-                <p>GESTION DE L'ACCEUIL</p>
+                <p>CONFIGURATION DES ARTICLES</p>
               </div>
             </router-link>
             <router-link :to="{ name: 'RdvStory' }" v-if="this.role==1">
               <div class="tab1">
                  <v-icon color="mainBlueColor">mdi-arrow-right-thin</v-icon>
-                <p>HISTORIQUE</p>
+                <p>COMPTE CLIENTS</p>
               </div>
             </router-link>
           </div>
@@ -43,195 +43,50 @@
         :class="{ naVBox2Active: isActive }"
       >
         <img src="@/assets/icone/staff.png" alt="" srcset="" />
-        <p>Administration</p>
+        <p>Gestion</p>
         <div class="menuBox" v-if="travelMenuClick">
           <div class="menuTitle">
-             ADMINISTRATION
+             GESTION
             <v-icon color="red" v-on:click.stop="travelMenuClick = false">mdi-close-circle</v-icon>
           </div>
           <div v-on:click.stop="travelMenuClick = false">
             <router-link :to="{ name: 'AddEmployer' }" v-if="this.role==1">
               <div class="tab1">
                  <v-icon color="mainBlueColor">mdi-arrow-right-thin</v-icon>
-                <p>ENREGISTRER UN EMPLOYE</p>
+                <p>GESTION DES STOCKS</p>
               </div>
             </router-link>
             <router-link :to="{ name: 'StaffList' }" v-if="this.role==1">
               <div class="tab1">
                  <v-icon color="mainBlueColor">mdi-arrow-right-thin</v-icon>
-                <p>LISTE DES EMPLOYES</p>
-              </div>
-            </router-link>
-            <router-link :to="{ name: 'FicheEmploye' }">
-              <div class="tab1">
-                 <v-icon color="mainBlueColor">mdi-arrow-right-thin</v-icon>
-                <p>FICHE EMPLOYE</p>
-              </div>
-            </router-link>
-            <div class="tab1" v-on:click.stop="showOrganigrammeItem">
-              <v-icon color="mainBlueColor">mdi-arrow-right-thin</v-icon>
-              <p>ORGANIGRAMME</p>
-            </div>
-            <router-link :to="{ name: 'AddPaie' }" v-if="this.role==1">
-              <div class="tab1">
-                 <v-icon color="mainBlueColor">mdi-arrow-right-thin</v-icon>
-                <p>ELABORATION FICHE DE PAIE</p>
-              </div>
-            </router-link>
-            <router-link :to="{ name: 'PaieStoty' }" v-if="this.role==1">
-              <div class="tab1">
-                 <v-icon color="mainBlueColor">mdi-arrow-right-thin</v-icon>
-                <p>HISTORIQUE FICHES DE PAIE</p>
-              </div>
-            </router-link>
-            <router-link :to="{ name: 'UserPaieFile' }">
-              <div class="tab1">
-                 <v-icon color="mainBlueColor">mdi-arrow-right-thin</v-icon>
-                <p>FICHE DE PAIE</p>
-              </div>
-            </router-link>
-            <router-link :to="{ name: 'CVManage' }" v-if="this.role==1">
-              <div class="tab1">
-                 <v-icon color="mainBlueColor">mdi-arrow-right-thin</v-icon>
-                <p>GESTION DES CORRESPONDANT</p>
+                <p>GESTION DE LA COMPTABILITE</p>
               </div>
             </router-link>
           </div>
         </div>
       </div>
      
-      <div class="navBox" 
-           v-on:click="activeMenu3"
-           :class="{ taskNavActive: isActive3 }">
-        <img src="@/assets/icone/tasks.png" alt="" srcset="" />
-        <p>
-          Tâches & Fichiers
-        </p>
-        <div class="menuBox" v-if="tastMenuClick">
-          <div class="menuTitle">
-              TÂCHES
-            <v-icon color="red" v-on:click.stop="tastMenuClick = false">mdi-close-circle</v-icon>
-          </div>
-          <div v-on:click.stop="tastMenuClick = false">
-            <router-link :to="{ name: 'TaskDeclaration' }" v-if="this.role==1 || this.role==2 || this.role==3">
-              <div class="tab1">
-                 <v-icon color="mainBlueColor">mdi-arrow-right-thin</v-icon>
-                <p>ATTRIBUER UNE TÂCHE</p>
-              </div>
-            </router-link>
-            <router-link :to="{ name: 'UserTaskManage' }">
-              <div class="tab1">
-                 <v-icon color="mainBlueColor">mdi-arrow-right-thin</v-icon>
-                <p>SUIVRE LES TÂCHES</p>
-              </div>
-            </router-link>
-            <router-link :to="{ name: 'OwnTaskDeclaration' }">
-              <div class="tab1">
-                 <v-icon color="mainBlueColor">mdi-arrow-right-thin</v-icon>
-                <p>MES TÂCHES</p>
-              </div>
-            </router-link>
-            <router-link :to="{ name: 'FileManage' }">
-              <div class="tab1">
-                 <v-icon color="mainBlueColor">mdi-arrow-right-thin</v-icon>
-                <p>MES FICHIERS</p>
-              </div>
-            </router-link>
-            <router-link :to="{ name: 'UserFileManage' }">
-              <div class="tab1">
-                 <v-icon color="mainBlueColor">mdi-arrow-right-thin</v-icon>
-                <p>FICHIERS PARTAGES</p>
-              </div>
-            </router-link>
-            <router-link :to="{ name: 'fileStoty' }">
-              <div class="tab1">
-                 <v-icon color="mainBlueColor">mdi-arrow-right-thin</v-icon>
-                <p>HISTORIQUE DES FICHIERS</p>
-              </div>
-            </router-link>
-          </div>
-        </div>
-      </div>
-
-      <div
-        class="navBox"
-        v-on:click="activeMenu2"
-        :class="{ naVBox2Active1: isActive2 }"
-      >
-        <img src="@/assets/icone/conges.png" alt="" srcset="" />
-        <p>Absences & Congés</p>
-        <div class="menuBox" v-if="expeditionMenuClick">
-          <div class="menuTitle">
-            ABSENCES & CONGES
-            <v-icon color="red" v-on:click.stop="expeditionMenuClick = false">mdi-close-circle</v-icon>
-          </div>
-          <div v-on:click.stop="expeditionMenuClick = false">
-            <router-link :to="{ name: 'CongeDemande'}">
-              <div class="tab1">
-                 <v-icon color="mainBlueColor">mdi-arrow-right-thin</v-icon>
-                <p>SOUMETTRE UNE DEMANDE</p>
-              </div>
-            </router-link>
-            <router-link :to="{ name: 'Congemanagment' }" v-if="this.role==1 || this.role==2">
-              <div class="tab1">
-                 <v-icon color="mainBlueColor">mdi-arrow-right-thin</v-icon>
-                <p>GESTION DES DEMANDES</p>
-              </div>
-            </router-link>
-             <router-link :to="{ name: 'CongeStory' }" v-if="this.role==1">
-              <div class="tab1">
-                 <v-icon color="mainBlueColor">mdi-arrow-right-thin</v-icon>
-                <p>HISTORIQUE</p>
-              </div>
-            </router-link>
-            <router-link :to="{ name: 'Disponibilite' }" v-if="this.role==1">
-              <div class="tab1">
-                 <v-icon color="mainBlueColor">mdi-arrow-right-thin</v-icon>
-                <p>DIPONIBILITE</p>
-              </div>
-            </router-link>
-            <router-link :to="{ name: 'BilanAbsence' }" v-if="this.role==1">
-              <div class="tab1">
-                 <v-icon color="mainBlueColor">mdi-arrow-right-thin</v-icon>
-                <p>BILAN DES PRESENCES</p>
-              </div>
-            </router-link>
-          </div>
-        </div>
-      </div>
 
       <div class="navBox navEnd" v-on:click="activeMenu4"
         :class="{ ConfigNavActive: isActive4 }" v-if="this.role==1">
         <img src="@/assets/icone/configs.png" alt="" srcset="" />
-        <p>Configuration</p>
+        <p>Analytique</p>
         <div class="menuBox" v-if="configMenuClick">
           <div class="menuTitle">
-            CONFIGURATION
+            OUTILS D'ANALYSE
             <v-icon color="red" v-on:click.stop="configMenuClick = false">mdi-close-circle</v-icon>
           </div>
           <div v-on:click.stop="configMenuClick = false">
             <router-link :to="{ name: 'Contract' }">
               <div class="tab1">
                  <v-icon color="mainBlueColor">mdi-arrow-right-thin</v-icon>
-                <p>CONTRATS</p>
+                <p>ACTIVITE DU PRESSING</p>
               </div>
             </router-link>
             <router-link :to="{ name: 'congeType' }">
               <div class="tab1">
                  <v-icon color="mainBlueColor">mdi-arrow-right-thin</v-icon>
-                <p>CONGES</p>
-              </div>
-            </router-link>
-            <router-link :to="{ name: 'WorkManagment' }">
-              <div class="tab1">
-                 <v-icon color="mainBlueColor">mdi-arrow-right-thin</v-icon>
-                <p>FONCTION</p>
-              </div>
-            </router-link>
-            <router-link :to="{ name: 'ServiceManagment' }">
-              <div class="tab1">
-                 <v-icon color="mainBlueColor">mdi-arrow-right-thin</v-icon>
-                <p>DEPARTEMENT</p>
+                <p>BILAN FINANCIER</p>
               </div>
             </router-link>
           </div>
@@ -240,51 +95,7 @@
     </div>
 
 
-    <!-- SHOW ORGANIGRAMME DIALOG -->
-    <v-dialog
-      v-model="showOrganigramme"
-      width="850"
-      overlay-color="black"
-      overlay-opacity="0.8"
-      mainBlueColor
-    >
-      <v-card tile>
-        <v-card-text>
-          <v-container>
-            <v-row class="detailsTemplate">
-             <div class="ORHeader">
-              <!-- <img src="@/assets/img/avatarProfil.jpg" alt="" srcset=""> -->
-              <img v-if="Organigramme.comagnie.logo" :src="`${axios.defaults.baseURL}/uploads/user/logo/${Organigramme.comagnie.logo}`"/>
-              <v-icon v-if="!Organigramme.comagnie.logo" style="font-size:40px">mdi-weather-tornado</v-icon>
-              <div><p>{{Organigramme.comagnie.Denomination}}<br> RCCM: {{Organigramme.comagnie.RCCM}}</p></div>
-             </div>
-             <div class="ORBody">
-              <div class="ORniveau"  v-for="(item) in Organigramme.result" :key="item.index">
-                <div class="ORdprt" v-for="(dprt) in item.departements" :key="dprt.index">
-                  <p>{{dprt.nom_departement}}</p>
-                  <div class="employe">
-                    <v-tooltip bottom v-for="(empl) in dprt.employes" :key="empl.index">
-                      <template v-slot:activator="{ on, attrs }">
-                        <div class="oneEmploye"  v-bind="attrs" v-on="on">
-                          <!-- <img src="@/assets/img/avatarProfil.jpg" alt="" srcset=""> -->
-                          <img v-if="empl.avatar" :src="`${axios.defaults.baseURL}/uploads/user/profil/${empl.avatar}`"/>
-                          <img v-if="!empl.avatar" src="@/assets/img/avatarProfil.jpg" alt="" srcset="" />
-                          <p>{{empl.nom_fonction}}</p>
-                        </div>
-                      </template>
-                      <span>{{empl.nom}} {{empl.prenoms}}</span>
-                    </v-tooltip> 
-                    
-                  </div>
-                </div>
-              </div>
-             </div>
-            </v-row>
-          </v-container>
-        </v-card-text>
-      </v-card>
-    </v-dialog>
-
+   
 
 
   </div>
@@ -321,18 +132,10 @@ export default {
     // For User
     role: "",
 
-    // For Organigramme
-    showOrganigramme:false
   }),
 
   methods: {
-    // ------------------------
-    // Show Organigramme
-    // ------------------------
-    showOrganigrammeItem() {
-      this.$store.dispatch("init_organigrame");
-      this.showOrganigramme = true;
-    },
+    
 
     activeMenu0: function () {
       this.isActive0 = true;
@@ -387,19 +190,9 @@ export default {
   },
 
   created() {
-    // this.$store.dispatch("init_analitic");
-    this.$store.dispatch("init_organigrame");
     this.role = localStorage.getItem("user-role");
 
-    // this.$store.dispatch("init_check");
     
-  //  console.log(localStorage.getItem("Comapany-activation_state"));
-  //   if ( localStorage.getItem("Comapany-activation_state") != true) {
-  //     localStorage.removeItem("Comapany-activation_state")
-  //     this.$store.dispatch("auth_logout").then(() => {
-  //       this.$router.push("/abonnement");
-  //     });
-  //   }
   },
 };
 </script>
@@ -416,6 +209,7 @@ export default {
 }
 .bottonNavBar {
   background: var(--main-white-color);
+  background-image: linear-gradient(to top,  #00acc5, #009ee0, #008af0, #356eea);
   height: 15vh;
   /* width: 60vw; */
   /* position: fixed;
@@ -448,7 +242,7 @@ export default {
   margin: 0;
   font-size: 12px;
   font-weight: bold;
-  color: var(--main-blue-important);
+  color: white;
   text-align: center;
 }
 

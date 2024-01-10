@@ -61,7 +61,7 @@ const actions = {
     // Vue.prototype.$http
     axios
       .get(
-        "/api/v1/admin/getprojects/"+localStorage.getItem("user-id")
+        "/admin/getprojects/"+localStorage.getItem("user-id")
           // localStorage.getItem("user-station")
       )
       .then((res) => {
@@ -74,7 +74,7 @@ const actions = {
     // Vue.prototype.$http
     axios
       .get(
-        "/api/v1/admin/getprojects_employe/"+localStorage.getItem("user-id")
+        "/admin/getprojects_employe/"+localStorage.getItem("user-id")
           // localStorage.getItem("user-station")
       )
       .then((res) => {

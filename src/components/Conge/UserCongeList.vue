@@ -737,7 +737,7 @@ export default {
     deleteItemConfirm() {
       axios
         .delete(
-          "/api/v1/Visite/delete/" + this.itemToDelete.id
+          "/Visite/delete/" + this.itemToDelete.id
         )
         .then((response) => {
           this.VisiteaAddingResponse = response.data;
@@ -773,7 +773,7 @@ export default {
     deleteItemVarinteConfirm() {
       axios
         .delete(
-          "/api/v1/Visite/deleteOnePrice/" + this.OneVarianteitemToDelete.id
+          "/Visite/deleteOnePrice/" + this.OneVarianteitemToDelete.id
         )
         .then((response) => {
           this.VisiteaAddingResponse = response.data;
@@ -815,7 +815,7 @@ export default {
     acceptVisite() {
       axios
         .delete(
-          "/api/v1/Visite/deleteOnePrice/" + this.OneVarianteitemToDelete.id
+          "/Visite/deleteOnePrice/" + this.OneVarianteitemToDelete.id
         )
         .then((response) => {
           this.VisiteaAddingResponse = response.data;
@@ -857,7 +857,7 @@ export default {
     reportVisite() {
       axios
         .delete(
-          "/api/v1/Visite/deleteOnePrice/" + this.OneVarianteitemToDelete.id
+          "/Visite/deleteOnePrice/" + this.OneVarianteitemToDelete.id
         )
         .then((response) => {
           this.VisiteaAddingResponse = response.data;

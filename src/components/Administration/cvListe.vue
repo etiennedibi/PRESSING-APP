@@ -411,7 +411,7 @@ export default {
           formData.append('email', this.editedItem.email);
           formData.append('id', this.editedItem.id);
 
-        axios({ url: "/api/v1/admin/updateCV", data: formData, method: "PUT" })
+        axios({ url: "/admin/updateCV", data: formData, method: "PUT" })
         .then((response) => {
           this.VisiteaAddingResponse = response.data;
           if (this.VisiteaAddingResponse) {
@@ -452,7 +452,7 @@ export default {
     },
     editItemConfirmAutorise() {
        this.editedItem.id_fichier = this.editedItem.the_fichiers_id
-        axios({ url: "/api/v1/users/add_new_autorisation", data: this.editedItem, method: "PUT" })
+        axios({ url: "/users/add_new_autorisation", data: this.editedItem, method: "PUT" })
         .then((response) => {
           this.VisiteaAddingResponse = response.data;
           if (this.VisiteaAddingResponse) {
@@ -491,7 +491,7 @@ export default {
     deleteFileConfirm() {
       axios
         .delete(
-          "/api/v1/admin/destroy_cv/" + this.editedItem.id
+          "/admin/destroy_cv/" + this.editedItem.id
         )
         .then((response) => {
           this.VisiteaAddingResponse = response.data;
@@ -531,7 +531,7 @@ export default {
     deleteUserAutorisation() {
       axios
         .delete(
-          "/api/v1/users/cancel_autorisation/" + this.oneAutorisation.id
+          "/users/cancel_autorisation/" + this.oneAutorisation.id
         )
         .then((response) => {
           this.VisiteaAddingResponse = response.data;

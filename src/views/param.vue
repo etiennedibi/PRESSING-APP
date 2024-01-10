@@ -801,7 +801,7 @@ export default {
 
     editItemConfirm() {
         
-        axios({ url: "/api/v1/admin/update_infos_users/"+this.user_id, data: this.UserInfo, method: "PUT" })
+        axios({ url: "/admin/update_infos_users/"+this.user_id, data: this.UserInfo, method: "PUT" })
         .then((response) => {
           this.staionaAddingResponse = response.data;
           if (this.staionaAddingResponse) {
@@ -839,7 +839,7 @@ export default {
       this.dialogEditAcces = true;
     },
     editItemConfirmAcces() {
-      axios({ url: "/api/v1/admin/update_password/"+this.user_id, data: this.UserInfo, method: "PUT" })
+      axios({ url: "/admin/update_password/"+this.user_id, data: this.UserInfo, method: "PUT" })
         .then((response) => {
           this.staionaAddingResponse = response.data;
           if (this.staionaAddingResponse) {
@@ -880,7 +880,7 @@ export default {
        const formData = new FormData();
        formData.append('avatar', this.UserInfo.avatar);
       //  console.log(formData);
-      axios({ url: "/api/v1/admin/update_photo_profil/"+this.user_id, data:formData, method: "PUT" })
+      axios({ url: "/admin/update_photo_profil/"+this.user_id, data:formData, method: "PUT" })
         .then((response) => {
           this.staionaAddingResponse = response.data;
           if (this.staionaAddingResponse) {
@@ -927,7 +927,7 @@ export default {
        formData.append('Objet_social', this.EntrepriseInfo.Objet_social);
        formData.append('Anagramme', this.EntrepriseInfo.Anagramme);
        formData.append('Denomination', this.EntrepriseInfo.Denomination);
-        axios({ url: "/api/v1/admin/update_compagnies/"+this.compagnie_id, data: formData, method: "PUT" })
+        axios({ url: "/admin/update_compagnies/"+this.compagnie_id, data: formData, method: "PUT" })
         .then((response) => {
           this.staionaAddingResponse = response.data;
           if (this.staionaAddingResponse) {
@@ -968,7 +968,7 @@ export default {
 
     editPaieConfirm() {
         this.EntrepriseInfo.compagnie_id = this.compagnie_id
-        axios({ url: "/api/v1/admin/add_config_paie_compagnie", data: this.EntrepriseInfo, method: "POST" })
+        axios({ url: "/admin/add_config_paie_compagnie", data: this.EntrepriseInfo, method: "POST" })
         .then((response) => {
           this.staionaAddingResponse = response.data;
           if (this.staionaAddingResponse) {

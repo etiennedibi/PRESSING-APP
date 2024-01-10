@@ -447,7 +447,7 @@ export default {
           formData.append('compagnie_id', this.newTravel_1.compagnie_id);
  
         // console.log(formData);
-        axios({ url: "/api/v1/admin/add-new-user-emplyer", data: formData, method: "POST" })
+        axios({ url: "/admin/add-new-user-emplyer", data: formData, method: "POST" })
         .then((response) => {
           this.traveladdingResponse = response.data;
           if (this.traveladdingResponse) {

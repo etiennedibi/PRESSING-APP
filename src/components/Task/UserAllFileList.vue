@@ -475,7 +475,7 @@ export default {
     showItem(item) {
       this.editedItem = Object.assign({}, item);
       this.fileShowDialog = true;
-      axios({ url: "/api/v1/users/increment_acces_number/"+this.editedItem.id_autorisation, data: this.editedItem, method: "PUT" })
+      axios({ url: "/users/increment_acces_number/"+this.editedItem.id_autorisation, data: this.editedItem, method: "PUT" })
         .then((response) => {
           console.log(response.data);
         })

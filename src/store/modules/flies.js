@@ -96,7 +96,7 @@ const actions = {
     // Vue.prototype.$http
     axios
       .get(
-        "/api/v1/users/getAllUserFile/"+localStorage.getItem("user-id")
+        "/users/getAllUserFile/"+localStorage.getItem("user-id")
       )
       .then((res) => {
         // console.log(res.data);
@@ -109,7 +109,7 @@ const actions = {
     // Vue.prototype.$http
     axios
       .get(
-        "/api/v1/users/getAllUserShareFile/"+localStorage.getItem("user-id")
+        "/users/getAllUserShareFile/"+localStorage.getItem("user-id")
       )
       .then((res) => {
         // console.log(res.data);
@@ -122,7 +122,7 @@ const actions = {
     // Vue.prototype.$http
     axios
       .get(
-        "/api/v1/users/getAllCompaniesFile/"+localStorage.getItem("user-compagnie")
+        "/users/getAllCompaniesFile/"+localStorage.getItem("user-compagnie")
       )
       .then((res) => {
         // console.log(res.data);
@@ -135,7 +135,7 @@ const actions = {
     // Vue.prototype.$http
     axios
       .get(
-        "/api/v1/users/File_number/"+localStorage.getItem("user-id")
+        "/users/File_number/"+localStorage.getItem("user-id")
           // localStorage.getItem("user-station")
       )
       .then((res) => {

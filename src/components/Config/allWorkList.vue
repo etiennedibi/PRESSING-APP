@@ -277,7 +277,7 @@ export default {
     },
 
     editItemConfirm() {
-        axios({ url: "/api/v1/admin/update_fonction/" + this.editedItem.id, data: this.editedItem, method: "PUT" })
+        axios({ url: "/admin/update_fonction/" + this.editedItem.id, data: this.editedItem, method: "PUT" })
         .then((response) => {
           this.senderaAddingResponse = response.data;
           if (this.senderaAddingResponse) {
@@ -322,7 +322,7 @@ export default {
     },
 
     deleteItemConfirm() {
-        axios({ url: "/api/v1/admin/destroy_fonction/" + this.editedItem.id, method: "DELETE" })
+        axios({ url: "/admin/destroy_fonction/" + this.editedItem.id, method: "DELETE" })
         .then((response) => {
           this.senderaAddingResponse = response.data;
 

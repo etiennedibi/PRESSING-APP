@@ -472,7 +472,7 @@ export default {
           formData.append('user_id', this.editedItem.user_id);
       console.log(formData);
       axios
-        ({ url: "/api/v1/users/update_first_admin", data: formData, method: "PUT" })
+        ({ url: "/users/update_first_admin", data: formData, method: "PUT" })
         .then((response) => {
           // console.log(response.data);
           this.VisiteaAddingResponse = response.data;

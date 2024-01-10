@@ -119,7 +119,7 @@ export default {
 
   methods: {
     submit() {
-      axios({ url: "/api/v1/RecuPPassword", data: this.userCredentials, method: "PUT" })
+      axios({ url: "/RecuPPassword", data: this.userCredentials, method: "PUT" })
         .then(() => {
           this.$router.push("/login");
         })
@@ -142,6 +142,8 @@ export default {
   height: 100vh;
   width: 100vw;
    background-image: radial-gradient(circle, #51c1fa, #3f9ed2, #2c7dab, #185e85, #004061);
+    background-image: radial-gradient(circle, #00b6aa, #00b6aa, #00b6aa, #00b6aa, #00b6aa, #00b3b5, #00b0be, #00acc5, #00a2d5, #0095e4, #0084ec, #356eea);
+  
   display: flex;
   flex-direction: column;
   justify-content: space-between;

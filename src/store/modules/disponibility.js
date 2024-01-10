@@ -38,7 +38,7 @@ const actions = {
     // Vue.prototype.$http
     axios
       .get(
-        "/api/v1/admin/get_one_disponibility/" +
+        "/admin/get_one_disponibility/" +
           localStorage.getItem("user-id")
       )
       .then((res) => {
@@ -50,7 +50,7 @@ const actions = {
     // Vue.prototype.$http
     axios
       .get(
-        "/api/v1/admin/get_all_disponibility/" +
+        "/admin/get_all_disponibility/" +
           localStorage.getItem("user-compagnie")
       )
       .then((res) => {
@@ -62,7 +62,7 @@ const actions = {
     // Vue.prototype.$http
     axios
       .get(
-        "/api/v1/admin/get_dprt_disponibility/" +
+        "/admin/get_dprt_disponibility/" +
           localStorage.getItem("user-compagnie") + "/" + employDprt
       )
       .then((res) => {

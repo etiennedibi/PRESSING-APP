@@ -32,7 +32,7 @@ const actions = {
     // Vue.prototype.$http
     axios
       .get(
-        "/api/v1/users/get_chat_notif/"+localStorage.getItem("user-id")
+        "/users/get_chat_notif/"+localStorage.getItem("user-id")
           // localStorage.getItem("user-station")
       )
       .then((res) => {
@@ -46,7 +46,7 @@ const actions = {
     // Vue.prototype.$http
     axios
       .get(
-        "/api/v1/users/get_chat_message/"+localStorage.getItem("user-id")
+        "/users/get_chat_message/"+localStorage.getItem("user-id")
           // localStorage.getItem("user-station")
       )
       .then((res) => {

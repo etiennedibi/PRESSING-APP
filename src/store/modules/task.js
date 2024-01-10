@@ -67,7 +67,7 @@ const actions = {
     // Vue.prototype.$http
     axios
       .get(
-        "/api/v1/admin/index_taches_admin/"+project_id
+        "/admin/index_taches_admin/"+project_id
           // localStorage.getItem("user-station")
       )
       .then((res) => {
@@ -81,7 +81,7 @@ const actions = {
     //console.log("ppppppp::::",project_id);
     axios
       .get(
-        "/api/v1/admin/index_taches_employe/"+project_id+"/"+localStorage.getItem("user-id")
+        "/admin/index_taches_employe/"+project_id+"/"+localStorage.getItem("user-id")
           // localStorage.getItem("user-station")
       )
       .then((res) => {
@@ -94,7 +94,7 @@ const actions = {
     // Vue.prototype.$http
     axios
       .get(
-        "/api/v1/admin/index_taches_auto_execute/"+localStorage.getItem("user-id")
+        "/admin/index_taches_auto_execute/"+localStorage.getItem("user-id")
           // localStorage.getItem("user-station")
       )
       .then((res) => {
@@ -107,7 +107,7 @@ const actions = {
     // Vue.prototype.$http
     axios
       .get(
-        "/api/v1/admin/Task_number/"+localStorage.getItem("user-id")
+        "/admin/Task_number/"+localStorage.getItem("user-id")
           // localStorage.getItem("user-station")
       )
       .then((res) => {

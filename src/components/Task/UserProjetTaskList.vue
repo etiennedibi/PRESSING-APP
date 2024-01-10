@@ -891,7 +891,7 @@ export default {
     editItemConfirm() {
       // this.editedItem.id_visite = this.editedItem.id;
       axios
-        ({ url: "/api/v1/admin/update_projects/"+this.editedItem.id, data: this.editedItem, method: "PUT" })
+        ({ url: "/admin/update_projects/"+this.editedItem.id, data: this.editedItem, method: "PUT" })
         .then((response) => {
           // console.log(response.data);
           this.VisiteaAddingResponse = response.data;
@@ -936,10 +936,10 @@ export default {
      deleteItemVarinteConfirm() {
       // axios
       //   .delete(
-      //     "/api/v1/admin/Archive_projects/" + this.editedItem.id
+      //     "/admin/Archive_projects/" + this.editedItem.id
       //   )
          axios
-        ({ url: "/api/v1/admin/Archive_projects/"+this.editedItem.id, method: "PUT" })
+        ({ url: "/admin/Archive_projects/"+this.editedItem.id, method: "PUT" })
         .then((response) => {
           this.VisiteaAddingResponse = response.data;
 

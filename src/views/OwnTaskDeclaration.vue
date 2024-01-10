@@ -145,7 +145,7 @@ export default {
     submit1() {
 
       if (this.$refs.form1.validate()) {
-        axios({ url: "/api/v1/admin/store_taches_auto_execute", data: this.new_visit, method: "POST" })
+        axios({ url: "/admin/store_taches_auto_execute", data: this.new_visit, method: "POST" })
         .then((response) => {
           this.visitaAddingResponse = response.data;
           console.log(this.visitaAddingResponse);

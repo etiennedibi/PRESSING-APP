@@ -666,7 +666,7 @@ export default {
       formData.append('the_contrat_id', this.editedItem.the_contrat_id);
       
       axios
-        ({ url: "/api/v1/users/update_employe", data: formData, method: "PUT" })
+        ({ url: "/users/update_employe", data: formData, method: "PUT" })
         .then((response) => {
           // console.log(response.data);
           this.VisiteaAddingResponse = response.data;
@@ -711,7 +711,7 @@ export default {
     // confirm deleted of nature
     ArchivItemConfirm() {
        axios
-        ({ url: "/api/v1/admin/archive_user/"+this.editedItem.the_employe_id,  method: "PUT" })
+        ({ url: "/admin/archive_user/"+this.editedItem.the_employe_id,  method: "PUT" })
         .then((response) => {
           this.VisiteaAddingResponse = response.data;
 

@@ -45,7 +45,7 @@ const actions = {
     // Vue.prototype.$http
     axios
       .get(
-        "/api/v1/rdv/AllVisiteByUser/"+localStorage.getItem("user-id")
+        "/rdv/AllVisiteByUser/"+localStorage.getItem("user-id")
       )
       .then((res) => {
         // console.log(res.data);
@@ -68,7 +68,7 @@ const actions = {
   // },
   axios
       .get(
-        "/api/v1/rdv/AllVisiteurs/"+localStorage.getItem("user-compagnie")
+        "/rdv/AllVisiteurs/"+localStorage.getItem("user-compagnie")
       )
       .then((res) => {
         // console.log(res.data.visites);
@@ -80,7 +80,7 @@ const actions = {
   init_allVisiteAccueil: ({ commit }) => {
   axios
       .get(
-        "/api/v1/rdv/visit_list/"+localStorage.getItem("user-compagnie")
+        "/rdv/visit_list/"+localStorage.getItem("user-compagnie")
       )
       .then((res) => {
         // console.log(res.data.visites);

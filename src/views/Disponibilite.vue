@@ -222,7 +222,7 @@ export default {
       
     },
     editItemConfirm() {
-        axios({ url: "/api/v1/admin/update_disponibility/" + this.UserDisponity.id, data: this.editedItem, method: "PUT" })
+        axios({ url: "/admin/update_disponibility/" + this.UserDisponity.id, data: this.editedItem, method: "PUT" })
         .then((response) => {
           this.VisiteaAddingResponse = response.data;
           if (this.VisiteaAddingResponse) {
