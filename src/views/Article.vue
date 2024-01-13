@@ -1,7 +1,7 @@
 <template>
   <div class="bodyBox">
     <div class="TheBoxBody">
-      <p class="sectionTitle">Gestion des RDV</p>
+      <p class="sectionTitle">Configuration des articles</p>
       <v-container fluid class="pouletBr">
         <v-row>
           <v-col cols="12" md="5" lg="5">
@@ -9,18 +9,19 @@
               <v-form ref="form1" class="forme1">
                 <v-container fluid class="addvisit">
                   <v-row>
-                    <v-col cols="12" md="6" lg="6">
+                    <v-col cols="12" md="12" lg="12">
                       <v-text-field
                         small
                         solo
-                        label="Nom"
-                        append-icon="mdi-account-arrow-right"
+                        label="Denomination"
+                        append-icon="mdi-hanger"
                         ref="matri"
-                        v-model="new_visit.nom_visiteur"
-                        :rules="[() => !!new_visit.nom_visiteur]"
+                        v-model="new_article.denomination"
+                        :rules="[() => !!new_article.denomination]"
                         type="text"
                         value=""
                         persistent-hint
+                        background-color="#356eea24"
                         required
                       ></v-text-field>
                     </v-col>
@@ -28,25 +29,10 @@
                       <v-text-field
                         height="30"
                         solo
-                        label="Prenoms"
-                        append-icon="mdi-account-arrow-right"
-                        ref="matri"
-                        v-model="new_visit.prenoms_visiteur"
-                        :rules="[() => !!new_visit.prenoms_visiteur]"
-                        type="text"
-                        value=""
-                        persistent-hint
-                        required
-                      ></v-text-field>
-                    </v-col>
-                     <v-col cols="12" md="6" lg="6">
-                      <v-text-field
-                        height="30"
-                        solo
-                        label="Telephone"
-                        v-model="new_visit.contact_visiteur"
-                        :rules="[() => !!new_visit.contact_visiteur,(v) => /[0-9]+/i.test(v)]"
-                        append-icon="mdi-phone"
+                        label="lavage machine"
+                        v-model="new_article.machine_wash"
+                        :rules="[() => !!new_article.machine_wash,(v) => /[0-9]+/i.test(v)]"
+                        append-icon="mdi-cash"
                         type="text"
                         maxlength="10"
                         value=""
@@ -58,66 +44,91 @@
                       <v-text-field
                         height="30"
                         solo
-                        label="email"
-                        append-icon="mdi-at"
-                        ref="desc"
-                        v-model="new_visit.email_visiteur"
-                        :rules="[() => !!new_visit.email_visiteur,(v) => /.+@.+/.test(v)]"
+                        label="lavage main"
+                        v-model="new_article.hand_washing"
+                        append-icon="mdi-cash"
                         type="text"
+                        maxlength="10"
                         value=""
                         persistent-hint
-                        required
                       ></v-text-field>
                     </v-col>
-                   
                     <v-col cols="12" md="6" lg="6">
                       <v-text-field
                         height="30"
-                        background-color="#356eea24"
                         solo
-                        v-model="new_visit.date_rdv"
-                        :rules="[() => !!new_visit.date_rdv]"
-                        ref="transport"
-                        type="date"
-                        label="Date du RDV"
+                        label="lavage sec"
+                        v-model="new_article.dry_cleaning"
+                        append-icon="mdi-cash"
+                        type="text"
+                        maxlength="10"
+                        value=""
                         persistent-hint
-                        required
+                      ></v-text-field>
+                    </v-col>
+                    <v-col cols="12" md="6" lg="6">
+                      <v-text-field
+                        height="30"
+                        solo
+                        label="amidonnage"
+                        v-model="new_article.starching"
+                        append-icon="mdi-cash"
+                        type="text"
+                        maxlength="10"
+                        value=""
+                        persistent-hint
                       ></v-text-field>
                     </v-col>
                      <v-col cols="12" md="6" lg="6">
                       <v-text-field
                         height="30"
                         solo
-                        background-color="#356eea24"
-                        v-model="new_visit.heure_rdv"
-                        :rules="[() => !!new_visit.heure_rdv]"
-                        ref="transport"
-                        type="time"
-                        label="heure"
+                        label="stoppage"
+                        v-model="new_article.stopping"
+                        append-icon="mdi-cash"
+                        type="text"
+                        maxlength="10"
+                        value=""
                         persistent-hint
-                        append-icon="mdi-clock-time-eight"
-                        required
                       ></v-text-field>
-                    </v-col>
-                    <v-col cols="12" md="6" lg="6">
-                      <div style="display:flex; justify-content:space-around">
-                        <p>Durée de la visite</p> 
-                        <v-icon>mdi-arrow-right</v-icon>
-                      </div>
                     </v-col>
                     <v-col cols="12" md="6" lg="6">
                       <v-text-field
                         height="30"
                         solo
-                        background-color="#356eea24"
-                        v-model="new_visit.duree_rdv"
-                        :rules="[() => !!new_visit.duree_rdv]"
-                        ref="transport"
-                        type="time"
-                        label="heure"
+                        label="teinture"
+                        v-model="new_article.dyeing"
+                        append-icon="mdi-cash"
+                        type="text"
+                        maxlength="10"
+                        value=""
                         persistent-hint
-                        append-icon="mdi-timer"
-                        required
+                      ></v-text-field>
+                    </v-col>
+                     <v-col cols="12" md="6" lg="6">
+                      <v-text-field
+                        height="30"
+                        solo
+                        label="repassage"
+                        v-model="new_article.ironing"
+                        append-icon="mdi-cash"
+                        type="text"
+                        maxlength="10"
+                        value=""
+                        persistent-hint
+                      ></v-text-field>
+                    </v-col>
+                    <v-col cols="12" md="6" lg="6">
+                      <v-text-field
+                        height="30"
+                        solo
+                        label="special"
+                        v-model="new_article.full_price"
+                        append-icon="mdi-cash"
+                        type="text"
+                        maxlength="10"
+                        value=""
+                        persistent-hint
                       ></v-text-field>
                     </v-col>
                     <div style="width:100%; padding: 15px 10px 0px 10px">
@@ -128,10 +139,9 @@
                         clear-icon="mdi-close-circle"
                         rows="3"
                         name="input-7-4"
-                        v-model="new_visit.objet"
-                        :rules="[() => !!new_visit.objet]"
-                        required
-                        label="objet"
+                        v-model="new_article.description"
+                        :rules="[() => !!new_article.description]"
+                        label="Description"
                         class="the-message-area"
                       ></v-textarea>
                     </div>
@@ -149,7 +159,7 @@
           </v-col>
           <v-col cols="12" md="7" lg="7">
             <div class="numberWrapper ">
-              <undoVisitList></undoVisitList>
+              <articleList></articleList>
             </div>
           </v-col>
         </v-row>
@@ -165,7 +175,7 @@
         class="alert"
         color="mainBlueColor"
       >
-        RDV enregistré</v-alert
+        Article enregistré</v-alert
       >
     </transition>
     <transition name="slide">
@@ -187,32 +197,35 @@
 
 // import Vue from "vue";
 import axios from "axios";
-import undoVisitList from "../components/Visite/undoVisitList.vue";
+import articleList from "../components/Prestation/articleList.vue";
 
 export default {
-  name: "VisiteDeclaration",
+  name: "Article",
   components: {
-    undoVisitList,
+    articleList,
   },
 
   data: () => ({
     // FOR FORM SENDING
-    new_visit: {
-      nom_visiteur: "",
-      prenoms_visiteur: "",
-      email_visiteur: "",
-      contact_visiteur: "",
-      date_rdv: "",
-      heure_rdv: "",
-      compagnie_id: "",
-      id_user_employer: "",
+    new_article: {
+      denomination: "",
+      // description: "",
+      // hand_washing: "",
+      // machine_wash: "",
+      // starching: "",
+      // ironing: "",
+      // stopping: "",
+      // dyeing: "",
+      // dry_cleaning: "",
+      // full_price: "",
+      companie_id: "",
     },
 
-    VisiteaAddingResponse: "",
+    visiteaAddingResponse: "",
     addingSuccess: false,
     addingfalse: false,
 
-    visitcomponentKey1: 0,
+    // visitcomponentKey1: 0,
 
     // FOR ANALYTICS
     // theNumbervisit = 0,
@@ -220,17 +233,17 @@ export default {
 
   methods: {
     submit1() {
-
+      console.log(this.new_article);
       if (this.$refs.form1.validate()) {
-        axios({ url: "/rdv/demande_rdv", data: this.new_visit, method: "POST" })
+        axios({ url: "/article/add", data: this.new_article, method: "POST" })
         .then((response) => {
-          this.visitaAddingResponse = response.data;
-          console.log(this.visitaAddingResponse);
-          if (this.visitaAddingResponse) {
+          this.visiteaAddingResponse = response.data;
+          console.log(this.visiteaAddingResponse);
+          if (this.visiteaAddingResponse) {
             this.addingSuccess = !this.addingSuccess;
             setTimeout(() => {
               this.addingSuccess = !this.addingSuccess;
-              this.$store.dispatch("init_userVisite")
+              this.$store.dispatch("init_articles");
             }, 3000);
           } else {
             this.addingfalse = !this.addingfalse;
@@ -240,7 +253,7 @@ export default {
           }
         })
         .catch((error) => {
-          this.visitaAddingResponse = error.message;
+          this.visiteaAddingResponse = error.message;
           console.error("There was an error!", error);
         });
 
@@ -257,8 +270,8 @@ export default {
   },
 
   created() {
-    this.new_visit.compagnie_id = localStorage.getItem("user-compagnie");
-    this.new_visit.id_user_employer = localStorage.getItem("user-id");
+    this.new_article.companie_id = localStorage.getItem("user-compagnie");
+    this.new_article.id_user_employer = localStorage.getItem("user-id");
 
   },
 };
@@ -321,6 +334,14 @@ export default {
     margin-bottom: -15px;
   }
   .col-md-6 {
+    height: 75px;
+    margin-bottom: -15px;
+  }
+  .col-lg-12 {
+    height: 85px;
+    margin-bottom: -15px;
+  }
+  .col-md-12 {
     height: 75px;
     margin-bottom: -15px;
   }

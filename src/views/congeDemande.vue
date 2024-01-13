@@ -1,7 +1,7 @@
 <template>
   <div class="bodyBox">
     <div class="TheBoxBody">
-      <p class="sectionTitle">Demande de congé</p>
+      <p class="sectionTitle">Enregistrement de dépenses</p>
       <v-container fluid class="pouletBr">
         <v-row>
           <v-col cols="12" md="3" lg="3">
@@ -11,12 +11,14 @@
                   <v-row>
                     <v-col cols="12" md="12" lg="12" style="display:flex; justify-content:center; margin-bottom:-25px">
                       <v-select
-                        v-model="new_conge_ask.id_type_conge"
-                        :rules="[() => !!new_conge_ask.id_type_conge]"
-                        :items="Conges"
-                        item-text="type_conge"
+                        v-model="new_spent.id_type_charge"
+                        :rules="[() => !!new_spent.id_type_charge]"
+                        :items="Charges"
+                        item-text="denomination"
                         item-value="id"
-                        label="Type de congé"
+                        label="Charge"
+                        return-object
+                        @change="onItemChange"
                         solo
                       >
                       </v-select>
@@ -26,61 +28,17 @@
                         height="40"
                         background-color="#356eea24"
                         solo
-                        label="Date de début"
-                        v-model="new_conge_ask.date_debut"
-                        :rules="[() => !!new_conge_ask.date_debut]"
-                        ref="total_name"
-                        type="date"
+                        :label="amountFieldLabel"
+                        v-model="new_spent.amount"
+                        :rules="[() => !!new_spent.amount, (v) => /[0-9]+/i.test(v)]"
+                        ref="fieldamount"
+                        type="text"
                         value=""
-                        prefix="Debut : "
+                        :disabled="disableFieldInCaseOfFixeCharge"
                         persistent-hint
                         required
                       ></v-text-field>
                     </v-col>
-                    <v-col cols="12" md="12" lg="12">
-                      <v-text-field
-                        height="40"
-                        solo
-                        label="Date de fin"
-                        ref="desc"
-                        v-model="new_conge_ask.date_fin"
-                        :rules="[() => !!new_conge_ask.date_fin]"
-                        type="date"
-                        value=""
-                        prefix="Fin : "
-                        persistent-hint
-                        required
-                      ></v-text-field>
-                    </v-col>
-                   
-                    <v-col cols="12" md="12" lg="12">
-                      <v-text-field
-                        height="40"
-                        background-color="#356eea24"
-                        solo
-                        append-icon="mdi-numeric"
-                        v-model="new_conge_ask.nbre_jour"
-                        :rules="[() => !!new_conge_ask.nbre_jour]"
-                        ref="transport"
-                        type="number"
-                        maxlength="2"
-                        label="Nombre de jours"
-                        persistent-hint
-                        required
-                      ></v-text-field>
-                    </v-col>
-                    <div style="width:100%; padding: 15px 10px 0px 10px">
-                      <v-textarea
-                        solo
-                        clearable
-                        clear-icon="mdi-close-circle"
-                        v-model="new_conge_ask.motif_conge"
-                        rows="3"
-                        name="input-7-4"
-                        label="Motif"
-                        class="the-message-area"
-                      ></v-textarea>
-                    </div>
                     <v-col cols="12" md="12" lg="12">
                       <v-btn
                         small
@@ -116,7 +74,7 @@
         class="alert"
         color="mainBlueColor"
       >
-        Demande effectuée</v-alert
+        Dépense Enregistrée</v-alert
       >
     </transition>
     <transition name="slide">
@@ -128,7 +86,7 @@
         class="alert"
         color="error"
       >
-        Echec de la demande</v-alert
+        Echec de l'opération</v-alert
       >
     </transition>
   </div>
@@ -148,11 +106,14 @@ export default {
   },
 
   data: () => ({
+    disableFieldInCaseOfFixeCharge:false,
+    amountFieldLabel:"coût",
     // FOR FORM SENDING
-    new_conge_ask: {
-      compagnie_id:"",
-      id_user:"",
-      id_departement:"",
+    new_spent: {
+      amount:"",
+      id_type_charge:"",
+      companie_id:"",
+      user_id:"",
       },
 
     congeAskaAddingResponse: "",
@@ -166,9 +127,27 @@ export default {
   }),
 
   methods: {
+
+    onItemChange(item){
+      // console.log(item.amount);
+      if (item.type == 1) {
+        this.new_spent.id_type_charge =item.id
+        this.new_spent.amount = item.amount
+
+        this.amountFieldLabel = item.amount
+        this.disableFieldInCaseOfFixeCharge = true
+      }else{
+        this.new_spent.id_type_charge =item.id
+        this.new_spent.amount = ""
+        this.amountFieldLabel = "coût"
+        this.$refs.fieldamount.value=this.new_spent.amount
+        this.disableFieldInCaseOfFixeCharge = false
+      }
+    },
+
     submit1() {
-      console.log(this.new_conge_ask);
-        axios({ url: "/users/store_conge", data: this.new_conge_ask, method: "POST" })
+      console.log(this.new_spent);
+        axios({ url: "/spent/store", data: this.new_spent, method: "POST" })
         .then((response) => {
           this.congeAskaAddingResponse = response.data;
           // console.log(response.data);
@@ -176,8 +155,11 @@ export default {
             this.addingSuccess = !this.addingSuccess;
             setTimeout(() => {
               this.addingSuccess = !this.addingSuccess;
-              this.$store.dispatch("init_user_conge");
+              this.$store.dispatch("init_spent");
             }, 3000);
+            this.new_spent.id_type_charge =""
+            this.new_spent.amount = ""
+            this.amountFieldLabel="coût"
           } else {
             this.addingfalse = !this.addingfalse;
             setTimeout(() => {
@@ -195,21 +177,13 @@ export default {
   },
 
   computed: {
-    ...mapGetters(["Conges"]),
+    ...mapGetters(["Charges"]),
   },
 
   created() {
-    this.$store.dispatch("init_user_conge");
-    this.$store.dispatch("init_conge");
-    this.new_conge_ask.compagnie_id = localStorage.getItem("user-compagnie");
-    this.new_conge_ask.id_user = localStorage.getItem("user-id");
-    this.new_conge_ask.id_departement = localStorage.getItem("user-department-second");
-    // Qaund les departement second n'étaient pas obligatoire
-    // if (localStorage.getItem("user-department-second")) {
-    //    this.new_conge_ask.id_departement = localStorage.getItem("user-department-second");
-    // } else {
-    //    this.new_conge_ask.id_departement = localStorage.getItem("user-department");
-    // }
+    this.$store.dispatch("init_charge");
+    this.new_spent.companie_id = localStorage.getItem("user-compagnie");
+    this.new_spent.user_id = localStorage.getItem("user-id");
    
   },
 };
@@ -234,6 +208,7 @@ export default {
 .addcongeAsk {
   height: 55vh;
   overflow-y: auto;
+  display:flex; flex-direction:colum;justify-content:center; align-items: center;
   /* background-color:red; */
 }
 .addcongeAsk::-webkit-scrollbar {

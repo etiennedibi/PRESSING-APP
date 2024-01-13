@@ -7,7 +7,7 @@
           v-on:click="activeMenu0"
           :class="{ visitMenu: isActive0}" 
         >
-          <img src="@/assets/icone/visit.png" alt="" srcset="" />
+          <img src="@/assets/icone/washer.png" alt="" srcset="" />
           <p>Prestation</p>
           <div class="menuBox" v-if="visteMenuClick">
           <div class="menuTitle">
@@ -18,16 +18,22 @@
             <router-link :to="{ name: 'VisiteDeclaration' }">
               <div class="tab1">
                 <v-icon color="mainBlueColor">mdi-arrow-right-thin</v-icon>
-                <p>COMMANDES</p>
+                <p>ENREGISTREMENT DE COMMANDE</p>
               </div>
             </router-link>
-            <router-link :to="{ name: 'RdvAccueil' }">
+            <router-link :to="{ name: 'RdvStory' }" v-if="this.role==1">
+              <div class="tab1">
+                 <v-icon color="mainBlueColor">mdi-arrow-right-thin</v-icon>
+                <p>TRAITEMENT DES COMMANDES</p>
+              </div>
+            </router-link>
+            <router-link :to="{ name: 'Article' }">
               <div class="tab1">
                 <v-icon color="mainBlueColor">mdi-arrow-right-thin</v-icon>
                 <p>CONFIGURATION DES ARTICLES</p>
               </div>
             </router-link>
-            <router-link :to="{ name: 'RdvStory' }" v-if="this.role==1">
+            <router-link :to="{ name: 'Customer' }" v-if="this.role==1">
               <div class="tab1">
                  <v-icon color="mainBlueColor">mdi-arrow-right-thin</v-icon>
                 <p>COMPTE CLIENTS</p>
@@ -42,7 +48,7 @@
         v-on:click="activeMenu"
         :class="{ naVBox2Active: isActive }"
       >
-        <img src="@/assets/icone/staff.png" alt="" srcset="" />
+        <img src="@/assets/icone/briefcase.png" alt="" srcset="" />
         <p>Gestion</p>
         <div class="menuBox" v-if="travelMenuClick">
           <div class="menuTitle">
@@ -50,16 +56,28 @@
             <v-icon color="red" v-on:click.stop="travelMenuClick = false">mdi-close-circle</v-icon>
           </div>
           <div v-on:click.stop="travelMenuClick = false">
-            <router-link :to="{ name: 'AddEmployer' }" v-if="this.role==1">
+            <router-link :to="{ name: 'Stock' }" v-if="this.role==1">
               <div class="tab1">
                  <v-icon color="mainBlueColor">mdi-arrow-right-thin</v-icon>
                 <p>GESTION DES STOCKS</p>
               </div>
             </router-link>
-            <router-link :to="{ name: 'StaffList' }" v-if="this.role==1">
+            <router-link :to="{ name: 'chargeType' }" v-if="this.role==1">
               <div class="tab1">
                  <v-icon color="mainBlueColor">mdi-arrow-right-thin</v-icon>
-                <p>GESTION DE LA COMPTABILITE</p>
+                <p>GESTION TYPE DE CHARGES</p>
+              </div>
+            </router-link>
+             <router-link :to="{ name: 'depense' }" v-if="this.role==1">
+              <div class="tab1">
+                 <v-icon color="mainBlueColor">mdi-arrow-right-thin</v-icon>
+                <p>ENREGISTREMENT DES DEPENSES</p>
+              </div>
+            </router-link>
+             <router-link :to="{ name: 'BilanComptable' }" v-if="this.role==1">
+              <div class="tab1">
+                 <v-icon color="mainBlueColor">mdi-arrow-right-thin</v-icon>
+                <p>BILAN COMPTABLE</p>
               </div>
             </router-link>
           </div>
@@ -69,7 +87,7 @@
 
       <div class="navBox navEnd" v-on:click="activeMenu4"
         :class="{ ConfigNavActive: isActive4 }" v-if="this.role==1">
-        <img src="@/assets/icone/configs.png" alt="" srcset="" />
+        <img src="@/assets/icone/chart-simple.png" alt="" srcset="" />
         <p>Analytique</p>
         <div class="menuBox" v-if="configMenuClick">
           <div class="menuTitle">

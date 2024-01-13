@@ -5,12 +5,23 @@ import store from "../store";
 import Dashboard from "../views/Dashboard.vue";
 
 import RdvStory from "../views/rdvStory.vue";
-import VisiteDeclaration from "../views/VisiteDeclaration.vue";
+import Article from "../views/Article.vue";
+import Customer from "../views/Customer.vue";
 
+import conge from "../views/congeTypeManagment.vue";
+import CongeDemande from "../views/congeDemande.vue";
 import TaskDeclaration from "../views/TaskDeclaration.vue";
+import UserTaskManage from "../views/UserTaskManage.vue";
+
+
+
+
+
+
+
+
 import OwnTaskDeclaration from "../views/OwnTaskDeclaration.vue";
 import taskStory from "../views/taskStory.vue";
-import UserTaskManage from "../views/UserTaskManage.vue";
 import fileManage from "../views/fileManage.vue";
 import UserFileManage from "../views/UserFileManage.vue";
 import fileStoty from "../views/fileStoty.vue";
@@ -31,7 +42,6 @@ import TravelStat from "../views/travelStat.vue";
 import ExpeditionSheet from "../views/Expedition2Management.vue";
 // import Withdrawalsheet from "../views/Expedition3withdrawal.vue";
 
-import CongeDemande from "../views/congeDemande.vue";
 import BilanConge from "../views/bilanConge.vue";
 import Disponibilite from "../views/Disponibilite.vue";
 import BilanAbsence from "../views/bilanAbsence.vue";
@@ -39,13 +49,10 @@ import Congemanagment from "../views/congemanagment.vue";
 import CongeStory from "../views/congeStory.vue";
 
 
-import Contract from "../views/contactManagment.vue";
-import conge from "../views/congeTypeManagment.vue";
 import WorkManagment from "../views/workManagment.vue";
 import ServiceManagment from "../views/serviceManagment.vue";
 
 
-import Messagerie from "../views/messagerie.vue";
 import param from "../views/param.vue";
 
 import login from "../views/login.vue";
@@ -78,11 +85,57 @@ const routes = [
     beforeEnter: ifAuthenticated,
   },
   {
-    path: "/Messagerie",
-    name: "Messagerie",
-    component: Messagerie,
+    path: "/Article",
+    name: "Article",
+    component: Article,
     beforeEnter: ifAuthenticated,
   },
+  {
+    path: "/Customer",
+    name: "Customer",
+    component: Customer,
+    beforeEnter: ifAuthenticated,
+  },
+  {
+    path: "/chargeType",
+    name: "chargeType",
+    component: conge,
+    beforeEnter: ifAuthenticated,
+  },
+  {
+    path: "/depense",
+    name: "depense",
+    component: CongeDemande,
+    beforeEnter: ifAuthenticated,
+  },
+  {
+    path: "/BilanComptable",
+    name: "BilanComptable",
+    component: TaskDeclaration,
+    beforeEnter: ifAuthenticated,
+  },
+  {
+    path: "/Stock",
+    name: "Stock",
+    component: UserTaskManage,
+    beforeEnter: ifAuthenticated,
+  },
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   {
     path: "/param",
     name: "param",
@@ -102,18 +155,6 @@ const routes = [
     beforeEnter: ifAuthenticated,
   },
   {
-    path: "/Contract",
-    name: "Contract",
-    component: Contract,
-    beforeEnter: ifAuthenticated,
-  },
-  {
-    path: "/congeType",
-    name: "congeType",
-    component: conge,
-    beforeEnter: ifAuthenticated,
-  },
-  {
     path: "/WorkManagment",
     name: "WorkManagment",
     component: WorkManagment,
@@ -126,18 +167,6 @@ const routes = [
     beforeEnter: ifAuthenticated,
   },
   {
-    path: "/VisiteDeclaration",
-    name: "VisiteDeclaration",
-    component: VisiteDeclaration,
-    beforeEnter: ifAuthenticated,
-  },
-  {
-    path: "/TaskDeclaration",
-    name: "TaskDeclaration",
-    component: TaskDeclaration,
-    beforeEnter: ifAuthenticated,
-  },
-  {
     path: "/OwnTaskDeclaration",
     name: "OwnTaskDeclaration",
     component: OwnTaskDeclaration,
@@ -147,12 +176,6 @@ const routes = [
     path: "/taskStory",
     name: "taskStory",
     component: taskStory,
-    beforeEnter: ifAuthenticated,
-  },
-  {
-    path: "/UserTaskManage",
-    name: "UserTaskManage",
-    component: UserTaskManage,
     beforeEnter: ifAuthenticated,
   },
   {
@@ -221,12 +244,6 @@ const routes = [
     path: "/CVManage",
     name: "CVManage",
     component: CVManage,
-    beforeEnter: ifAuthenticated,
-  },
-  {
-    path: "/CongeDemande",
-    name: "CongeDemande",
-    component: CongeDemande,
     beforeEnter: ifAuthenticated,
   },
   {

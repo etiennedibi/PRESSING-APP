@@ -154,7 +154,7 @@
 import { mapGetters } from "vuex";
 
 export default {
-  name: "allVisitStory.vue",
+  name: "allVisitStory",
   components: {},
 
   data: () => ({
@@ -320,9 +320,9 @@ export default {
     ...mapGetters(["AllVisitesStorys"]),
   },
 
-  // created() {
-  //   this.$store.dispatch("init_allVisite");
-  // },
+  created() {
+    this.$store.dispatch("init_allVisite");
+  },
 };
 </script>
 

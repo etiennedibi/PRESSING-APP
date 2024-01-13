@@ -29,7 +29,7 @@
 
 <script>
 import { mapGetters } from "vuex";
-import allVisitStory from "../components/Visite/allVisitStory";
+import allVisitStory from "../components/Prestation/allVisitStory";
 
 export default {
   name: "taskStory",

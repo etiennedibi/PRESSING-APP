@@ -1,57 +1,57 @@
 import axios from "axios";
 // import Vue from "vue";
 const state = {
-  contracts: [],
-  rights: [],
+  charge: [],
+  spent: [],
 };
 
 const getters = {
-  Contracts: (state) => {
-    let contract = state.contracts;
+  Charges: (state) => {
+    let charge = state.charge;
 
-    return contract;
+    return charge;
   },
-  Rights: (state) => {
-    let right = state.rights;
+  Spents: (state) => {
+    let spent = state.spent;
 
-    return right;
+    return spent;
   },
 
 };
 
 const mutations = {
-  SET_CONTRACT(state, data) {
-    state.contracts = data;
+  SET_CHARGE(state, data) {
+    state.charge = data;
   },
-  SET_RIGHT(state, data) {
-    state.rights = data;
+  SET_SPENT(state, data) {
+    state.spent = data;
   },
 
 };
 
 const actions = {
-  init_contract: ({ commit }) => {
+  init_charge: ({ commit }) => {
     // Vue.prototype.$http
     axios
       .get(
-        "/admin/get_type_contrat/"+localStorage.getItem("user-compagnie")
+        "/charge/all/"+localStorage.getItem("user-compagnie")
           // localStorage.getItem("user-station")
       )
       .then((res) => {
-        commit("SET_CONTRACT", res.data);
+        commit("SET_CHARGE", res.data.result);
       })
       .catch((error) => console.log(error));
   },
 
-  init_right: ({ commit }) => {
+  init_spent: ({ commit }) => {
     // Vue.prototype.$http
     axios
       .get(
-        "/admin/get_user_role"
+        "/spent/all/"+localStorage.getItem("user-compagnie")
           // localStorage.getItem("user-station")
       )
       .then((res) => {
-        commit("SET_RIGHT", res.data);
+        commit("SET_SPENT", res.data.result);
       })
       .catch((error) => console.log(error));
   },

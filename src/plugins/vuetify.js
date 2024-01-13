@@ -32,6 +32,7 @@ export default new Vuetify({
         /* Other Color */
         // mainBlueColor: "#3e886d",
         mainBlueColor: "#037bb8",
+        mainGreen: "#00b6aa",
         mainWhiteColor: "#f9f9f9",
         MinoWhite: "#fffff",
       },

@@ -11,7 +11,7 @@ import gestion from "./modules/gestion";
 import message from "./modules/message";
 // import checkabonnement from "./modules/checkabonnement";
 
-import visites from "./modules/visites";
+import articles from "./modules/article";
 import project from "./modules/project";
 import task from "./modules/task";
 import flies from "./modules/flies";
@@ -66,7 +66,7 @@ export default new Vuex.Store({
     message,
     // checkabonnement,
 
-    visites,
+    articles,
     project,
     task,
     flies,

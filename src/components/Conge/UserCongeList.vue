@@ -394,11 +394,16 @@
       <v-data-table
         dense
         :headers="headers"
-        :items="User_Conges"
+        :items="Spents"
         :search="search"
         :items-per-page="-1"
         hide-default-footer
       >
+
+        <template v-slot:[`item.type_charge`]="{ item }"> 
+         <span v-if="item.type_charge==1" style="color: mainBlueColor;">FIXE</span>
+         <span v-if="item.type_charge==0" style="color: mainBlueColor;">VARIABLE</span>
+        </template>
         <!-- FOR SEE EDIT, DELETE AND SHOW DIALOG -->
         <template v-slot:[`item.actions`]="{ item }">
           <!-- modification avec CESINHIO  a la base on avait v-slot:[item.actions="{ item }"-->
@@ -483,6 +488,7 @@
 
 <script>
 import axios from "axios";
+// import { formatDateForChat } from "../Utils/WorkDate";
 import { mapGetters } from "vuex";
 
 export default {
@@ -493,15 +499,16 @@ export default {
     // For the table
     search: "",
     headers: [
-      { text: "TYPE", value: "type_conge" },
+      { text: "CHARGE", value: "denomination" },
       {
-        text: "DATE DEBUT",
+        text: "TYPE",
         align: "start",
         sortable: true,
-        value: "date_debut",
+        value: "type_charge",
       },
-      { text: "DATE FIN", value: "date_fin" },
-      { text: "PLUS", value: "actions", sortable: false },
+      { text: "COÛT", value: "amount" },
+      { text: "DATE", value: "created_at" },
+      { text: "AUTEUR", value: "nom_complet"},
     ],
     items: [
       {
@@ -662,6 +669,11 @@ export default {
   }),
 
   methods: {
+
+    // displayDate(date) {
+    //   return formatDateForChat(date);
+    // },
+    
     // ------------------------
     // Show Profil infomation
     // ------------------------
@@ -674,7 +686,7 @@ export default {
     // For Profil Edited
     // ------------------------
     editItem(item) {
-      this.editedIndex = this.User_Conges.indexOf(item);
+      this.editedIndex = this.Spents.indexOf(item);
       this.editedItem = Object.assign({}, item);
       //  Open the Edit Dialogue
       this.dialogEdit = true;
@@ -716,9 +728,9 @@ export default {
     // delete a travel
     // --------------------
     deleteItem(item) {
-      this.editedIndex = this.User_Conges.indexOf(item);
+      this.editedIndex = this.Spents.indexOf(item);
       this.editedItem = Object.assign({}, item);
-      this.itemToDelete = { id: this.editedItem.User_Conges_id };
+      this.itemToDelete = { id: this.editedItem.Spents_id };
       // if it is a variante of prise
       this.OneVarianteitemToDelete = { id: this.editedItem.id };
       // this.dialogDelete = true;
@@ -807,9 +819,9 @@ export default {
 
     // FOR ACCEPT VISITE
     acceptItem(item) {
-      this.editedIndex = this.User_Conges.indexOf(item);
+      this.editedIndex = this.Spents.indexOf(item);
       this.editedItem = Object.assign({}, item);
-      this.itemToDelete = { id: this.editedItem.User_Conges_id };
+      this.itemToDelete = { id: this.editedItem.Spents_id };
       this.dialogAccept = true;
     },
     acceptVisite() {
@@ -849,9 +861,9 @@ export default {
 
     // FOR ACCEPT VISITE
     reportItem(item) {
-      this.editedIndex = this.User_Conges.indexOf(item);
+      this.editedIndex = this.Spents.indexOf(item);
       this.editedItem = Object.assign({}, item);
-      this.itemToDelete = { id: this.editedItem.User_Conges_id };
+      this.itemToDelete = { id: this.editedItem.Spents_id };
       this.dialogAccept = true;
     },
     reportVisite() {
@@ -891,11 +903,11 @@ export default {
   },
 
   computed: {
-    ...mapGetters(["User_Conges"]),
+    ...mapGetters(["Spents"]),
   },
 
   created() {
-    this.$store.dispatch("init_user_conge");
+    this.$store.dispatch("init_spent");
   },
 };
 </script>

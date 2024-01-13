@@ -1,24 +1,24 @@
 <template>
   <div class="bodyBox">
     <div class="TheBoxBody ForTravelDeclaration">
-      <p class="sectionTitle">Historique des visites</p>
+      <p class="sectionTitle">Taitement de commandes</p>
       <v-row>
         <v-col cols="12" md="3" lg="3" class="leftNumber">
           <div class="stat1">
             <div class="N-icon">
-              <v-icon color="mainBlueColor">mdi-account-clock</v-icon>
+              <v-icon color="mainGreen">mdi-hanger</v-icon>
             </div>
             <h1 v-if="visiteNumber"> {{ visiteNumber }}</h1>
             <h1 v-else>0</h1>
-            <h5>RDV Enregistrés</h5>
+            <h5>Commandes pas traitées</h5>
           </div>
           <div class="stat1 stat2">
             <div class="N-icon icon2">
-              <v-icon color="white">mdi-account-cancel</v-icon>
+              <v-icon color="white">mdi-check-circle</v-icon>
             </div>
             <h1 v-if="canceRDVNumber" style="color: white"> {{ canceRDVNumber }}</h1>
             <h1 v-else style="color: white">0</h1>
-            <h5 style="color: white">RDV annulés</h5>
+            <h5 style="color: white">Commandes traitées</h5>
           </div>
         </v-col>
         <v-col cols="12" md="9" lg="9">
@@ -31,7 +31,7 @@
 
 <script>
 import { mapGetters } from "vuex";
-import allVisitStory from "../components/Visite/allVisitStory";
+import allVisitStory from "../components/Prestation/allVisitStory";
 
 export default {
   name: "RdvStory",
@@ -106,7 +106,7 @@ export default {
 }
 .stat2{
     background: linear-gradient(to right top,  #356eea, #037bb8, #9238ce);
-
+   background-image: linear-gradient(to left bottom, #00b6aa, #00acc5, #009ee0, #008af0, #356eea);
 }
 .N-icon {
   height: 35px;

@@ -169,7 +169,7 @@
 
 <script>
 import axios from "axios";
-import { formatDateForChat } from "../Utils/WorkDate";
+// import { formatDateForChat } from "../Utils/WorkDate";
 import { mapGetters } from "vuex";
 
 export default {
@@ -204,9 +204,9 @@ export default {
 
   methods: {
 
-    displayDate(date) {
-      return formatDateForChat(date);
-    },
+    // displayDate(date) {
+    //   return formatDateForChat(date);
+    // },
 
     // ------------------------
     // EDIT FILE

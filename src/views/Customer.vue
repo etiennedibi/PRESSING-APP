@@ -1,7 +1,7 @@
 <template>
   <div class="bodyBox">
     <div class="TheBoxBody">
-      <p class="sectionTitle">Types de Contrats</p>
+      <p class="sectionTitle">Comptes clients</p>
       <v-container fluid class="pouletBr">
         <v-row>
           <v-col cols="12" md="3" lg="3">
@@ -15,45 +15,61 @@
                         solo
                         ref="location"
                         type="text"
-                        append-icon="mdi-call-missed"
-                        v-model="new_Contract.type_contrat"
-                        :rules="[() => !!new_Contract.type_contrat]"
+                        append-icon="mdi-account"
+                        v-model="new_customer.nom_complet"
+                        :rules="[() => !!new_customer.nom_complet]"
                         value=""
-                        label="Denomination"
+                        label="Nom complet"
                         persistent-hint
                         required
                       ></v-text-field>
                     </v-col>
-                    <v-col cols="12" md="12" lg="12" style="margin-bottom:-10px;">
+                    <v-col cols="12" md="12" lg="12" style="margin-bottom:-12px;">
                       <v-text-field
                         height="40"
                         solo
                         ref="location"
                         type="text"
-                        append-icon="mdi-alphabetical-variant"
-                        maxlength="5"
-                        v-model="new_Contract.anagramme"
-                        :rules="[() => !!new_Contract.anagramme]"
+                        append-icon="mdi-phone"
+                        v-model="new_customer.telephone"
+                        :rules="[() => !!new_customer.telephone]"
                         value=""
-                        label="Anagramme"
+                        label="Telephone"
                         persistent-hint
                         required
                       ></v-text-field>
                     </v-col>
-                    <div style="width:100%; padding: 0px 10px; margin-top:5px;">
-                      <v-textarea
+                    <v-col cols="12" md="12" lg="12" style="margin-bottom:-12px;">
+                      <v-text-field
+                        height="40"
                         solo
-                        v-model="new_Contract.description"
-                        :rules="[() => !!new_Contract.description]"
-                        clearable
+                        ref="location"
+                        type="text"
+                        append-icon="mdi-map-marker"
+                        v-model="new_customer.adresse"
+                        :rules="[() => !!new_customer.adresse]"
+                        value=""
+                        label="Adresse"
+                        persistent-hint
+                        required
+                      ></v-text-field>
+                    </v-col>
+                    <v-col cols="12" md="12" lg="12">
+                      <v-text-field
+                        height="30"
+                        solo
+                        label="sold"
                         background-color="#356eea24"
-                        clear-icon="mdi-close-circle"
-                        rows="4"
-                        name="input-7-4"
-                        label="Description"
-                        class="the-message-area"
-                      ></v-textarea>
-                    </div>
+                        v-model="new_customer.sold"
+                        :rules="[() => !!new_customer.sold,(v) => /[0-9]+/i.test(v)]"
+                        append-icon="mdi-cash"
+                        type="text"
+                        maxlength="10"
+                        value=""
+                        persistent-hint
+                        required
+                      ></v-text-field>
+                    </v-col>
                     <v-col cols="12" md="12" lg="12">
                       <v-btn
                         large
@@ -71,16 +87,16 @@
           </v-col>
           <v-col cols="12" md="8" lg="8">
             <div class="numberWrapper">
-              <alleContractList :key="forceRerenderReturn"></alleContractList>
+              <customerList :key="forceRerenderReturn"></customerList>
             </div>
           </v-col>
           <v-col cols="12" md="1" lg="1" class="leftNumber">
             <div class="stat1">
               <div class="N-icon">
-                <v-icon color="mainBlueColor">mdi-file-sign</v-icon>
+                <v-icon color="mainGreen">mdi-account</v-icon>
               </div>
               <h1> {{ContractNumber}} </h1>
-              <h5 style="text-align: center">Contrat</h5>
+              <h5 style="text-align: center">Comptes</h5>
             </div>
           </v-col>
         </v-row>
@@ -116,20 +132,18 @@
 
 <script>
 import axios from "axios";
-import alleContractList from "../components/Config/alleContractList.vue";
+import customerList from "../components/Prestation/customerList.vue";
 
 export default {
-  name: "Sender",
+  name: "Customer",
   components: {
-    alleContractList,
+    customerList,
   },
 
   data: () => ({
     // FOR FORM SENDING
-    new_Contract: {
-      type_contrat: "",
-      description: "",
-      compagnie_id:""
+    new_customer: {
+      companie_id:""
     },
 
     ContractaAddingResponse: "",
@@ -145,19 +159,19 @@ export default {
   methods: {
     submit1() {
       if (this.$refs.form1.validate()) {
-        axios({ url: "/admin/store_type_contrat", data: this.new_Contract, method: "POST" })
+        axios({ url: "/customer/add", data: this.new_customer, method: "POST" })
         .then((response) => {
           this.ContractaAddingResponse = response.data;
           console.log(response.data);
           if (!this.ContractaAddingResponse.message) {
-            this.ContractaAddingResponse = "Type de Contrat Enregistré avec succes"
+            this.ContractaAddingResponse = "Compte créer avec succes"
             this.addingSuccess = !this.addingSuccess;
             setTimeout(() => {
               this.addingSuccess = !this.addingSuccess;
-              this.$store.dispatch("init_contract");
+              this.$store.dispatch("init_customers");
             }, 3000);
             this.$refs.form1.reset();
-          } else if (response.data.message == "Contrat déjà exitant") {
+          } else if (response.data.message == "Ce client existe") {
             this.ContractaAddingResponse = response.data.message
             this.addingfalse = !this.addingfalse;
             setTimeout(() => {
@@ -194,12 +208,12 @@ export default {
 
       // }
 
-      return this.$store.getters.Contracts.length;
+      return this.$store.getters.Customers.length;
     },
   },
 
   created() {
-    this.new_Contract.compagnie_id = localStorage.getItem("user-compagnie");
+    this.new_customer.companie_id = localStorage.getItem("user-compagnie");
   },
 };
 </script>

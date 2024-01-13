@@ -1,7 +1,7 @@
 <template>
   <div class="bodyBox">
     <div class="TheBoxBody">
-      <p class="sectionTitle">Types de Congés</p>
+      <p class="sectionTitle">Types de charges</p>
       <v-container fluid class="pouletBr">
         <v-row>
           <v-col cols="12" md="3" lg="3">
@@ -10,16 +10,41 @@
                 <v-container fluid class="addconge">
                   <v-row>
                     <v-col cols="12" md="12" lg="12">
+                      <v-select
+                        :items="typesCharge"
+                        item-text="text"
+                        item-value="type"
+                        label="Type de charge"
+                        v-model="new_charge.type"
+                        :rules="[() => !!new_charge.type]"
+                        solo
+                        required
+                      ></v-select>
+                    </v-col>
+                     <v-col cols="12" md="12" lg="12">
                       <v-text-field
                         height="40"
+                         v-model="new_charge.denomination"
+                        :rules="[() => !!new_charge.denomination]"
                         solo
-                        append-icon="mdi-call-missed"
-                        ref="location"
-                        type="text"
-                        v-model="new_Conge.type_conge"
-                        :rules="[() => !!new_Conge.type_conge]"
-                        value=""
+                        append-icon="mdi-alphabetical-variant"
+                        ref="pla_number"
                         label="Denomination"
+                        type="text"
+                        persistent-hint
+                        required
+                      ></v-text-field>
+                    </v-col>
+                     <v-col cols="12" md="12" lg="12">
+                      <v-text-field
+                        height="40"
+                         v-model="new_charge.amount"
+                        :rules="[() => (v) => /[0-9]+/i.test(v)]"
+                        solo
+                        append-icon="mdi-cash"
+                        ref="pla_number"
+                        label="Coût"
+                        type="text"
                         persistent-hint
                         required
                       ></v-text-field>
@@ -28,31 +53,16 @@
                       <v-textarea
                         solo
                         clearable
-                         v-model="new_Conge.description"
-                        :rules="[() => !!new_Conge.description]"
+                         v-model="new_charge.objet"
+                        :rules="[() => !!new_charge.objet]"
                         background-color="#356eea24"
                         clear-icon="mdi-close-circle"
-                        rows="4"
+                        rows="2"
                         name="input-7-4"
                         label="Description"
                         class="the-message-area"
                       ></v-textarea>
                     </div>
-                    <v-col cols="12" md="12" lg="12">
-                      <v-text-field
-                        height="40"
-                         v-model="new_Conge.cota_conge"
-                        :rules="[() => !!new_Conge.cota_conge,(v) => /[0-9]+/i.test(v)]"
-                        solo
-                        append-icon="mdi-numeric"
-                        ref="pla_number"
-                        label="Nombre de jours"
-                        type="text"
-                        maxlength="3"
-                        persistent-hint
-                        required
-                      ></v-text-field>
-                    </v-col>
                     <v-col cols="12" md="12" lg="12">
                       <v-btn
                         small
@@ -71,10 +81,10 @@
           <v-col cols="12" md="1" lg="1" class="leftNumber">
             <div class="stat1">
               <div class="N-icon">
-                <v-icon color="mainBlueColor">mdi-calendar-badge</v-icon>
+                <v-icon color="mainGreen">mdi-tag-arrow-down</v-icon>
               </div>
-              <h1>{{ congeNumber }}</h1>
-              <h5 style="text-align: center">types</h5>
+              <h1>{{ chargeNumber }}</h1>
+              <h5 style="text-align: center">charges</h5>
             </div>
           </v-col>
           <v-col cols="12" md="8" lg="8">
@@ -96,7 +106,7 @@
         class="alert"
         color="mainBlueColor"
       >
-        Type de congé Enregistré avec succes</v-alert
+        Charge Enregistrée avec succes</v-alert
       >
     </transition>
     <transition name="slide">
@@ -126,12 +136,13 @@ export default {
 
   data: () => ({
     // FOR FORM SENDING
-    new_Conge: {
-      type_conge: "",
-      cota_conge: "",
-      compagnie_id:"",
+    new_charge: {
+      companie_id:"",
     },
-
+    typesCharge:[
+      {type:1, text:"FIXE"},
+      {type:0, text:"VARIABLE"},
+    ],
     congeaAddingResponse: "",
     addingSuccess: false,
     addingfalse: false,
@@ -145,7 +156,7 @@ export default {
   methods: {
     submit1() {
       if (this.$refs.form1.validate()) {
-        axios({ url: "/admin/store_type_conges", data: this.new_Conge, method: "POST" })
+        axios({ url: "/charge/store", data: this.new_charge, method: "POST" })
         .then((response) => {
           this.congeaAddingResponse = response.data;
           console.log(response.data);
@@ -153,7 +164,7 @@ export default {
             this.addingSuccess = !this.addingSuccess;
             setTimeout(() => {
               this.addingSuccess = !this.addingSuccess;
-              this.$store.dispatch("init_conge");
+              this.$store.dispatch("init_charge");
             }, 3000);
           } else {
             this.addingfalse = !this.addingfalse;
@@ -178,13 +189,13 @@ export default {
   computed: {
     
 
-    congeNumber() {
-      return this.$store.getters.Conges.length;
+    chargeNumber() {
+      return this.$store.getters.Charges.length;
     },
   },
 
   created() {
-    this.new_Conge.compagnie_id = localStorage.getItem("user-compagnie");
+    this.new_charge.companie_id = localStorage.getItem("user-compagnie");
   },
 };
 </script>

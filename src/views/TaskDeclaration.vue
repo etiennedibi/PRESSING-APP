@@ -2,10 +2,9 @@
   <div class="bodyBox">
     <div class="TheBoxBody">
       <p class="sectionTitle">
-        ATTRIBUTION DE TÂCHES
-
+        BILAN PERIODIQUE
         
-        <v-dialog v-model="dialogCreate" max-width="370">
+        <!-- <v-dialog v-model="dialogCreate" max-width="370">
           <v-card>
             <v-card-text>
               <v-container>
@@ -84,7 +83,6 @@
             </v-card-text>
 
             <v-card-actions style="display:flex;justify-content:space-around">
-              <!-- <v-spacer></v-spacer> -->
               <p
                 class="simplex-btn"
                 style="background:grey"
@@ -98,84 +96,43 @@
               >
             </v-card-actions>
           </v-card>
-        </v-dialog>
+        </v-dialog> -->
 
-        <v-btn
+        <!-- <v-btn
           small
           depressed
           color="mainBlueColor"
           style="color: white"
           v-on:click="dialogCreate=!dialogCreate"
           >Créer un nouveau projet</v-btn
-        >
+        > -->
       </p>
       
       <v-container fluid class="pouletBr">
         <v-row>
-          <v-col cols="12" md="4" lg="4">
+          <v-col cols="12" md="3" lg="3">
             <div class="numberWrapper formBox">
-              <v-form ref="form2" class="forme1">
-                <v-container fluid class="addvisit">
-                  <v-row>
-                    <v-col cols="12" md="12" lg="12" style="margin-top: 10px;">
-                      <v-select
-                        background-color="#356eea24"
-                        v-model="new_task.id_project"
-                        :rules="[() => !!new_task.id_project]"
-                        :items="Projects"
-                        item-text="title"
-                        item-value="id"
-                        label="Projet"
-                        solo
-                        height="40"
-                      >
-                       </v-select>
-                    </v-col>
-                     <v-col cols="12" md="12" lg="12">
-                      <v-select
-                        background-color="#356eea24"
-                        v-model="new_task.executants"
-                        :rules="[() => !!new_task.executants]"
-                        :items="EmployersByTheDepartments"
-                        item-text="nom"
-                        item-value="id"
-                        multiple
-                        label="Executants"
-                        solo
-                        height="40"
-                      >
-                      <template v-slot:selection="{ item, index }">
-                          <v-chip v-if="index === 0">
-                            <span>{{ item.nom }}</span>
-                          </v-chip>
-                          <span
-                            v-if="index === 1"
-                            class="grey--text text-caption"
-                          >
-                            (+{{ new_task.executants.length - 1}} autres)
-                          </span>
-                        </template>
-                       </v-select>
-                    </v-col>
-                     <v-col cols="12" md="12" lg="12">
+              <div class="addvisit">
+                <div class="stat1">
+                      <div class="N-icon">
+                        <v-icon large color="white">mdi-finance</v-icon>
+                      </div>
+                      <h1 v-if="canceRDVNumber" style="color: white"> 13</h1>
+                      <h1 v-else style="color: white">2500000</h1>
+                      <h5 style="color: white">Gain éffectué</h5>
+                    </div>
+              </div>
+            </div>
+          </v-col>
+          
+          <v-col cols="12" md="9" lg="9">
+            <div class="numberWrapper ">
+              <v-container>
+                <v-row style="justify-content:center">
+                  <v-col cols="4">
                       <v-text-field
                         height="40"
                         solo
-                        label="Intitulé"
-                        v-model="new_task.intitule_tache"
-                        :rules="[() => !!new_task.intitule_tache]"
-                        append-icon="mdi-subtitles"
-                        type="text"
-                        value=""
-                        persistent-hint
-                        required
-                      ></v-text-field>
-                    </v-col>
-                    <v-col cols="12" md="12" lg="12">
-                      <v-text-field
-                        height="40"
-                        solo
-                        prefix="Delais d'execution:"
                         v-model="new_task.delais_execution"
                         :rules="[() => !!new_task.delais_execution]"
                         type="date"
@@ -184,53 +141,31 @@
                         required
                       ></v-text-field>
                     </v-col>
-                    <div style="width:100%; padding: 0px 10px 0px 10px">
-                      <v-textarea
+                    <v-col cols="4">
+                      <v-text-field
+                        height="40"
                         solo
-                        clearable
-                        background-color="#356eea24"
-                        clear-icon="mdi-close-circle"
-                        append-icon="mdi-subtitles-outline"
-                        rows="5"
-                        name="input-7-4"
-                        v-model="new_task.details_taches"
-                        :rules="[() => !!new_task.details_taches]"
-                        label="Details"
-                        class="the-message-area"
-                      ></v-textarea>
-                    </div>
-                    <v-col cols="12" md="8" lg="8">
+                        v-model="new_task.delais_execution"
+                        :rules="[() => !!new_task.delais_execution]"
+                        type="date"
+                        value=""
+                        persistent-hint
+                        required
+                      ></v-text-field>
+                    </v-col>
+                    <v-col cols="3">
                       <v-btn
-                        medium
+                        height="47"
                         depressed
                         color="mainBlueColor"
                         style="color: white"
                         v-on:click.prevent="submit2"
-                        >Enregistrer</v-btn
+                        >DEMANDER</v-btn
                       >
                     </v-col>
-                  </v-row>
-                </v-container>
-              </v-form>
-            </div>
-          </v-col>
-          
-          <v-col cols="12" md="8" lg="8">
-            <div class="numberWrapper ">
-               <v-container v-if="taskAddingResponse.taches">
-                <v-row>
-                <v-col cols="12" md="12" lg="12">
-                  <div class="TaskResume">
-                    <p>{{taskAddingResponse.taches.intitule_tache}}</p>
-                    <p>
-                      {{taskAddingResponse.taches.details_taches}}
-                    </p>
-                    <p>{{taskAddingResponse.taches.delais_execution}}</p>
-                  </div>
-                </v-col>
-              </v-row>
+                </v-row>
               </v-container>
-              <v-container v-else>
+              <v-container v-if="taskAddingResponse.taches">
                 <v-row>
                 <v-col cols="12" md="12" lg="12">
                   <div class="TaskResume1">
@@ -238,36 +173,86 @@
                   </div>
                 </v-col>
               </v-row>
-              </v-container>            
-            </div>
+              </v-container>    
+              <v-container v-else>
+                <v-row>
+                <v-col cols="12" md="12" lg="12">
+                  <div class="TaskResume">
+                    <div class="dataWrapper">
+                    <v-data-table
+                      dense
+                      :headers="headers"
+                      :items="Spents"
+                      :search="search"
+                      :items-per-page="-1"
+                      hide-default-footer
+                    >
 
-            <div class="statWrapper">
-              <v-container>
-                <v-row style="justify-content:center">
-                  <v-col cols="12" md="5" lg="5" class="leftNumber">
-                    <div class="stat1 stat2">
-                      <div class="N-icon icon2">
-                        <v-icon color="white">mdi-ballot</v-icon>
-                      </div>
-                      <h1 v-if="canceRDVNumber" style="color: white"> 13</h1>
-                      <h1 v-else style="color: white">-</h1>
-                      <h5 style="color: white">Taches crées</h5>
-                    </div>
-                  </v-col>
-                  <v-col cols="12" md="5" lg="5" class="leftNumber">
-                    <div class="stat1">
-                      <div class="N-icon">
-                        <v-icon color="mainBlueColor">mdi-folder</v-icon>
-                      </div>
-                      <h1 v-if="ProjetNumber">{{ProjetNumber}}</h1>
-                      <h1 v-else>0</h1>
-                      <h5>Projets Enregistrés</h5>
-                    </div>
-                  </v-col>
-                </v-row>
+                      <template v-slot:[`item.type_charge`]="{ item }"> 
+                      <span v-if="item.type_charge==1" style="color: mainBlueColor;">FIXE</span>
+                      <span v-if="item.type_charge==0" style="color: mainBlueColor;">VARIABLE</span>
+                      </template>
+                      <!-- FOR SEE EDIT, DELETE AND SHOW DIALOG -->
+                      <template v-slot:[`item.actions`]="{ item }">
+                        <!-- modification avec CESINHIO  a la base on avait v-slot:[item.actions="{ item }"-->
+                        <v-btn icon color="mainBlueColor" @click="showItem(item)"
+                          ><v-icon small> mdi-eye </v-icon></v-btn
+                        >
+                        <v-btn icon color="mainBlueColor" 
+                        v-if="item.etat_demande == '0'"
+                        class="statuBtn">
+                          <div class="status" style="background: #037CB831;">en cours</div>
+                        </v-btn>
+                        <v-btn icon color="mainBlueColor" 
+                        v-if="item.etat_demande == 'CONGE_ACCORDE'"
+                        class="statuBtn">
+                          <div class="status" style="background: #0DA36C94; color:white;">accepté</div>
+                        </v-btn>
+                        <v-btn icon color="mainBlueColor" 
+                        v-if="item.etat_demande == 'CONGE_ANNULÉ'"
+                        class="statuBtn">
+                          <div class="status" style="background: #FC070794; color:white;">refusé</div>
+                        </v-btn>
+                      </template>
+                      <template v-slot:[`item.unit_price`]="{ item }">
+                        {{ item.unit_price }} <span style="color: mainBlueColor">frcfa</span>
+                      </template>
+                      <template v-slot:[`item.min_weight`]="{ item }">
+                        <!-- modification avec CESINHIO  a la base on avait v-slot:[item.actions="{ item }"-->
+                        {{ item.min_weight }}
+                        <v-icon color="mainBlueColor" small v-if="item.min_weight != null">
+                          mdi-weight-kilogram
+                        </v-icon>
+                      </template>
+                      <template v-slot:[`item.max_weight`]="{ item }">
+                        <!-- modification avec CESINHIO  a la base on avait v-slot:[item.actions="{ item }"-->
+                        {{ item.max_weight }}
+                        <v-icon color="mainBlueColor" small v-if="item.max_weight != null">
+                          mdi-weight-kilogram
+                        </v-icon>
+                      </template>
+                      <template v-slot:[`item.min_size`]="{ item }">
+                        <!-- modification avec CESINHIO  a la base on avait v-slot:[item.actions="{ item }"-->
+                        {{ item.min_size }}
+                        <v-icon color="mainBlueColor" small v-if="item.min_size != null">
+                          mdi-arrow-up-down
+                        </v-icon>
+                      </template>
+                      <template v-slot:[`item.max_size`]="{ item }">
+                        <!-- modification avec CESINHIO  a la base on avait v-slot:[item.actions="{ item }"-->
+                        {{ item.max_size }}
+                        <v-icon color="mainBlueColor" small v-if="item.max_size != null">
+                          mdi-arrow-up-down
+                        </v-icon>
+                      </template>
+                    </v-data-table>
+                  </div>
+                  </div>
+                </v-col>
+              </v-row>
               </v-container>
+                      
             </div>
-            
           </v-col>
         </v-row>
       </v-container>
@@ -313,7 +298,18 @@ export default {
 
   data: () => ({
 
-    
+    headers: [
+      { text: "CHARGE", value: "denomination" },
+      {
+        text: "TYPE",
+        align: "start",
+        sortable: true,
+        value: "type_charge",
+      },
+      { text: "COÛT", value: "amount" },
+      { text: "DATE", value: "created_at" },
+      { text: "AUTEUR", value: "nom_complet"},
+    ],
 
     // CREATE_PROJECT
     dialogCreate:false,
@@ -403,25 +399,11 @@ export default {
   },
 
   computed: {
-     ...mapGetters(["Projects","EmployersByTheDepartments"]),
-
-     ProjetNumber() {
-      return this.$store.getters.Projects.length;
-    },
+    ...mapGetters(["Spents"]),
   },
 
   created() {
-    this.$store.dispatch("init_project");
-    this.$store.dispatch("init__employer_by_dprt");
-
-    this.new_project.compagnie_id = localStorage.getItem("user-compagnie");
-    this.new_project.id_user  = localStorage.getItem("user-id");
-    this.new_task.compagnie_id = localStorage.getItem("user-compagnie");
-    this.new_task.createur  = localStorage.getItem("user-id");
-     this.new_task.id_departement  = localStorage.getItem("user-department");
-    //this.new_task.id_departement  = 1;
-
-
+    this.$store.dispatch("init_spent");
   },
 };
 </script>
@@ -447,19 +429,22 @@ export default {
 .statWrapper{
   border-radius: 10px;
 }
-.formBox{
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
 /* ,
 .middleBox {
   height:58vh;
 } */
 .addvisit {
-  height: 55vh;
+  height: 57vh;
   overflow-y: scroll;
+  background: linear-gradient(to right top,  #356eea, #037bb8);
+  background-image: linear-gradient(to left bottom, #00b6aa, #00acc5, #009ee0, #008af0, #356eea);
+  border-radius: 10px;
+  margin-bottom: 15px;
+  width:100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   /* background-color:red; */
 }
 .addvisit::-webkit-scrollbar {
@@ -482,7 +467,7 @@ export default {
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-  height: 26vh;
+  height: 45vh;
   padding: 0px 20px;
 }
 .TaskResume p:nth-child(1){
@@ -506,35 +491,24 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 26vh;
+  height: 45vh;
 }
-
 .stat1 {
-  background: white;
-  height: 26.2vh;
-  border-radius: 10px;
-  margin-bottom: 15px;
-
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
-.stat2{
-    background: linear-gradient(to right top,  #356eea, #037bb8);
-
-}
 .N-icon {
-  height: 35px;
-  width: 35px;
+  height: 70px;
+  width: 70px;
   display: flex;
   justify-content: center;
   align-items: center;
-  background: #356eea24;
-  border-radius: 100px;
-}
-.icon2{
   background: #1A223124;
+  /* background: #356eea24; */
+  border-radius: 100px;
+  text-align: center;
 }
 .stat1 h1 {
   margin-bottom: -10px;
@@ -542,6 +516,9 @@ export default {
 }
 .stat1 h5 {
   color: var(--font-color);
+}
+.stat1 .v-icon {
+  height:35px
 }
 
 /* Edit travel */

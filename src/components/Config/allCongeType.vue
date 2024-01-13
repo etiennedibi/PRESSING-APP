@@ -1,45 +1,5 @@
 <template>
   <div class="tableWrapperDiv">
-    <!-- DELETE TRAVEL DIALOG -->
-    <v-dialog v-model="dialogDelete" max-width="370">
-      <v-card>
-        <v-card-text>
-          <v-container>
-            <!-- <div class="confirmTitle red">AVERTISSEMENT !</div> -->
-            <div class="imgAndTitle  deleteIMG">
-                <v-icon color="red" large>
-                  mdi-close
-                </v-icon>
-              </div>
-            <v-container>
-              <div class="CancelVerification">
-                Cette action supprimera le type de congé  <br />
-                <b>{{editedItem.type_conge}}</b> 
-              </div>
-              <div class="verificationAction">
-                <v-btn
-                  color="grey"
-                  
-                  depressed
-                  @click="closeDelete"
-                  style="color: white"
-                  >Non</v-btn
-                >
-                <v-btn
-                  color="red"
-                  
-                  depressed
-                  @click="deleteItemConfirm"
-                  style="color: white"
-                  >Confirmer</v-btn
-                >
-              </div>
-            </v-container>
-            </v-container>
-          
-        </v-card-text>
-      </v-card>
-    </v-dialog>
 
     <!-- EDIT TRAVEL DIALOG -->
     <v-dialog v-model="dialogEdit" max-width="370">
@@ -47,13 +7,27 @@
         <v-card-text>
           <v-container>
             <div class="imgAndTitle  editIMGO">
-               <v-icon color="mainBlueColor" large>
-                 mdi-file-sign
+               <v-icon color="mainGreen" large>
+                 mdi-tag-arrow-down
                 </v-icon>
             </div>
             <form class="updateForm">
               <v-container fluid>
                 <v-row>
+                  <v-col cols="12" md="11" lg="11">
+                    <v-select
+                        :items="typesCharge"
+                        height="60"
+                        item-text="text"
+                        item-value="type"
+                        label="Type de charge"
+                        v-model="editedItem.type"
+                        :rules="[() => !!editedItem.type]"
+                        solo
+                        required
+                        background-color="#356eea24"
+                    ></v-select>
+                    </v-col> 
                   <v-col cols="12" md="11" lg="11">
                       <v-text-field
                         height="60"
@@ -61,7 +35,7 @@
                         solo
                         label="Denomination"
                         ref="matri"
-                        v-model="editedItem.type_conge"
+                        v-model="editedItem.denomination"
                         type="text"
                         value=""
                         persistent-hint
@@ -74,10 +48,11 @@
                         style="margin-bottom:-5px"
                         solo
                         background-color="#356eea24"
-                        label="Nombre de jours"
+                        label="Coût"
                         ref="matri"
-                        v-model="editedItem.cota_conge"
-                        type="Number"
+                        v-model="editedItem.amount"
+                        :rules="[() => (v) => /[0-9]+/i.test(v)]"
+                        type="text"
                         value=""
                         persistent-hint
                         required
@@ -87,7 +62,7 @@
                       <v-textarea
                         solo
                         clearable
-                        v-model="editedItem.description"
+                        v-model="editedItem.objet"
                         clear-icon="mdi-close-circle"
                         rows="5"
                         name="input-7-4"
@@ -124,18 +99,18 @@
         <v-card-text>
           <v-container class="showDialog">
             <div class="imgAndTitle">
-              <v-icon color="mainBlueColor" large>
-                 mdi-file-sign
+              <v-icon color="mainGreen" large>
+                 mdi-tag-arrow-down
                 </v-icon>
             </div>
             <div class="statElment">
               <div>
-                <h5>COTA INITIAL</h5>
+                <h5>CHARGE</h5>
                 <h4 style="margin-bottom:20px;font-weight:normal;font-size:12px">
-                  {{editedItem.cota}} Jrs
+                  {{editedItem.denomination}}
                 </h4>
                 <h5>DESCRIPTION</h5>
-                <h4 style="text-align:justify;font-weight:normal;font-size:12px">{{ editedItem.description }} 
+                <h4 style="text-align:justify;font-weight:normal;font-size:12px">{{ editedItem.objet }} 
                 </h4>
               </div>
             </div>
@@ -165,7 +140,7 @@
       <v-data-table
         dense
         :headers="headers"
-        :items="Conges"
+        :items="Charges"
         :search="search"
         :items-per-page="-1"
         hide-default-footer
@@ -173,25 +148,20 @@
         <!-- FOR SEE EDIT, DELETE AND SHOW DIALOG -->
         <template v-slot:[`item.actions`]="{ item }">
           <!-- modification avec CESINHIO  a la base on avait v-slot:[item.actions="{ item }"-->
-          <v-btn icon color="mainBlueColor" @click="showItem(item)"
-            ><v-icon small> mdi-eye </v-icon>
+          <v-btn icon color="mainGreen" @click="showItem(item)"
+            ><v-icon small> mdi-eye-circle </v-icon>
           </v-btn>
           <v-btn
             icon
-            color="mainBlueColor"
+            color="mainGreen"
             @click="editItem(item)"
-            ><v-icon small> mdi-lead-pencil </v-icon></v-btn
-          >
-          <v-btn
-            icon
-            color="mainBlueColor"
-            @click="deleteItem(item)"
-            ><v-icon small> mdi-trash-can </v-icon></v-btn
+            ><v-icon small> mdi-pencil-circle </v-icon></v-btn
           >
         </template>
-        <!-- <template v-slot:[`item.contact`]="{ item }"> 
-        <v-icon dense color="mainBlueColor"> mdi-phone </v-icon> <span style="color: mainBlueColor;">{{item.contact}}</span>
-        </template> -->
+        <template v-slot:[`item.type`]="{ item }"> 
+         <span v-if="item.type==1" style="color: mainBlueColor;">FIXE</span>
+         <span v-if="item.type==0" style="color: mainBlueColor;">VARIABLE</span>
+        </template>
         <template v-slot:[`item.complet_name`]="{ item }">
           <!-- modification avec CESINHIO  a la base on avait v-slot:[item.actions="{ item }"-->
           <v-icon color="mainBlueColor" small> mdi-account </v-icon>
@@ -208,7 +178,7 @@
         max-width="300"
         class="alert"
         color="mainBlueColor"
-        >{{ congeaAddingResponse.message }}</v-alert
+        >{{ chargeAddingResponse.message }}</v-alert
       >
     </transition>
     <transition name="slide">
@@ -220,7 +190,7 @@
         class="alert"
         color="error"
       >
-        {{ congeaAddingResponse.message }}</v-alert
+        {{ chargeAddingResponse.message }}</v-alert
       >
     </transition>
   </div>
@@ -239,15 +209,20 @@ export default {
     search: "",
     headers: [
       {
-        text: "TYPE DE CONTRAT",
+        text: "CHARGE",
         align: "start",
         sortable: false,
-        value: "type_conge",
+        value: "denomination",
       },
-      { text: "QUOTA INITIAL", value: "cota_conge" }, 
+      { text: "COÛT", value: "amount" }, 
+      { text: "TYPE", value: "type" }, 
       { text: "PLUS", value: "actions", sortable: false },
     ],
      
+    typesCharge:[
+      {type:1, text:"FIXE"},
+      {type:0, text:"VARIABLE"},
+    ],
     // for alerte
     addingSuccess: false,
     addingfalse: false,
@@ -255,17 +230,10 @@ export default {
     // For conge detail
     dialog: false,
     editedItem: {
-      complet_name: "",
-      contact: "",
-      conveyance: "",
-      city: "",
-      DeliveryNumber: "",
-      created_at: "",
-      matriculation: "",
     },
 
     // For conge edit
-    congeaAddingResponse: "",
+    chargeAddingResponse: "",
     dialogEdit: false,
     editedIndex: -1,
 
@@ -287,7 +255,7 @@ export default {
     // For Profil Edited
     // ------------------------
     editItem(item) {
-      this.editedIndex = this.Conges.indexOf(item);
+      this.editedIndex = this.Charges.indexOf(item);
       this.editedItem = Object.assign({}, item);
       //  Open the Edit Dialogue
       this.dialogEdit = true;
@@ -296,18 +264,18 @@ export default {
     editItemConfirm() {
       console.log(this.editedItem.id);
       
-        axios({ url: "/admin/update_type_conges/" + this.editedItem.id, data: this.editedItem, method: "PUT" })
+        axios({ url: "/charge/update/" + this.editedItem.id, data: this.editedItem, method: "PUT" })
         .then((response) => {
-          this.congeaAddingResponse = response.data;
-          if (this.congeaAddingResponse) {
+          this.chargeAddingResponse = response.data;
+          if (this.chargeAddingResponse) {
             // Modification effectuée
-            this.congeaAddingResponse.message = "modification effectuée";
+            this.chargeAddingResponse.message = "modification effectuée";
             this.addingSuccess = !this.addingSuccess;
             setTimeout(() => {
               this.addingSuccess = !this.addingSuccess;
-              this.$store.dispatch("init_conge");
+              this.$store.dispatch("init_charge");
             }, 3000);
-          } else if (this.congeaAddingResponse.message != "success") {
+          } else if (this.chargeAddingResponse.message != "success") {
             console.log(
               "des reservations ont déjà été faites pour ce voyage, en cas dannulation vous devriez rembourser les tickets déjà achetés"
             );
@@ -319,7 +287,7 @@ export default {
           }
         })
         .catch((error) => {
-          this.congeaAddingResponse = error.message;
+          this.chargeAddingResponse = error.message;
           console.error("There was an error!", error);
         });
 
@@ -334,26 +302,26 @@ export default {
     // delete a travel
     // --------------------
     deleteItem(item) {
-      this.editedIndex = this.Conges.indexOf(item);
+      this.editedIndex = this.Charges.indexOf(item);
       this.editedItem = Object.assign({}, item);
       this.itemToDelete = { id: this.editedItem.id };
       this.dialogDelete = true;
     },
 
     deleteItemConfirm() {
-      axios({ url: "/admin/destroy_type_conges/" + this.editedItem.id, method: "DELETE" })
+      axios({ url: "/admin/destroy_type_Charges/" + this.editedItem.id, method: "DELETE" })
         .then((response) => {
-          this.congeaAddingResponse = response.data;
+          this.chargeAddingResponse = response.data;
 
-          if (this.congeaAddingResponse) {
+          if (this.chargeAddingResponse) {
             // Annulation effectuée
-            this.congeaAddingResponse.message = "suppression effectuée";
+            this.chargeAddingResponse.message = "suppression effectuée";
             this.addingSuccess = !this.addingSuccess;
             setTimeout(() => {
               this.addingSuccess = !this.addingSuccess;
-              this.$store.dispatch("init_conge");
+              this.$store.dispatch("init_charge");
             }, 3000);
-          } else if (this.congeaAddingResponse.message != "success") {
+          } else if (this.chargeAddingResponse.message != "success") {
             this.addingfalse = !this.addingfalse;
             setTimeout(() => {
               this.addingfalse = !this.addingfalse;
@@ -361,7 +329,7 @@ export default {
           }
         })
         .catch((error) => {
-          this.congeaAddingResponse = error.message;
+          this.chargeAddingResponse = error.message;
           console.error("There was an error!", error);
         });
 
@@ -376,11 +344,11 @@ export default {
   },
 
   computed: {
-    ...mapGetters(["Conges"]),
+    ...mapGetters(["Charges"]),
   },
 
   created() {
-    this.$store.dispatch("init_conge");
+    this.$store.dispatch("init_charge");
   },
 };
 </script>
