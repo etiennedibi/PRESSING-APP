@@ -2,65 +2,154 @@
   <div class="tableWrapperDiv">
 
     <!-- SHOW DIALOG -->
-    <v-dialog v-model="dialog" max-width="370">
+     <v-dialog v-model="dialog" max-width="770">
       <v-card>
-        <v-card-text>
+        <v-card-text style="display:flex;">
           <v-container class="showDialog">
             <div class="imgAndTitle">
-              <img src="@/assets/icone/visit.png" alt="" srcset="" />
+              <v-icon>mdi-hanger</v-icon>
             </div>
-            <div class="statElment">
+            <div class="statElment Elment1">
               <div>
-                <h5>VISITEUR</h5>
-                <h4 style="font-weight:normal;font-size:12px">{{ editedItem.nom_visiteur }} {{ editedItem.prenoms_visiteur }}</h4>
+                <h4 v-if="editedItem.customer_id"> {{editedItem.TheCustomer.nom_complet}} </h4>
+                <h4 v-else> {{editedItem.nom_complet}} </h4>
               </div>
             </div>
-            <div class="statElment">
+            <div class="statElment Elment2">
               <div>
-                <h5>EMAIL</h5>
-                <h4 style="font-weight:normal;font-size:12px">{{ editedItem.email_visiteur }}</h4>
+                <h5>COMMENTAIRE COMMANDE</h5>
+                <p>
+                  {{editedItem.comment}}
+                </p>
               </div>
             </div>
-            <div class="statElment">
+            <div class="statElment Elment3">
               <div>
                 <h5>TELEPHONE</h5>
-                <h4 style="font-weight:normal;font-size:12px">{{ editedItem.contact_visiteur }}</h4>
+                <h4 v-if="editedItem.customer_id"> {{editedItem.TheCustomer.telephone}} </h4>
+                <h4 v-else> {{editedItem.telephone}} </h4>
               </div>
-            </div>
-              <div v-if="editedItem.id_departement" class="statElment">
-                <div>
-                  <h5>DEPARTEMENT</h5>
-                  <h4 style="font-weight:normal;font-size:12px">{{ editedItem.departement.nom_departement }}</h4>
-                </div>
+               <div>
+                <h5>PRIX</h5>
+                <h3 style="color:red">{{editedItem.service_price}}</h3>
               </div>
-              <div v-if="editedItem.nom_complet_employe" class="statElment">
-                <div>
-                  <h5>VISITE DEMANDEE POUR</h5>
-                  <h4 style="font-weight:normal;font-size:12px">{{ editedItem.nom_complet_employe }}</h4>
-                </div>
-              </div>
-              <div v-if="editedItem.TheUser" class="statElment">
-                <div>
-                  <h5>VISITE ATTRIBUE A</h5>
-                  <h4 style="font-weight:normal;font-size:12px">{{ editedItem.TheUser.nom }} {{ editedItem.TheUser.prenoms }}</h4>
-                </div>
-              </div>
-              <div class="statElment" v-if="editedItem.report != 0">
-                <div>
-                  <h5>NOMBRE DE REPORT </h5>
-                  <h4 style="font-weight:normal;font-size:12px">{{ editedItem.report }}</h4>
-                </div>
-              </div>
-            <div class="statElment">     
               <div>
-                <h5>MOTIF</h5>
-                <h4 style="text-align:justify;font-weight:normal;font-size:12px">{{ editedItem.objet }}</h4>
+                <h5>ADRESSE</h5>
+                <div style="text-align:center">
+                  <h4 v-if="editedItem.customer_id"> {{editedItem.TheCustomer.adresse}} </h4>
+                <h4 v-else> {{editedItem.adresse}} </h4>
+                </div>
               </div>
+              <!-- <div>
+                <h5>Auteur</h5>
+                <h4>2023-02-12</h4>
+              </div> -->
             </div>
             
           </v-container>
+           <v-container class="showDialog2">
+            <div class="comentsWrapper">
+              <h3>Linges</h3>
+              <div v-for="(item) in editedItem.Articles" :key="item.index" class="linge">
+                <div style="width:60%"> {{item.denomination}}</div>
+                 <div style="width:20%">
+                    <v-chip small :color="item.color"></v-chip>
+                 </div>
+              </div>
+            </div>
+          </v-container>
         </v-card-text>
         
+      </v-card>
+    </v-dialog>
+
+     <!-- EDIT VISITE DIALOG -->
+    <v-dialog v-model="dialogEdit" max-width="370">
+      <v-card>
+        <v-card-text>
+          <v-container>
+            <div class="imgAndTitle  editIMGO">
+              <!-- <img src="@/assets/icone/tasks.png" alt="" srcset="" /> -->
+              <v-icon color="mainBlueColor" large>
+                    mdi-hanger
+              </v-icon>
+            </div>
+            <form class="updateForm">
+              <v-container fluid>
+                <v-row>
+                  <v-col cols="12" md="11" lg="11">
+                      <v-text-field
+                        height="60"
+                        style="margin-bottom:-5px"
+                        solo
+                        prefix="Date de dépot"
+                        ref="matri"
+                        v-model="editedItem.withdrawal_date"
+                        type="text"
+                        value=""
+                        persistent-hint
+                      ></v-text-field>
+                  </v-col>
+                  <v-col cols="12" md="11" lg="11">
+                      <v-text-field
+                        height="60"
+                        style="margin-bottom:-5px"
+                        solo
+                        prefix="Date de retrait:"
+                        ref="matri"
+                        v-model="editedItem.delivery_date"
+                        type="text"
+                        value=""
+                        persistent-hint
+                      ></v-text-field>
+                  </v-col>
+                  <v-col cols="12" md="11" lg="11">
+                      <v-text-field
+                        height="60"
+                        style="margin-bottom:-5px"
+                        solo
+                        label="Heure de retrait:"
+                        ref="matri"
+                        v-model="editedItem.delivery_houre"
+                        type="time"
+                        value=""
+                        persistent-hint
+                      ></v-text-field>
+                  </v-col>
+                  <v-col cols="12" md="11" lg="11">
+                   <div style="width:100%;">
+                      <v-textarea
+                        solo
+                        clearable
+                        background-color="#356eea24"
+                        clear-icon="mdi-close-circle"
+                        rows="3"
+                        name="input-7-4"
+                        v-model="editedItem.comment"
+                        class="the-message-area"
+                      ></v-textarea>
+                      </div>
+                  </v-col>
+                </v-row>
+              </v-container>
+            </form>
+          </v-container>
+        </v-card-text>
+
+        <v-card-actions style="display:flex;justify-content:space-around">
+          <!-- <v-spacer></v-spacer> -->
+          <p
+            class="simplex-btn"
+              style="background:grey"
+            @click="closeEdit"
+            >Annuler</p
+          >
+          <p
+            class="simplex-btn"
+            @click="editItemConfirm"
+            >Enregistrer</p
+          >
+        </v-card-actions>
       </v-card>
     </v-dialog>
 
@@ -82,7 +171,7 @@
       <v-data-table
         dense
         :headers="headers"
-        :items="AllVisitesStorys.visites"
+        :items="Prestations"
         :search="search"
         :items-per-page="-1"
         hide-default-footer
@@ -93,56 +182,24 @@
           <v-btn icon color="mainBlueColor" @click="showItem(item)"
             ><v-icon small> mdi-eye </v-icon></v-btn
           >
+           <v-btn icon color="mainBlueColor" @click="changeState(item)"
+            ><v-icon small> mdi-skip-next-circle </v-icon></v-btn
+          >
+          <v-btn v-if="item.statut_service_id == 1" icon color="mainBlueColor" @click="editItem(item)"
+            ><v-icon small> mdi-pencil-circle </v-icon></v-btn
+          >
+        </template>
+        <template v-slot:[`item.statut_service_id`]="{ item }">
+          <v-chip style="color:white" small v-if="(item.statut_service_id == 1)" color="rgba(255, 0, 0, 0.48)">
+            traitement </v-chip
+          >
+          <v-chip style="color:white" small v-if="(item.statut_service_id == 2)" color="orange">
+            retrait </v-chip
+          > 
+          <v-chip style="color:white" small v-if="(item.statut_service_id == 3)" color="green">
+            Retiré </v-chip
+          >
           
-        </template>
-        <template v-slot:[`item.etat_visite`]="{ item }">
-          <v-chip style="color:white" small v-if="(item.etat_visite == 'REFUSED')&&(item.auteur_visite == 'Ajouté depuis administration')" color="rgba(255, 0, 0, 0.48)">
-            Annulée </v-chip
-          >
-          <v-chip style="color:white" small v-if="(item.etat_visite == 'REFUSED')&&(item.auteur_visite !== 'Ajouté depuis administration')" color="rgba(255, 0, 0, 0.48)">
-            Refusée </v-chip
-          >
-          <v-chip style="color:white" small v-if="item.etat_visite == 'ACCEPTED'" color="#aeaeae">
-            Accepté </v-chip
-          >
-          <v-chip style="color:white" small v-if="item.etat_visite == 'DONE'" color="green">
-            Effectué </v-chip
-          >
-          <v-chip style="color:white" small v-if="item.etat_visite == 'EN_ATENTE'" color="#aeaeae">
-            En attente</v-chip
-          >
-          
-        </template>
-        <template v-slot:[`item.unit_price`]="{ item }">
-          {{ item.unit_price }} <span style="color: mainBlueColor">frcfa</span>
-        </template>
-        <template v-slot:[`item.min_weight`]="{ item }">
-          <!-- modification avec CESINHIO  a la base on avait v-slot:[item.actions="{ item }"-->
-          {{ item.min_weight }}
-          <v-icon color="mainBlueColor" small v-if="item.min_weight != null">
-            mdi-weight-kilogram
-          </v-icon>
-        </template>
-        <template v-slot:[`item.max_weight`]="{ item }">
-          <!-- modification avec CESINHIO  a la base on avait v-slot:[item.actions="{ item }"-->
-          {{ item.max_weight }}
-          <v-icon color="mainBlueColor" small v-if="item.max_weight != null">
-            mdi-weight-kilogram
-          </v-icon>
-        </template>
-        <template v-slot:[`item.min_size`]="{ item }">
-          <!-- modification avec CESINHIO  a la base on avait v-slot:[item.actions="{ item }"-->
-          {{ item.min_size }}
-          <v-icon color="mainBlueColor" small v-if="item.min_size != null">
-            mdi-arrow-up-down
-          </v-icon>
-        </template>
-        <template v-slot:[`item.max_size`]="{ item }">
-          <!-- modification avec CESINHIO  a la base on avait v-slot:[item.actions="{ item }"-->
-          {{ item.max_size }}
-          <v-icon color="mainBlueColor" small v-if="item.max_size != null">
-            mdi-arrow-up-down
-          </v-icon>
         </template>
       </v-data-table>
     </div>
@@ -152,6 +209,7 @@
 
 <script>
 import { mapGetters } from "vuex";
+import axios from "axios";
 
 export default {
   name: "allVisitStory",
@@ -162,14 +220,14 @@ export default {
     search: "",
     headers: [
       {
-        text: "NOM",
+        text: "DATE DEPOT",
         align: "start",
         sortable: false,
-        value: "nom_visiteur",
+        value: "depot",
       },
-      { text: "DATE", value: "date_rdv" },
-      { text: "HEURE", value: "heure_rdv" },
-      { text: "STATUS", value: "etat_visite" },
+      { text: "DATE RETRAIT", value: "retrait" },
+      { text: "HEURE", value: "delivery_houre" },
+      { text: "STATUS", value: "statut_service_id" },
       { text: "DETAILS", value: "actions", sortable: false },
     ],
     items: [
@@ -299,6 +357,7 @@ export default {
 
     // For withdrawal detail
     dialog: false,
+    dialogEdit:false,
     editedItem: {},
 
  
@@ -313,15 +372,76 @@ export default {
       this.dialog = true;
     },
 
+         // ------------------------
+    // For Profil Edited
+    // ------------------------
+    editItem(item) {
+      this.editedIndex = this.Prestations.indexOf(item);
+      this.editedItem = Object.assign({}, item);
+      //  Open the Edit Dialogue
+      this.dialogEdit = true;
+    },
+
+    editItemConfirm() {
+      // this.editedItem.id_visite = this.editedItem.id;
+      console.log(this.editedItem.id);
+      axios
+        ({ url: "/service/update/"+this.editedItem.id, data: this.editedItem, method: "PUT" })
+        .then((response) => {
+          // console.log(response.data);
+          this.VisiteaAddingResponse = response.data;
+
+          if (this.VisiteaAddingResponse== "modification effectuée") {
+            // Annulation effectuée
+            this.VisiteaAddingResponse.message = "modification effectuée";
+            this.addingSuccess = !this.addingSuccess;
+            setTimeout(() => {
+              this.addingSuccess = !this.addingSuccess;
+               this.$store.dispatch("init_prestation");
+            }, 3000);
+          } else if (!this.VisiteaAddingResponse) {
+            this.VisiteaAddingResponse.message = "echec de l'opération";
+            this.addingfalse = !this.addingfalse;
+            setTimeout(() => {
+              this.addingfalse = !this.addingfalse;
+            }, 3000);
+          }
+        })
+        .catch((error) => {
+          this.VisiteaAddingResponse = error.message;
+          console.error("There was an error!", error);
+        });
+
+      this.closeEdit();
+    },
+
+    closeEdit() {
+      this.dialogEdit = false;
+    },
+
+    changeState(item) {
+      axios
+        ({ url: "/service/chageState/"+ item.id, data: this.editedItem, method: "PUT" })
+        .then((response) => {
+          console.log(response.data);
+            this.$store.dispatch("init_prestation")
+        })
+        .catch((error) => {
+          this.VisiteaAddingResponse = error.message;
+          console.error("There was an error!", error);
+        });
+
+      this.closeEdit();
+    },
   
   },
 
   computed: {
-    ...mapGetters(["AllVisitesStorys"]),
+    ...mapGetters(["Prestations"]),
   },
 
   created() {
-    this.$store.dispatch("init_allVisite");
+    this.$store.dispatch("init_prestation");
   },
 };
 </script>
@@ -370,6 +490,53 @@ export default {
   margin-bottom: 5vh!important;
 }
 
+
+/* EDIT */
+.editIMGO {
+  margin-left: 35%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  /* background-color:#b71c1c; */
+}
+
+/* Show details */
+.showDialog{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: #ffffff;
+}
+.showDialog2{
+  background:white;
+  padding-left: 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: flex-start;
+}
+.comentsWrapper{
+  height: 350px;
+  width:100%;
+  overflow-y: auto;
+  padding-top: 20px;
+  padding-left: 10px;
+  padding-right: 10px;
+  background: var(--main-white-color);
+
+}
+.linge{
+  margin-top:20px; 
+  font-size: 13px;
+  width: 100%;
+  display: flex;
+  padding: 5px 10px;
+  align-items: center;
+  justify-content:space-between;
+  border: 1px solid white;
+}
 
 
 

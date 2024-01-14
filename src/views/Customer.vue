@@ -93,7 +93,7 @@
           <v-col cols="12" md="1" lg="1" class="leftNumber">
             <div class="stat1">
               <div class="N-icon">
-                <v-icon color="mainGreen">mdi-account</v-icon>
+                <v-icon color="mainBlueColor">mdi-account</v-icon>
               </div>
               <h1> {{ContractNumber}} </h1>
               <h5 style="text-align: center">Comptes</h5>

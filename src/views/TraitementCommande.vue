@@ -6,7 +6,7 @@
         <v-col cols="12" md="3" lg="3" class="leftNumber">
           <div class="stat1">
             <div class="N-icon">
-              <v-icon color="mainGreen">mdi-hanger</v-icon>
+              <v-icon color="mainBlueColor">mdi-hanger</v-icon>
             </div>
             <h1 v-if="visiteNumber"> {{ visiteNumber }}</h1>
             <h1 v-else>0</h1>
@@ -14,11 +14,11 @@
           </div>
           <div class="stat1 stat2">
             <div class="N-icon icon2">
-              <v-icon color="white">mdi-check-circle</v-icon>
+              <v-icon color="white">mdi-hanger</v-icon>
             </div>
-            <h1 v-if="canceRDVNumber" style="color: white"> {{ canceRDVNumber }}</h1>
+            <h1 v-if="allCommandeNumber" style="color: white"> {{ allCommandeNumber }}</h1>
             <h1 v-else style="color: white">0</h1>
-            <h5 style="color: white">Commandes traitées</h5>
+            <h5 style="color: white">Commandes enregistrée</h5>
           </div>
         </v-col>
         <v-col cols="12" md="9" lg="9">
@@ -34,7 +34,7 @@ import { mapGetters } from "vuex";
 import allVisitStory from "../components/Prestation/allVisitStory";
 
 export default {
-  name: "RdvStory",
+  name: "TraitementCommande",
   components: {
     allVisitStory,
   },
@@ -42,7 +42,7 @@ export default {
   data() {
     return {
       // componentKey: 0,
-      visiteNumber:"",
+      allCommandeNumber:0,
       canceRDVNumber:"",
     };
   },
@@ -64,8 +64,7 @@ export default {
   },
   created() {
     this.$store.dispatch("init_allVisite");
-    this.visiteNumber = this.$store.getters.AllVisitesStorys.visites.length;
-    this.canceRDVNumber = this.$store.getters.AllVisitesStorys.visites_annulle.length;
+    this.allCommandeNumber = this.$store.getters.Prestations.length;
   },
 };
 </script>

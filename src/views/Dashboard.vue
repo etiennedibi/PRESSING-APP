@@ -7,7 +7,7 @@
           <v-col cols="12" md="3" lg="3">
             <div class="numberWrapper top1">
               <div class="N-icon">
-                <v-icon color="mainGreen">mdi-message-text</v-icon>
+                <v-icon color="mainBlueColor">mdi-message-text</v-icon>
               </div>
               <h1 v-if="UndoTaskNumber>0">{{ UndoTaskNumber }}</h1>
               <h1 v-if="(UndoTaskNumber<=0) || (UndoTaskNumber==undefined)">0</h1>

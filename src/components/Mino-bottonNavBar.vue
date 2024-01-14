@@ -21,7 +21,7 @@
                 <p>ENREGISTREMENT DE COMMANDE</p>
               </div>
             </router-link>
-            <router-link :to="{ name: 'RdvStory' }" v-if="this.role==1">
+            <router-link :to="{ name: 'TraitementCommande' }" v-if="this.role==1">
               <div class="tab1">
                  <v-icon color="mainBlueColor">mdi-arrow-right-thin</v-icon>
                 <p>TRAITEMENT DES COMMANDES</p>
@@ -227,7 +227,7 @@ export default {
 }
 .bottonNavBar {
   background: var(--main-white-color);
-  background-image: linear-gradient(to top,  #00acc5, #009ee0, #008af0, #356eea);
+  /* background-image: linear-gradient(to top,  #00acc5, #009ee0, #008af0, #356eea); */
   height: 15vh;
   /* width: 60vw; */
   /* position: fixed;
@@ -260,7 +260,7 @@ export default {
   margin: 0;
   font-size: 12px;
   font-weight: bold;
-  color: white;
+  color: var(--Important-font-color);
   text-align: center;
 }
 

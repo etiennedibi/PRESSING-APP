@@ -7,7 +7,7 @@
         <v-card-text>
           <v-container>
             <div class="imgAndTitle  editIMGO">
-              <v-icon color="mainGreen" large>
+              <v-icon color="mainBlueColor" large>
                 mdi-hanger
                 </v-icon>
             </div>

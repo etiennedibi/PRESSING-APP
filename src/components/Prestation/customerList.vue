@@ -47,7 +47,7 @@
         <v-card-text>
           <v-container>
             <div class="imgAndTitle  editIMGO">
-               <v-icon color="mainGreen" large>
+               <v-icon color="mainBlueColor" large>
                  mdi-account
                 </v-icon>
             </div>
@@ -128,7 +128,7 @@
         <v-card-text>
           <v-container>
             <div class="imgAndTitle  editIMGO">
-               <v-icon color="mainGreen" large>
+               <v-icon color="mainBlueColor" large>
                  mdi-cash
                 </v-icon>
             </div>
@@ -178,7 +178,7 @@
         <v-card-text>
           <v-container class="showDialog">
             <div class="imgAndTitle">
-              <v-icon color="mainGreen" large>
+              <v-icon color="mainBlueColor" large>
                  mdi-account
                 </v-icon>
             </div>
@@ -243,7 +243,7 @@
         <!-- FOR SEE EDIT, DELETE AND SHOW DIALOG -->
         <template v-slot:[`item.actions`]="{ item }">
           <!-- modification avec CESINHIO  a la base on avait v-slot:[item.actions="{ item }"-->
-          <v-btn icon color="mainGreen" @click="showItem(item)"
+          <v-btn icon color="mainBlueColor" @click="showItem(item)"
             >
             <v-icon small> mdi-eye-circle </v-icon>
             <!-- <v-icon small v-if="item.activation_state == 1"> mdi-eye </v-icon>
@@ -253,13 +253,13 @@
           </v-btn>
           <v-btn
             icon
-            color="mainGreen"
+            color="mainBlueColor"
             @click="editItem(item)"
             ><v-icon small> mdi-pencil-circle </v-icon></v-btn
           >
           <v-btn
             icon
-            color="mainGreen"
+            color="mainBlueColor"
             @click="editItemSold(item)"
             ><v-icon small> mdi-arrow-up-bold-circle </v-icon></v-btn
           >

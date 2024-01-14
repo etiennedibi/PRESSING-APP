@@ -267,10 +267,10 @@
         <!-- FOR SEE EDIT, DELETE AND SHOW DIALOG -->
         <template v-slot:[`item.actions`]="{ item }">
           <!-- modification avec CESINHIO  a la base on avait v-slot:[item.actions="{ item }"-->
-          <v-btn icon color="mainGreen" @click="showItem(item)"
+          <v-btn icon color="mainBlueColor" @click="showItem(item)"
             ><v-icon small> mdi-eye-circle </v-icon></v-btn
           >
-          <v-btn icon color="mainGreen" 
+          <v-btn icon color="mainBlueColor" 
           @click="editItem(item)"
             ><v-icon small> mdi-pencil-circle</v-icon></v-btn>
           

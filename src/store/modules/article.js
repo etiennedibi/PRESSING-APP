@@ -3,7 +3,7 @@ import axios from "axios";
 const state = {
   articles: [],
   customer: [],
-  allvisiteAccueil: [],
+  prestation: [],
 }
 
 const getters = {
@@ -19,10 +19,29 @@ const getters = {
     return customers;
   },
 
-  AllVisitesStorys: (state) => {
-    let allvisiteAccueils = state.allvisiteAccueil;
+  Prestations: (state) => {
+    // let prestations = state.prestation;
 
-    return allvisiteAccueils;
+    // return prestations;
+
+    let prestations = state.prestation.map((projet) => {
+      var options = { year: 'numeric', month: 'numeric', day: 'numeric' };
+      var dateCreated_at = new Date(projet.withdrawal_date);
+      projet.depot = dateCreated_at.toLocaleDateString("fr", options)
+      dateCreated_at = new Date(projet.delivery_date);
+      projet.retrait = dateCreated_at.toLocaleDateString("fr", options)
+
+      if (projet.withdrawal_date || projet.delivery_date) {
+        const dateDebut = projet.withdrawal_date.split('T')
+      const dateFin = projet.delivery_date.split('T')
+      projet.withdrawal_date = dateDebut[0]
+      projet.delivery_date = dateFin[0]
+      }
+      
+
+      return projet
+    });
+    return prestations;
   },
 };
 
@@ -35,8 +54,8 @@ const mutations = {
     state.customer = data;
   },
 
-  SET_ALLVISITESACCUEIL(state, data) {
-    state.allvisiteAccueil = data;
+  SET_PRESTATION(state, data) {
+    state.prestation = data;
   },
 };
 
@@ -67,14 +86,14 @@ const actions = {
       .catch((error) => console.log(error));
   },
 
-  init_allVisiteAccueil: ({ commit }) => {
+  init_prestation: ({ commit }) => {
   axios
       .get(
-        "/rdv/visit_list/"+localStorage.getItem("user-compagnie")
+        "/service/all/"+localStorage.getItem("user-compagnie")
       )
       .then((res) => {
         // console.log(res.data.visites);
-        commit("SET_ALLVISITESACCUEIL", res.data.visites);
+        commit("SET_PRESTATION", res.data.services);
       })
       .catch((error) => console.log(error));
   },

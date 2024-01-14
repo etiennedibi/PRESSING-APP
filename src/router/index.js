@@ -7,7 +7,7 @@ import PressUsermanagement from "../views/PressUsermanagement.vue";
 import Dashboard from "../views/Dashboard.vue";
 
 import Commande from "../views/Commande.vue";
-import RdvStory from "../views/rdvStory.vue";
+import TraitementCommande from "../views/TraitementCommande.vue";
 import Article from "../views/Article.vue";
 import Customer from "../views/Customer.vue";
 
@@ -105,6 +105,12 @@ const routes = [
     beforeEnter: ifAuthenticated,
   },
   {
+    path: "/TraitementCommande",
+    name: "TraitementCommande",
+    component: TraitementCommande,
+    beforeEnter: ifAuthenticated,
+  },
+  {
     path: "/Article",
     name: "Article",
     component: Article,
@@ -172,12 +178,6 @@ const routes = [
     path: "/param",
     name: "param",
     component: param,
-    beforeEnter: ifAuthenticated,
-  },
-  {
-    path: "/RdvStory",
-    name: "RdvStory",
-    component: RdvStory,
     beforeEnter: ifAuthenticated,
   },
   {

@@ -6,7 +6,7 @@
             <v-card-text>
               <v-container>
                 <div class="imgAndTitle  editIMGO">
-                  <v-icon color="mainGreen" large>
+                  <v-icon color="mainBlueColor" large>
                     mdi-package
                     </v-icon>
                 </div>
@@ -256,7 +256,7 @@
                       class="InvBox"
                     >
                       <div>
-                        <v-icon color="mainGreen">mdi-package</v-icon>
+                        <v-icon color="mainBlueColor">mdi-package</v-icon>
                         <p>{{ item.quantity}}</p>
                         <p>{{ item.denomination }}</p>
                       </div>

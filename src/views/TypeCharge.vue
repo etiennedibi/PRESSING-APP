@@ -81,7 +81,7 @@
           <v-col cols="12" md="1" lg="1" class="leftNumber">
             <div class="stat1">
               <div class="N-icon">
-                <v-icon color="mainGreen">mdi-tag-arrow-down</v-icon>
+                <v-icon color="mainBlueColor">mdi-tag-arrow-down</v-icon>
               </div>
               <h1>{{ chargeNumber }}</h1>
               <h5 style="text-align: center">charges</h5>
