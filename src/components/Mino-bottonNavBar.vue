@@ -95,13 +95,13 @@
             <v-icon color="red" v-on:click.stop="configMenuClick = false">mdi-close-circle</v-icon>
           </div>
           <div v-on:click.stop="configMenuClick = false">
-            <router-link :to="{ name: 'Contract' }">
+            <router-link :to="{ name: 'Activite' }">
               <div class="tab1">
                  <v-icon color="mainBlueColor">mdi-arrow-right-thin</v-icon>
                 <p>ACTIVITE DU PRESSING</p>
               </div>
             </router-link>
-            <router-link :to="{ name: 'congeType' }">
+            <router-link :to="{ name: 'FinanceStat' }">
               <div class="tab1">
                  <v-icon color="mainBlueColor">mdi-arrow-right-thin</v-icon>
                 <p>BILAN FINANCIER</p>

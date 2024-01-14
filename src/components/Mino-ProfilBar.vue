@@ -8,7 +8,7 @@
       <p v-if="this.role==1">ADMINISTRATEUR</p>
       <p v-if="this.role==2">GERANT</p>
       <p class="simplex-btn" v-on:click.prevent="logOut">DECONNEXION</p>
-      <router-link :to="{name: 'param'}">
+      <router-link :to="{name: 'PressUsermanagement'}">
       <div class="settingdiv">
         <v-icon>mdi-cog</v-icon>
       </div>

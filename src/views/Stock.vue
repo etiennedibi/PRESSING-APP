@@ -1,17 +1,17 @@
 <template>
   <div class="bodyBox">
-    <UserProjetTaskList></UserProjetTaskList>
+    <StockList></StockList>
   </div>
 </template>
 
 <script>
 import { mapGetters } from "vuex";
-import UserProjetTaskList from "../components/Task/UserProjetTaskList";
+import StockList from "../components/Gestion/StockList";
 
 export default {
-  name: "UserTaskManage",
+  name: "Stock",
   components: {
-    UserProjetTaskList,
+    StockList,
   },
 
   data() {

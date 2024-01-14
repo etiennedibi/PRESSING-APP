@@ -57,8 +57,8 @@
           </v-col>
           <v-col cols="12" md="9" lg="9">
             <div class="numberWrapper ">
-              <UserCongeList
-              ></UserCongeList>
+              <DepenseList
+              ></DepenseList>
             </div>
           </v-col>
         </v-row>
@@ -97,12 +97,12 @@
 // import Vue from "vue";
 import axios from "axios";
 import { mapGetters } from "vuex";
-import UserCongeList from "../components/Conge/UserCongeList.vue";
+import DepenseList from "../components/Gestion/DepenseList.vue";
 
 export default {
-  name: "CongeDemande",
+  name: "Depense",
   components: {
-    UserCongeList,
+    DepenseList,
   },
 
   data: () => ({

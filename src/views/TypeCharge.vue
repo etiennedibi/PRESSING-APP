@@ -89,7 +89,7 @@
           </v-col>
           <v-col cols="12" md="8" lg="8">
             <div class="numberWrapper">
-              <allCongeType></allCongeType>
+              <ChargeList></ChargeList>
             </div>
           </v-col>
           
@@ -126,12 +126,12 @@
 
 <script>
 import axios from "axios";
-import allCongeType from "../components/Config/allCongeType.vue";
+import ChargeList from "../components/Gestion/ChargeList.vue";
 
 export default {
-  name: "conge",
+  name: "TypeCharge",
   components: {
-    allCongeType,
+    ChargeList,
   },
 
   data: () => ({

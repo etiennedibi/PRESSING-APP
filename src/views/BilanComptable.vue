@@ -117,8 +117,8 @@
                       <div class="N-icon">
                         <v-icon large color="white">mdi-finance</v-icon>
                       </div>
-                      <h1 v-if="canceRDVNumber" style="color: white"> 13</h1>
-                      <h1 v-else style="color: white">2500000</h1>
+                      <h1 v-if="balanceSheet.gain" style="color: white">{{balanceSheet.gain}}</h1>
+                      <h1 v-else style="color: white">-</h1>
                       <h5 style="color: white">Gain éffectué</h5>
                     </div>
               </div>
@@ -127,14 +127,15 @@
           
           <v-col cols="12" md="9" lg="9">
             <div class="numberWrapper ">
-              <v-container>
+              <v-form ref="form2">
+                <v-container>
                 <v-row style="justify-content:center">
                   <v-col cols="4">
                       <v-text-field
                         height="40"
                         solo
-                        v-model="new_task.delais_execution"
-                        :rules="[() => !!new_task.delais_execution]"
+                        v-model="new_task.debutPeriode"
+                        :rules="[() => !!new_task.debutPeriode]"
                         type="date"
                         value=""
                         persistent-hint
@@ -145,8 +146,8 @@
                       <v-text-field
                         height="40"
                         solo
-                        v-model="new_task.delais_execution"
-                        :rules="[() => !!new_task.delais_execution]"
+                        v-model="new_task.finPeriode"
+                        :rules="[() => !!new_task.finPeriode]"
                         type="date"
                         value=""
                         persistent-hint
@@ -165,16 +166,8 @@
                     </v-col>
                 </v-row>
               </v-container>
-              <v-container v-if="taskAddingResponse.taches">
-                <v-row>
-                <v-col cols="12" md="12" lg="12">
-                  <div class="TaskResume1">
-                      <v-icon x-large color="mainBlueColor"> mdi-ballot </v-icon>
-                  </div>
-                </v-col>
-              </v-row>
-              </v-container>    
-              <v-container v-else>
+              </v-form>
+               <v-container v-if="balanceSheet.spentList">
                 <v-row>
                 <v-col cols="12" md="12" lg="12">
                   <div class="TaskResume">
@@ -182,7 +175,7 @@
                     <v-data-table
                       dense
                       :headers="headers"
-                      :items="Spents"
+                      :items="balanceSheet.spentList"
                       :search="search"
                       :items-per-page="-1"
                       hide-default-footer
@@ -251,37 +244,23 @@
                 </v-col>
               </v-row>
               </v-container>
-                      
+              <v-container v-else>
+                <v-row>
+                <v-col cols="12" md="12" lg="12">
+                  <div class="TaskResume1">
+                      <v-icon x-large color="mainBlueColor"> mdi-ballot </v-icon>
+                  </div>
+                </v-col>
+              </v-row>
+              </v-container>    
+               
             </div>
           </v-col>
         </v-row>
       </v-container>
     </div>
 
-    <transition name="slide">
-      <v-alert
-        v-if="addingSuccess"
-        elevation="13"
-        type="success"
-        max-width="300"
-        class="alert"
-        color="mainBlueColor"
-      >
-        Enregistrement effectué</v-alert
-      >
-    </transition>
-    <transition name="slide">
-      <v-alert
-        v-if="addingfalse"
-        elevation="13"
-        type="error"
-        max-width="300"
-        class="alert"
-        color="error"
-      >
-        echec de l'opération</v-alert
-      >
-    </transition>
+
   </div>
 </template>
 
@@ -291,7 +270,7 @@ import axios from "axios";
 // import projectTaskReview from "../components/Task/projectTaskReview.vue";
 
 export default {
-  name: "TaskDeclaration",
+  name: "BilanComptable",
   components: {
     // projectTaskReview,
   },
@@ -318,20 +297,11 @@ export default {
     new_project: {
     },
     new_task: {
-      createur: "",
-      executants: [],
       compagnie_id: "",
     },
 
     visitaAddingResponse: "",
-    taskAddingResponse: "",
-    addingSuccess: false,
-    addingfalse: false,
-
-    visitcomponentKey1: 0,
-
-    // FOR ANALYTICS
-    // theNumbervisit = 0,
+    balanceSheet: "",
   }),
 
   methods: {
@@ -368,23 +338,21 @@ export default {
     submit2() {
 
         if (this.$refs.form2.validate()) {
-           axios({ url: "/admin/store_taches", data: this.new_task, method: "POST" })
+           axios({ url: "/spent/bilanComptable/"+this.new_task.compagnie_id, data: this.new_task, method: "POST" })
           .then((response) => {
-            this.taskAddingResponse = response.data;
-            console.log(this.taskAddingResponse);
-            if (this.taskAddingResponse) {
-              this.addingSuccess = !this.addingSuccess;
-              this.closeCreate()
-              this.$refs.form2.reset();
-              setTimeout(() => {
-                this.addingSuccess = !this.addingSuccess;
-                this.$store.dispatch("init_project")
-              }, 3000);
+            this.balanceSheet = response.data;
+            console.log(this.balanceSheet);
+            if (this.balanceSheet) {
+              // this.$refs.form2.reset();
+              // setTimeout(() => {
+              //   this.addingSuccess = !this.addingSuccess;
+              //   this.$store.dispatch("init_project")
+              // }, 3000);
             } else {
-              this.addingfalse = !this.addingfalse;
-              setTimeout(() => {
-                this.addingfalse = !this.addingfalse;
-              }, 3000);
+              // this.addingfalse = !this.addingfalse;
+              // setTimeout(() => {
+              //   this.addingfalse = !this.addingfalse;
+              // }, 3000);
             }
           })
           .catch((error) => {
@@ -403,7 +371,8 @@ export default {
   },
 
   created() {
-    this.$store.dispatch("init_spent");
+    // this.$store.dispatch("init_spent");
+    this.new_task.compagnie_id = localStorage.getItem("user-compagnie");
   },
 };
 </script>

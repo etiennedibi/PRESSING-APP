@@ -12,10 +12,12 @@ import message from "./modules/message";
 // import checkabonnement from "./modules/checkabonnement";
 
 import articles from "./modules/article";
+import gestionpressing from "./modules/gestionpressing";
+
 import project from "./modules/project";
 import task from "./modules/task";
 import flies from "./modules/flies";
-import contract from "./modules/contract";
+// import contract from "./modules/contract";
 import service from "./modules/service";
 import work from "./modules/work";
 import conge from "./modules/conge";
@@ -67,10 +69,12 @@ export default new Vuex.Store({
     // checkabonnement,
 
     articles,
+    gestionpressing,
+
     project,
     task,
     flies,
-    contract,
+    // contract,
     service,
     work,
     conge,

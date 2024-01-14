@@ -2,16 +2,23 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import store from "../store";
 
+import PressUsermanagement from "../views/PressUsermanagement.vue";
+
 import Dashboard from "../views/Dashboard.vue";
 
 import RdvStory from "../views/rdvStory.vue";
 import Article from "../views/Article.vue";
 import Customer from "../views/Customer.vue";
 
-import conge from "../views/congeTypeManagment.vue";
-import CongeDemande from "../views/congeDemande.vue";
-import TaskDeclaration from "../views/TaskDeclaration.vue";
-import UserTaskManage from "../views/UserTaskManage.vue";
+import TypeCharge from "../views/TypeCharge.vue";
+import Depense from "../views/Depense.vue";
+import BilanComptable from "../views/BilanComptable.vue";
+import Stock from "../views/Stock.vue";
+
+import Activite from "../views/Activite.vue";
+import FinanceStat from "../views/FinanceStat.vue";
+
+
 
 
 
@@ -85,6 +92,12 @@ const routes = [
     beforeEnter: ifAuthenticated,
   },
   {
+    path: "/PressUsermanagement",
+    name: "PressUsermanagement",
+    component: PressUsermanagement,
+    beforeEnter: ifAuthenticated,
+  },
+  {
     path: "/Article",
     name: "Article",
     component: Article,
@@ -99,25 +112,37 @@ const routes = [
   {
     path: "/chargeType",
     name: "chargeType",
-    component: conge,
+    component: TypeCharge,
     beforeEnter: ifAuthenticated,
   },
   {
     path: "/depense",
     name: "depense",
-    component: CongeDemande,
+    component: Depense,
     beforeEnter: ifAuthenticated,
   },
   {
     path: "/BilanComptable",
     name: "BilanComptable",
-    component: TaskDeclaration,
+    component: BilanComptable,
     beforeEnter: ifAuthenticated,
   },
   {
     path: "/Stock",
     name: "Stock",
-    component: UserTaskManage,
+    component: Stock,
+    beforeEnter: ifAuthenticated,
+  },
+  {
+    path: "/Activite",
+    name: "Activite",
+    component: Activite,
+    beforeEnter: ifAuthenticated,
+  },
+  {
+    path: "/FinanceStat",
+    name: "FinanceStat",
+    component: FinanceStat,
     beforeEnter: ifAuthenticated,
   },
 

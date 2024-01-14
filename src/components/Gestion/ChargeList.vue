@@ -201,7 +201,7 @@ import axios from "axios";
 import { mapGetters } from "vuex";
 
 export default {
-  name: "allCongeType",
+  name: "ChargeList",
   components: {},
 
   data: () => ({

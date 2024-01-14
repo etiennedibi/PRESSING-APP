@@ -492,7 +492,7 @@ import axios from "axios";
 import { mapGetters } from "vuex";
 
 export default {
-  name: "UserCongeList",
+  name: "DepenseList",
   components: {},
 
   data: () => ({
