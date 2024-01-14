@@ -15,7 +15,7 @@
               <v-icon color="red" v-on:click.stop="visteMenuClick = false">mdi-close-circle</v-icon>
           </div>
           <div v-on:click.stop="visteMenuClick = false">
-            <router-link :to="{ name: 'VisiteDeclaration' }">
+            <router-link :to="{ name: 'Commande' }">
               <div class="tab1">
                 <v-icon color="mainBlueColor">mdi-arrow-right-thin</v-icon>
                 <p>ENREGISTREMENT DE COMMANDE</p>

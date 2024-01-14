@@ -6,6 +6,7 @@ import PressUsermanagement from "../views/PressUsermanagement.vue";
 
 import Dashboard from "../views/Dashboard.vue";
 
+import Commande from "../views/Commande.vue";
 import RdvStory from "../views/rdvStory.vue";
 import Article from "../views/Article.vue";
 import Customer from "../views/Customer.vue";
@@ -95,6 +96,12 @@ const routes = [
     path: "/PressUsermanagement",
     name: "PressUsermanagement",
     component: PressUsermanagement,
+    beforeEnter: ifAuthenticated,
+  },
+  {
+    path: "/Commande",
+    name: "Commande",
+    component: Commande,
     beforeEnter: ifAuthenticated,
   },
   {

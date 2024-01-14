@@ -113,7 +113,7 @@
           </v-col>
           <v-col cols="12" md="8" lg="8">
             <div class="numberWrapper">
-              <UserList :key="forceRerenderReturn"></UserList>
+              <UserList></UserList>
             </div>
           </v-col>
           <v-col cols="12" md="1" lg="1" class="leftNumber">
@@ -192,7 +192,7 @@ export default {
   methods: {
     submit1() {
       console.log(this.new_user);
-      if (this.$refs.form1.validate()) {
+        console.log('balaise');
         axios({ url: "/user/register", data: this.new_user, method: "POST" })
         .then((response) => {
           this.ContractaAddingResponse = response.data;
@@ -224,8 +224,6 @@ export default {
           console.error("There was an error!", error);
         });
 
-      }
-      
     },
 
 
