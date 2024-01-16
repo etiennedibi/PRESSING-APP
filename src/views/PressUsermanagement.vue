@@ -55,21 +55,6 @@
                       ></v-text-field>
                     </v-col>
                     <v-col cols="12" md="12" lg="12" style="margin-bottom:-12px;">
-                      <v-text-field
-                        height="40"
-                        solo
-                        ref="location"
-                        type="text"
-                        append-icon="mdi-map-marker"
-                        v-model="new_user.adresse"
-                        :rules="[() => !!new_user.adresse]"
-                        value=""
-                        label="Adresse"
-                        persistent-hint
-                        required
-                      ></v-text-field>
-                    </v-col>
-                    <v-col cols="12" md="12" lg="12" style="margin-bottom:-12px;">
                       <v-select
                         :items="role"
                         item-text="text"

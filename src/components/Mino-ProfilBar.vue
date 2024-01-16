@@ -2,7 +2,8 @@
   <div class="profilInformationBox">
     <div class="profilBox">
       <div class="profilImg">
-        <div></div>
+        <img v-if="profilIMG!='null'" :src="`${axios.defaults.baseURL}${profilIMG}`"/>
+        <div v-if="profilIMG=='null'"></div>
       </div>
       <p>pressing</p>
       <p v-if="this.role==1">ADMINISTRATEUR</p>
@@ -97,7 +98,7 @@ export default {
 
   created() {
     this.uUser = localStorage.getItem("user-name");
-    this.profilIMG = localStorage.getItem("user-profil");
+    this.profilIMG = localStorage.getItem("user-logo");
     this.role = localStorage.getItem("user-role");
     
     
@@ -142,8 +143,12 @@ export default {
 .profilImg > div {
   height: 70%;
   width: 70%;
-  
   background-image: linear-gradient(to right bottom, #00b6aa, #00acc5, #009ee0, #008af0, #356eea);
+  border-radius: 100px;
+}
+.profilImg > img {
+  height: 100%;
+  width: 100%;
   border-radius: 100px;
 }
 .profilBox p:nth-child(2) {

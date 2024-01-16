@@ -39,7 +39,7 @@
             <!-- <p class="sectionTitle">Statistique</p> -->
             <div class="statWrapper">
                <p>
-                <span></span> <span>01</span> <br> <span>Utilisateurs</span>
+                <span></span> <span>{{Employers.length}}</span> <br> <span>Utilisateurs</span>
                 <!-- <img src="@/assets/img/blooraidLogo.jpeg" alt=""> -->
                </p>
             </div>
@@ -149,16 +149,13 @@ export default {
   },
 
   computed: {
-    ...mapGetters(["Current_employer","LastMessages","EmployersNumber","UndoTaskNumber", "UnseeFileNumber"]),
+    ...mapGetters(["Employers","LastMessages"]),
   },
 
 
   created() {
-    this.$store.dispatch("init_current_employer_infos")
+    this.$store.dispatch("init_employers");
     this.$store.dispatch("init_message");
-    this.$store.dispatch("init__employer_number");
-    this.$store.dispatch("init_task_undo_number");
-    this.$store.dispatch("init_file_undo_number");
     
     setInterval(this.getNow, 1000);
     this.editedItem.user_id = localStorage.getItem("user-id");
@@ -253,7 +250,7 @@ export default {
   font-weight: bold;
   color:var(--font-color);
   display: inline-block;
-  padding-left: 7px;
+  padding-left: 0px;
 }
 
 

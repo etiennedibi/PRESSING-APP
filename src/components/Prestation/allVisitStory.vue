@@ -389,16 +389,15 @@ export default {
         ({ url: "/service/update/"+this.editedItem.id, data: this.editedItem, method: "PUT" })
         .then((response) => {
           // console.log(response.data);
-          this.VisiteaAddingResponse = response.data;
+          this.VisiteaAddingResponse = response.data.message;
 
           if (this.VisiteaAddingResponse== "modification effectuée") {
             // Annulation effectuée
-            this.VisiteaAddingResponse.message = "modification effectuée";
             this.addingSuccess = !this.addingSuccess;
             setTimeout(() => {
               this.addingSuccess = !this.addingSuccess;
-               this.$store.dispatch("init_prestation");
             }, 3000);
+              this.$store.dispatch("init_prestation");
           } else if (!this.VisiteaAddingResponse) {
             this.VisiteaAddingResponse.message = "echec de l'opération";
             this.addingfalse = !this.addingfalse;

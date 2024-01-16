@@ -42,22 +42,49 @@
                       persistent-hint
                       required
                     ></v-text-field>
-                  </v-col>   
+                  </v-col>  
                   <v-col cols="12" md="11" lg="11">
                     <v-text-field
                       height="60"
                       style="margin-bottom:-5px"
                       solo
-                      label="adresse"
+                      label="email"
                       ref="matri"
-                      v-model="editedItem.adresse"
-                      append-icon="mdi-map-marker"
+                      v-model="editedItem.email"
+                      append-icon="mdi-at"
                       type="text"
                       value=""
                       persistent-hint
                       required
                     ></v-text-field>
-                  </v-col>  
+                  </v-col>
+                  <v-col cols="12" md="11" lg="11" style="margin-bottom:-12px;">
+                      <v-select
+                        v-model="editedItem.role_id"
+                        :rules="[() => !!editedItem.role_id]"
+                        :items="UserRole"
+                        item-text="text"
+                        item-value="id"
+                        label="Role"
+                        solo
+                      >
+                      </v-select>
+                    </v-col> 
+                  <v-col cols="12" md="11" lg="11">
+                    <v-text-field
+                      height="60"
+                      style="margin-bottom:-5px"
+                      solo
+                      label="Password"
+                      ref="matri"
+                      v-model="editedItem.password"
+                      append-icon="mdi-eye"
+                      type="text"
+                      value=""
+                      persistent-hint
+                      required
+                    ></v-text-field>
+                  </v-col>     
                 </v-row>
               </v-container>
             </form>
@@ -159,6 +186,20 @@
             @click="editItem(item)"
             ><v-icon small> mdi-pencil-circle </v-icon></v-btn
           >
+          <v-btn
+          v-if="item.activation"
+            icon
+            color="red"
+            @click="desactivateAccount(item)"
+            ><v-icon small> mdi-delete-sweep </v-icon></v-btn
+          >
+          <v-btn
+          v-if="!item.activation"
+            icon
+            color="green"
+            @click="activateAccount(item)"
+            ><v-icon small> mdi-account-reactivate </v-icon></v-btn
+          >
         </template>
         <!-- <template v-slot:[`item.contact`]="{ item }"> 
         <v-icon dense color="mainBlueColor"> mdi-phone </v-icon> <span style="color: mainBlueColor;">{{item.contact}}</span>
@@ -219,6 +260,7 @@ export default {
       { text: "DETAILS", value: "actions", sortable: false },
     ],
    
+   UserRole:[{id: 0, text: "GERANT"},{id: 1, text: "ADMINISTRATEUR"}],
 
     // for alerte
     addingSuccess: false,
@@ -254,14 +296,15 @@ export default {
     // For Profil Edited
     // ------------------------
     editItem(item) {
-      this.editedIndex = this.employers.indexOf(item);
+      this.editedIndex = this.Employers.indexOf(item);
       this.editedItem = Object.assign({}, item);
       //  Open the Edit Dialogue
       this.dialogEdit = true;
     },
 
     editItemConfirm() {
-        axios({ url: "/customer/update/" + this.editedItem.id, data: this.editedItem, method: "PUT" })
+        this.editedItem.the_user_id = this.editedItem.id
+        axios({ url: "/user/update", data: this.editedItem, method: "PUT" })
         .then((response) => {
           this.senderaAddingResponse = response.data;
           if (this.senderaAddingResponse) {
@@ -295,6 +338,29 @@ export default {
       this.dialogEdit = false;
     },
 
+    desactivateAccount(item) {
+        axios({ url: "/user/desactivate/" + item.id, method: "GET" })
+        .then((response) => {
+         console.log(response);
+         this.$store.dispatch("init_employers");
+        })
+        .catch((error) => {
+         console.log(error.message);
+        });
+    },
+
+    activateAccount(item) {
+        axios({ url: "/user/activate/" + item.id, method: "GET" })
+        .then((response) => {
+         console.log(response);
+         this.$store.dispatch("init_employers");
+        })
+        .catch((error) => {
+         console.log(error.message);
+        });
+
+      this.closeEdit();
+    },
    
 
   },

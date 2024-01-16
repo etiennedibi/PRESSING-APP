@@ -119,7 +119,7 @@
                       </div>
                       <h1 v-if="balanceSheet.gain" style="color: white">{{balanceSheet.gain}}</h1>
                       <h1 v-else style="color: white">-</h1>
-                      <h5 style="color: white">Gain éffectué</h5>
+                      <h5 style="color: white">Chiffre d'affaire</h5>
                     </div>
               </div>
             </div>
