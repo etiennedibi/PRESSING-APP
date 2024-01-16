@@ -153,6 +153,75 @@
       </v-card>
     </v-dialog>
 
+    <!-- SHOW DIALOG -->
+     <v-dialog v-model="traitementDialog" max-width="770">
+      <v-card>
+        <v-card-text style="display:flex;">
+          <v-container class="showDialog">
+            <div class="imgAndTitle">
+              <v-icon>mdi-package</v-icon>
+            </div>
+            <v-row>
+              <v-col cols="12" md="12" lg="12">
+                <v-select
+                  :items="Stocks"
+                  item-text="denomination"
+                  item-value="id"
+                  label="Stock"
+                  v-model="new_use_stock.id"
+                  :rules="[() => !!new_use_stock.id]"
+                  solo
+                  required
+                ></v-select>
+              </v-col>
+                <v-col cols="12" md="12" lg="12">
+                <v-text-field
+                  height="30"
+                  solo
+                  label="Quantite"
+                  :rules="[(v) => /[0-9]+/i.test(v)]"
+                  v-model="new_use_stock.quantity"
+                  append-icon="mdi-numeric"
+                  type="text"
+                  value=""
+                  persistent-hint
+                ></v-text-field>
+              </v-col>
+              <v-col cols="12" md="12" lg="12" style="display:flex; align-item:center; justify-content:space-around">
+                 <p
+                  class="simplex-btn simplex-submit-btn"
+                  v-on:click.prevent="giveupAction"
+                  >Annuler</p
+                >
+                <p
+                  class="simplex-btn simplex-submit-btn"
+                  v-on:click.prevent="AjoutStockUse"
+                  >Valider</p
+                >
+                <p
+                  class="simplex-btn simplex-submit-btn"
+                  v-on:click.prevent="changeState(item)"
+                  >Enregistrer</p
+                >
+              </v-col>
+            </v-row>  
+          </v-container>
+           <v-container class="showDialog2">
+            <div class="comentsWrapper">
+              <h3>Stock utilisé</h3>
+              <div v-for="(item) in stocks_list" :key="item.index" class="linge">
+                <div style="width:60%"> Stock N°{{item.id}}</div>
+                 <div style="width:20%">
+                    <v-chip small color="bue">{{item.quantity}}</v-chip>
+                 </div>
+              </div>
+            </div>
+          </v-container>
+        </v-card-text>
+        
+      </v-card>
+    </v-dialog>
+
     <!-- THE SEACH BAR -->
     <v-row>
       <v-col cols="12" md="5" lg="5">
@@ -182,7 +251,7 @@
           <v-btn icon color="mainBlueColor" @click="showItem(item)"
             ><v-icon small> mdi-eye </v-icon></v-btn
           >
-           <v-btn icon color="mainBlueColor" @click="changeState(item)"
+           <v-btn  v-if="item.statut_service_id < 3" icon color="mainBlueColor" @click="ChangeStateBox(item)"
             ><v-icon small> mdi-skip-next-circle </v-icon></v-btn
           >
           <v-btn v-if="item.statut_service_id == 1" icon color="mainBlueColor" @click="editItem(item)"
@@ -359,6 +428,11 @@ export default {
     dialog: false,
     dialogEdit:false,
     editedItem: {},
+    // Traitemant commande
+    traitementDialog:false,
+    changeItem: {},
+    stocks_list:[],
+    new_use_stock:{},
 
  
   }),
@@ -418,29 +492,55 @@ export default {
       this.dialogEdit = false;
     },
 
-    changeState(item) {
+    ChangeStateBox(item) {
+      this.changeItem =  Object.assign({}, item);
+      //  Open the Edit Dialogue
+      if (item.statut_service_id == 1) {
+        this.changeState()
+      } else {
+        this.traitementDialog = true;
+      }
+      
+    },
+
+    AjoutStockUse(){
+      this.stocks_list.push({id:this.new_use_stock.id,quantity:this.new_use_stock.quantity })
+      this.new_use_stock = {}
+    },
+
+    giveupAction(){
+      this.new_use_stock = {}
+      this.stocks_list=[]
+      this.traitementDialog = false;
+    },
+
+    changeState() {
+      // console.log(this.changeItem.id);
+      const stocks = {stocks_list:this.stocks_list}
+      console.log(this.stocks_list);
       axios
-        ({ url: "/service/chageState/"+ item.id, data: this.editedItem, method: "PUT" })
+        ({ url: "/service/chageState/"+ this.changeItem.id, data: stocks, method: "PUT" })
         .then((response) => {
           console.log(response.data);
             this.$store.dispatch("init_prestation")
+            this.stocks_list=[]
+            this.traitementDialog = false;
         })
         .catch((error) => {
           this.VisiteaAddingResponse = error.message;
           console.error("There was an error!", error);
         });
-
-      this.closeEdit();
     },
   
   },
 
   computed: {
-    ...mapGetters(["Prestations"]),
+    ...mapGetters(["Prestations","Stocks"]),
   },
 
   created() {
     this.$store.dispatch("init_prestation");
+    this.$store.dispatch("init_stock");
   },
 };
 </script>

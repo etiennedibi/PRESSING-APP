@@ -192,16 +192,14 @@ export default {
   data: () => ({
 
     headers: [
-      { text: "CHARGE", value: "denomination" },
+      { text: "STOCK", value: "denomination" },
       {
-        text: "TYPE",
+        text: "QUANTITE",
         align: "start",
         sortable: true,
-        value: "type_charge",
+        value: "quantity",
       },
-      { text: "COÛT", value: "amount" },
       { text: "DATE", value: "created_at" },
-      { text: "AUTEUR", value: "nom_complet"},
     ],
 
     // CREATE_PROJECT
@@ -226,8 +224,17 @@ export default {
         if (this.$refs.form2.validate()) {
            axios({ url: "/activity/report/"+this.new_task.compagnie_id, data: this.new_task, method: "POST" })
           .then((response) => {
-            this.balanceSheet = response.data;
+             this.balanceSheet = response.data;
+
+            this.balanceSheet.stocktList = this.balanceSheet.stocktList.map((projet) => {
+            var options = { year: 'numeric', month: 'numeric', day: 'numeric' };
+             var dateCreated_at = new Date(projet.created_at);
+            projet.created_at = dateCreated_at.toLocaleDateString("fr", options)
+              return projet
+            });
+
             console.log(this.balanceSheet);
+
             if (this.balanceSheet) {
               // this.$refs.form2.reset();
               // setTimeout(() => {

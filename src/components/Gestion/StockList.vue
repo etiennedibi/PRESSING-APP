@@ -43,6 +43,20 @@
                           required
                         ></v-text-field>
                       </v-col>
+                       <v-col cols="12" md="11" lg="11">
+                        <v-select
+                            :items="denombrable"
+                            height="60"
+                            item-text="text"
+                            item-value="type"
+                            label="Caractère dénombrable"
+                            v-model="new_stock.denombrable"
+                            :rules="[() => !!new_stock.denombrable]"
+                            solo
+                            required
+                            background-color="#356eea24"
+                        ></v-select>
+                      </v-col> 
                     </v-row>
                   </v-container>
                 </form>
@@ -148,6 +162,20 @@
                       required
                     ></v-text-field>
                   </v-col>
+                  <v-col cols="12" md="11" lg="11">
+                    <v-select
+                        :items="denombrable"
+                        height="60"
+                        item-text="text"
+                        item-value="type"
+                        label="Caractère dénombrable"
+                        v-model="editedItem.denombrable"
+                        :rules="[() => !!editedItem.denombrable]"
+                        solo
+                        required
+                        background-color="#356eea24"
+                    ></v-select>
+                  </v-col> 
                 </v-row>
               </v-container>
             </form>
@@ -263,7 +291,7 @@
                       <div class="price">
                         <v-btn icon style="margin-bottom:-15px" color="mainBlueColor" @click.stop="editItem(item)"
                           ><v-icon>mdi-pencil-circle</v-icon></v-btn>
-                        <p>{{ item.city }}</p>
+                        <p v-if="!item.denombrable" style="color:green">**</p>
                       </div>
                     </div>
                   </v-col>
@@ -352,6 +380,7 @@ export default {
     dialogIsActiveEmploy:false,
     selectedItem: {},
     // VARIABLE
+    denombrable:[{type:true, text:"OUI"},{type:false, text:"NON"}],
     new_stock:{
       companie_id:"",
     },
@@ -486,69 +515,6 @@ export default {
         },
       },
     ],
-     items2: [
-      {
-        name: "CREATION DE LOT DE CONSOLATION ",
-        date: "21-01-2021",
-        heure: "09:00",
-        details: {
-          vendus: 30,
-          aVendre: 45,
-          restant: 15,
-          annules: 5,
-          gains: 150000,
-        },
-      },
-      {
-        name: "MINO-Trans",
-        date: "01-01-2021",
-        heure: "09:00",
-        details: {
-          vendus: 45,
-          aVendre: 45,
-          restant: 0,
-          annules: 5,
-          gains: 160000,
-        },
-      },
-      {
-        name: "Politique de recrutement",
-        date: "15-02-2021",
-        heure: "09:00",
-        details: {
-          vendus: 30,
-          aVendre: 45,
-          restant: 15,
-          annules: 5,
-          gains: 150000,
-        },
-      },
-      {
-        name: "Structuration des données",
-        date: "25-03-2021",
-        heure: "09:00",
-        details: {
-          vendus: 30,
-          aVendre: 45,
-          restant: 15,
-          annules: 5,
-          gains: 150000,
-        },
-      },
-      {
-        name: "Projet KitKat",
-        date: "25-03-2021",
-        heure: "09:00",
-        details: {
-          vendus: 30,
-          aVendre: 45,
-          restant: 15,
-          annules: 5,
-          gains: 150000,
-        },
-      },
-    ],
-
 
     // for alerte
     addingSuccess: false,
@@ -653,6 +619,7 @@ export default {
 
     editItemConfirm() {
       // this.editedItem.id_visite = this.editedItem.id;
+      console.log(this.editedItem);
       axios
         ({ url: "/stock/update/"+this.editedItem.id, data: this.editedItem, method: "PUT" })
         .then((response) => {
@@ -783,31 +750,9 @@ export default {
 }
 
 .InvBox2 {
-  height: 170px;
-  border-radius: 10px;
   background: #60674b;
-  line-height: 10px;
-  padding-left: 30px;
-  color: white;
-  display: flex;
-  justify-content: space-around;
 }
-.InvBox2 div:first-child {
-  width: 70%;
-}
-.InvBox2 div:first-child .v-icon {
-  margin-top: 20px;
-  font-size: 35px;
-  color: #35373a;
-}
-.InvBox2 div:first-child p:nth-child(2) {
-  font-size: 30px;
-  font-weight: bold;
-  color: white;
-}
-.InvBox2 div:first-child p:nth-child(3) {
-  line-height: 15px;
-}
+
 
 
 
