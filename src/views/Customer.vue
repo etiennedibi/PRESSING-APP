@@ -163,7 +163,7 @@ export default {
         .then((response) => {
           this.ContractaAddingResponse = response.data;
           console.log(response.data);
-          if (!this.ContractaAddingResponse.message) {
+          if (this.ContractaAddingResponse.message == "modification effectuée") {
             this.ContractaAddingResponse = "Compte créer avec succes"
             this.addingSuccess = !this.addingSuccess;
             setTimeout(() => {

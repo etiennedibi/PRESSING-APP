@@ -54,7 +54,6 @@
                         solo
                         clearable
                          v-model="new_charge.objet"
-                        :rules="[() => !!new_charge.objet]"
                         background-color="#356eea24"
                         clear-icon="mdi-close-circle"
                         rows="2"
@@ -155,7 +154,7 @@ export default {
 
   methods: {
     submit1() {
-      if (this.$refs.form1.validate()) {
+      console.log(this.new_charge)
         axios({ url: "/charge/store", data: this.new_charge, method: "POST" })
         .then((response) => {
           this.congeaAddingResponse = response.data;
@@ -179,7 +178,6 @@ export default {
         });
 
       this.$refs.form1.reset();
-      }
       
     },
 
