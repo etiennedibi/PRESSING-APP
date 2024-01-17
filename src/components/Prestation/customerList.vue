@@ -196,6 +196,13 @@
                 </h4>
               </div>
             </div>
+            <div class="statElment">
+              <div>
+                <h5>COMMANDES</h5>
+                <h4 style="font-weight:normal; text-align:center;">{{ editedItem.services}}
+                </h4>
+              </div>
+            </div>
              <div class="statElment">
               <div>
                 <h5>SOLD</h5>

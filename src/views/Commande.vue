@@ -1,6 +1,55 @@
 <template>
   <div class="bodyBox">
 
+     <!-- REMISE DIALOG -->
+    <v-dialog v-model="dialogRemise" max-width="370">
+      <v-card>
+        <v-card-text>
+          <v-container>
+            <div class="imgAndTitle  editIMGO">
+             <v-icon x-large color="mainBlueColor">mdi-sale</v-icon>
+            </div>
+            <form class="updateForm">
+              <v-container fluid>
+                <v-row>
+                  <v-col cols="12" md="12" lg="12" >
+                  <p style="font-size:10px; text-align:center">Pour retirer une remise déjà appliquée,<br> faites <b>0%</b> de remise</p>
+                  </v-col>
+                  <v-col cols="12" md="12" lg="12">
+                      <v-text-field
+                        height="60"
+                        solo
+                        label="Indiquer le poucentage (ex:25)"
+                        ref="matri"
+                        v-model="new_commande.discount"
+                        type="text"
+                        value=""
+                        persistent-hint
+                      ></v-text-field>
+                    </v-col>
+                </v-row>
+              </v-container>
+            </form>
+          </v-container>
+        </v-card-text>
+
+        <v-card-actions style="display:flex;justify-content:space-around">
+          <!-- <v-spacer></v-spacer> -->
+          <p
+            class="simplex-btn"
+            style="background:grey"
+            @click="closeRemise"
+            >Annuler</p>
+          <p
+            class="simplex-btn"
+            @click="applyRemise"
+            >appliquer</p
+          >
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+    <!-- REMISE DIALOG -->
+
      <!-- CREATE DIALOG -->
     <v-dialog v-model="dialogCreate" max-width="370">
       <v-card>
@@ -152,6 +201,7 @@
           >
           <p
             class="simplex-btn"
+             @click="dialogTicket=!dialogTicket"
             >TICKET</p
           >
           <p
@@ -163,6 +213,99 @@
       </v-card>
     </v-dialog>
     <!-- CREATE DIALOG -->
+
+     <!-- TICKET DIALOG -->
+    <v-dialog v-model="dialogTicket" max-width="470">
+      <v-card>
+        <v-card-text>
+          <v-container  id="maketopdf">
+            <div class="ticketHeader">
+              <div class="profilImg">
+                <!-- <img v-if="profilIMG!='null'" :src="`${axios.defaults.baseURL}${profilIMG}`"/> -->
+                <div ></div>
+              </div>
+              <div>
+                <p>ZenWash Pressing <br> <span style="font-weight: normal;">Abatta, careffour BCEAO</span></p>
+              </div>
+            </div>
+            <h3 style="text-align:center; margin-top:30px;margin-bottom:30px;">TICKET DE RETRAIT</h3>
+            <div class="rettraitInfo">
+              <p><b>Vendeur:</b> Angoua Victorien </p>
+              <p><b>Date depot:</b> 12/10/2024</p>
+              <p><b>Date retrait: 14/11/2024</b></p>
+            </div>
+            <h4 style="margin-top:30px;margin-bottom:30px;">COMMANDE :</h4>
+            <div class="lingeBox ">
+              <div class="linges">
+                <div style="width:30%">Pantalon</div>
+                <div style="width:40%; line-height:10px">
+                  <p>
+                    Lavage machine : 1200
+                  </p>
+                </div>
+                <div style="width:15%">
+                  <v-chip small>Blue</v-chip>
+                </div>
+              </div>
+              <div class="linges">
+                <div style="width:30%">Pantalon</div>
+                <div style="width:40%; line-height:10px">
+                  <p>
+                    Lavage machine : 1200
+                  </p>
+                  <p>
+                    Lavage main : 1200
+                  </p>
+                </div>
+                <div style="width:15%">
+                  <v-chip small>Blue</v-chip>
+                </div>
+              </div>
+              <div class="linges">
+                <div style="width:30%">Pantalon</div>
+                <div style="width:40%; line-height:10px">
+                  <p>
+                    Lavage machine : 1200
+                  </p>
+                </div>
+                <div style="width:15%">
+                  <v-chip small>Blue</v-chip>
+                </div>
+              </div>
+              <p style="text-align:right">Remise de : <b>-25%</b></p>
+              <div class="resulBox">
+                <p class="price">
+                  5000 fr
+                </p>
+                <p
+                  class="simplex-btn simplex-submit-btn"
+                  >TOTAL</p
+                >
+              </div>
+              <div class="commentaire">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Exercitationem molestias vel asperiores blanditiis, voluptates culpa qui ullam, in incidunt, 
+                voluptas alias eum corporis suscipit repudiandae eos pariatur doloribus nam! Reprehenderit!
+              </div>
+            </div>
+          </v-container>
+        </v-card-text>
+
+        <v-card-actions style="display:flex;justify-content:space-around">
+          <!-- <v-spacer></v-spacer> -->
+          <p
+            class="simplex-btn"
+            style="background:grey"
+            @click="closeRemise"
+            >Annuler</p>
+          <p
+            class="simplex-btn"
+            @click="applyRemise"
+            >appliquer</p
+          >
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+    <!-- TICKET DIALOG -->
 
     <div class="TheBoxBody">
       <p class="sectionTitle">Enregistrement de commande</p>
@@ -248,6 +391,11 @@
                 </div>
 
                 <div class="resulBox">
+                   <p
+                    class="simplex-btn simplex-submit-btn" 
+                    v-on:click.prevent="dialogRemise=!dialogRemise"
+                    >REMISE</p
+                  >
                   <p class="price">
                     {{commandePrice}} fr
                   </p>
@@ -318,7 +466,11 @@ export default {
     new_commande: {
     companie_id:""
     },
+    dialogRemise:false,
     dialogCreate:false,
+    dialogTicket:false,
+
+    profilIMG:"",
 
     visiteaAddingResponse: "",
     addingSuccess: false,
@@ -388,6 +540,24 @@ export default {
       }
     },
 
+    applyRemise() {
+      // ADD PRICE TO THE TOTAL PRICE
+      this.commandePrice = 0
+      for (let index = 0; index < this.linge_list.length; index++) {
+        const linge = this.linge_list[index];
+         for (let index = 0; index < linge.service.length; index++) {
+          this.commandePrice += linge.service[index].price;
+          }   
+      }
+     
+      console.log(this.commandePrice);
+      this.commandePrice =  this.commandePrice - ((this.commandePrice * this.new_commande.discount) / 100)
+      this.closeRemise()
+    },
+     closeRemise() {
+      this.dialogRemise = false;
+    },
+
 
     submit1() {
       if (this.new_commande.customer){
@@ -446,6 +616,7 @@ export default {
 
     this.new_commande.companie_id = localStorage.getItem("user-compagnie");
     this.new_article.id_user_employer = localStorage.getItem("user-id");
+    this.profilIMG = localStorage.getItem("user-logo");
 
     
 
@@ -541,6 +712,7 @@ export default {
   font-size: 17px;
   line-height: 40px;
   margin-right:10px;
+  margin-left:10px;
   border: 1px solid var(--main-blue-important);
   border-radius:5px;
 
@@ -577,6 +749,50 @@ export default {
   padding-top: 0px;
 }
 
+
+#maketopdf{
+  font-size: 12px;
+  /* color:black; */
+}
+.ticketHeader{
+  display: flex;
+  justify-content: space-between;
+  text-align: center;
+  font-weight: bold;
+  align-items: center;
+  text-transform: uppercase;
+}
+.profilImg {
+  height: 65px;
+  width: 65px;
+  border-radius: 100px;
+  border: solid 3px var(--main-blue-important);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.profilImg > div {
+  height: 70%;
+  width: 70%;
+  background-image: linear-gradient(to right bottom, #00b6aa, #00acc5, #009ee0, #008af0, #356eea);
+  border-radius: 100px;
+}
+.profilImg > img {
+  height: 100%;
+  width: 100%;
+  border-radius: 100px;
+}
+
+.rettraitInfo{
+  text-align: right;
+  line-height: 10px;
+}
+.commentaire{
+  border: 1px solid grey;
+  border-radius:5px;
+  padding: 5px;
+  margin-top:10px;
+}
 
 
 @media (min-width: 930px) {

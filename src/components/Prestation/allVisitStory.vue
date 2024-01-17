@@ -37,15 +37,17 @@
                 <h5>ADRESSE</h5>
                 <div style="text-align:center">
                   <h4 v-if="editedItem.customer_id"> {{editedItem.TheCustomer.adresse}} </h4>
-                <h4 v-else> {{editedItem.adresse}} </h4>
+                <h4 v-else> {{editedItem.adresse}}</h4>
                 </div>
               </div>
-              <!-- <div>
-                <h5>Auteur</h5>
-                <h4>2023-02-12</h4>
-              </div> -->
             </div>
-            
+            <div v-if="editedItem.discount > 0" class="statElment Elment3" style="justify-content:center">
+               <div>
+                <h5>REMISE</h5>
+                <h3 style="color:red">{{editedItem.discount}}%</h3>
+              </div>
+            </div>
+
           </v-container>
            <v-container class="showDialog2">
             <div class="comentsWrapper">
