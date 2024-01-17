@@ -2,8 +2,9 @@
   <div class="profilInformationBox">
     <div class="profilBox">
       <div class="profilImg">
-        <img v-if="profilIMG!='null'" :src="`${axios.defaults.baseURL}${profilIMG}`"/>
-        <div v-if="profilIMG=='null'"></div>
+        <!-- <img v-if="profilIMG!='null'" :src="`${axios.defaults.baseURL}${profilIMG}`"/>
+        <div v-if="profilIMG=='null'"></div> -->
+        <div></div>
       </div>
       <p>pressing</p>
       <p v-if="this.role==1">ADMINISTRATEUR</p>
