@@ -34,6 +34,10 @@
                 <h3 style="color:red">{{editedItem.service_price}}</h3>
               </div>
               <div>
+                <h5>PAYE</h5>
+                <h3 style="color:#00b6aa">{{editedItem.paid}}</h3>
+              </div>
+              <div>
                 <h5>ADRESSE</h5>
                 <div style="text-align:center">
                   <h4 v-if="editedItem.customer_id"> {{editedItem.TheCustomer.adresse}} </h4>
@@ -155,6 +159,56 @@
       </v-card>
     </v-dialog>
 
+    <!-- EDIT PAID DIALOG -->
+    <v-dialog v-model="DialogPaid" max-width="370">
+      <v-card>
+        <v-card-text>
+          <v-container>
+            <div class="imgAndTitle  editIMGO">
+              <!-- <img src="@/assets/icone/tasks.png" alt="" srcset="" /> -->
+              <v-icon color="mainBlueColor" large>
+                    mdi-cash
+              </v-icon>
+            </div>
+            <form class="updateForm">
+              <v-container fluid>
+                <v-row>
+                  <v-col cols="12" md="11" lg="11">
+                      <v-text-field
+                        height="60"
+                        style="margin-bottom:-5px"
+                        solo
+                        ref="matri"
+                        v-model="editedItem.paid"
+                        type="text"
+                        label="somme payée"
+                        value=""
+                        persistent-hint
+                      ></v-text-field>
+                  </v-col>
+                </v-row>
+              </v-container>
+            </form>
+          </v-container>
+        </v-card-text>
+
+        <v-card-actions style="display:flex;justify-content:space-around">
+          <!-- <v-spacer></v-spacer> -->
+          <p
+            class="simplex-btn"
+              style="background:grey"
+            @click="closePaid"
+            >Annuler</p
+          >
+          <p
+            class="simplex-btn"
+            @click="editPaidConfirm"
+            >Enregistrer</p
+          >
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+
     <!-- SHOW DIALOG -->
      <v-dialog v-model="traitementDialog" max-width="770">
       <v-card>
@@ -258,6 +312,9 @@
           >
           <v-btn v-if="item.statut_service_id == 1" icon color="mainBlueColor" @click="editItem(item)"
             ><v-icon small> mdi-pencil-circle </v-icon></v-btn
+          >
+          <v-btn v-if="item.paid != item.service_price" icon color="mainBlueColor" @click="editPaid(item)"
+            ><v-icon small> mdi-cash </v-icon></v-btn
           >
         </template>
         <template v-slot:[`item.statut_service_id`]="{ item }">
@@ -435,6 +492,8 @@ export default {
     changeItem: {},
     stocks_list:[],
     new_use_stock:{},
+    // For paid
+    DialogPaid:false,
 
  
   }),
@@ -533,6 +592,43 @@ export default {
           console.error("There was an error!", error);
         });
     },
+    // ------------------------
+    // For Commande Paid
+    // ------------------------
+    editPaid(item) {
+      this.editedIndex = this.Prestations.indexOf(item);
+      this.editedItem = Object.assign({}, item);
+      //  Open the Paid Dialogue
+      this.DialogPaid = true;
+    },
+
+    editPaidConfirm() {
+      axios
+        ({ url: "/service/serviveSold/"+ this.editedItem.id, data: this.editedItem, method: "PUT" })
+        .then((response) => {
+
+          if (response.data) {
+              this.$store.dispatch("init_prestation");
+          } else if (!this.VisiteaAddingResponse) {
+            this.VisiteaAddingResponse.message = "echec de l'opération";
+            this.addingfalse = !this.addingfalse;
+            setTimeout(() => {
+              this.addingfalse = !this.addingfalse;
+            }, 3000);
+          }
+          this.closePaid()
+        })
+        .catch((error) => {
+          this.VisiteaAddingResponse = error.message;
+          console.error("There was an error!", error);
+        });
+    },
+
+    closePaid() {
+      this.DialogPaid = false;
+    },
+    
+    
   
   },
 

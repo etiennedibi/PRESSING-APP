@@ -120,6 +120,14 @@
                       <h1 v-if="balanceSheet.gain" style="color: white">{{balanceSheet.gain}}</h1>
                       <h1 v-else style="color: white">-</h1>
                       <h5 style="color: white">Chiffre d'affaire</h5>
+
+                       <h3 v-if="balanceSheet.gain" style="color: white; margin-top:30px">{{balanceSheet.dueByCustomer}}</h3>
+                      <h1 v-else style="color: white">-</h1>
+                      <h5 style="color: white">Crédit clients</h5>
+
+                       <h3 v-if="balanceSheet.gain" style="color: white">{{balanceSheet.dueToCustomer}}</h3>
+                      <h1 v-else style="color: white">-</h1>
+                      <h5 style="color: white">Due aux clients</h5>
                     </div>
               </div>
             </div>

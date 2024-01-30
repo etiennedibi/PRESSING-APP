@@ -168,6 +168,22 @@
                       ></v-text-field>
                   </v-col>
                   <v-col cols="12" md="11" lg="11">
+                      <v-text-field
+                        height="60"
+                          background-color="#356eea24"
+                        style="margin-bottom:-5px"
+                        solo
+                        label="Somme payée"
+                        ref="matri"
+                        v-model="new_commande.paid"
+                        :rules="[() => !!new_commande.paid]"
+                        type="text"
+                        value=""
+                        persistent-hint
+                        required
+                      ></v-text-field>
+                  </v-col>
+                  <v-col cols="12" md="11" lg="11">
                       <div style="width:100%;">
                         <v-textarea
                           solo

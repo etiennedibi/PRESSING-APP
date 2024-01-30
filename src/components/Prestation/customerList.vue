@@ -206,14 +206,29 @@
              <div class="statElment">
               <div>
                 <h5>SOLD</h5>
-                <h4 style="font-weight:normal; text-align:justify;font-size:25px; color:#00b6aa">{{ editedItem.sold }} fr
+                <h4 v-if="editedItem.sold >= 0" style="font-weight:normal; text-align:justify;font-size:25px; color:#00b6aa">{{ editedItem.sold }} fr
                 </h4>
+                <h4 v-else style="font-weight:normal; text-align:justify;font-size:25px; color:#B60C00">{{ editedItem.sold }} fr</h4>
               </div>
             </div>
              <div class="statElment">
               <div>
                 <h5>COMPTE RECHARGE</h5>
                 <h4 style="font-weight:normal; text-align:center;font-size:12px;">{{ editedItem.sold_change }} fois
+                </h4>
+              </div>
+            </div>
+            <div class="statElment">
+              <div>
+                <h5>PREMIERE COMMANDE</h5>
+                <h4 style="font-weight:normal; text-align:center;font-size:12px;">{{ editedItem.firstServices }}
+                </h4>
+              </div>
+            </div>
+            <div class="statElment">
+              <div>
+                <h5>DENIERE COMMANDE</h5>
+                <h4 style="font-weight:normal; text-align:center;font-size:12px;">{{ editedItem.lastServices }}
                 </h4>
               </div>
             </div>
