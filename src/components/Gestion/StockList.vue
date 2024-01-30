@@ -240,34 +240,7 @@
                 </v-row>
 
                 <!-- PRODUCT DETAILS MODAL TEMPLATE FOR EACH PRODUCT -->
-                <v-dialog
-                  v-model="dialog"
-                  width="900"
-                  overlay-color="black"
-                  overlay-opacity="0.8"
-                  mainBlueColor
-                  @click:outside="dialogCloseEmploy"
-                >
-                  <v-card tile>
-                    <!-- 
-                      transition="dialog-bottom-transition"
-                  
-                      <v-toolbar flat color="Importantcolor Importantcolor--text" >
-                              <v-btn icon dark @click="dialog = false">
-                                <v-icon class="Titlecolor--text">mdi-close</v-icon>
-                              </v-btn> 
-                              <v-toolbar-title>POUET</v-toolbar-title>
-                            </v-toolbar>             -->
-
-                    <v-card-text>
-                      <v-container>
-                        <v-row class="detailsTemplate">
-                          <EmployeTaskList v-if="dialogIsActiveEmploy" :project_id = "selectedItem.id" :project_name = "selectedItem.title"></EmployeTaskList>
-                        </v-row>
-                      </v-container>
-                    </v-card-text>
-                  </v-card>
-                </v-dialog>
+              
                 <!-- END PRDUCT DETAILS MODAL TEMPLATE FOR EACH PRODUCT -->
               </template>
 
@@ -360,7 +333,6 @@
 </template>
 
 <script>
-import EmployeTaskList from "../Task/EmployeTaskList.vue";
 import { mapGetters } from "vuex";
 import axios from "axios";
 
@@ -368,7 +340,6 @@ export default {
   name: "StockList",
 
   components: {
-    EmployeTaskList,
   },
 
   data: () => ({
