@@ -54,7 +54,9 @@ const actions = {
           localStorage.setItem("user-profil", theuser.avatar); // store UserName in localstorage
           localStorage.setItem("user-role", theuser.role_id); // store Userrole_id in localstorage
           localStorage.setItem("user-compagnie", theuser.companie_id);  //store UserStation in localstorage
-          localStorage.setItem("user-logo", resp.data.compagnie);  //store UserStation in localstorage
+          localStorage.setItem("user-logo", resp.data.compagnielogo);  //store UserStation in localstorage
+          localStorage.setItem("user-compagniename", resp.data.compagnie);  //store UserStation in localstorage
+          localStorage.setItem("user-compagnieLocation", resp.data.compagniequartier);  //store UserStation in localstorage
           if (theuser.department_second_id) {
             localStorage.setItem("user-department-second", theuser.department_second_id)
           }

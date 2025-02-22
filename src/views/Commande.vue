@@ -60,7 +60,7 @@
                 mdi-hanger
                 </v-icon>
             </div>
-            <form  class="updateForm createForm">
+            <form  class="updateForm createForm" ref="form1">
               <v-container fluid>
                 <v-row>
                    <v-col cols="12" md="11" lg="11">
@@ -83,7 +83,6 @@
                         label="Nom et Prenoms"
                         ref="matri"
                         v-model="new_commande.nom_complet"
-                        :rules="[() => !!new_commande.nom_complet]"
                         type="text"
                         value=""
                         persistent-hint
@@ -97,7 +96,6 @@
                         label="Contact"
                         ref="matri"
                         v-model="new_commande.telephone"
-                        :rules="[() => !!new_commande.telephone]"
                         type="text"
                         value=""
                         persistent-hint
@@ -111,7 +109,6 @@
                         label="Adresse"
                         ref="matri"
                         v-model="new_commande.adresse"
-                        :rules="[() => !!new_commande.adresse]"
                         type="text"
                         value=""
                         persistent-hint
@@ -193,7 +190,6 @@
                           rows="3"
                           name="input-7-4"
                           v-model="new_commande.comment"
-                          :rules="[() => !!new_commande.comment]"
                           label="Remarque sur linge et commantaires"
                           class="the-message-area"
                         ></v-textarea>
@@ -211,7 +207,7 @@
             @click="giveupAction"
             >ANNULE</p
           >
-          <p
+          <!-- <p
             class="simplex-btn"
             >SMS</p
           >
@@ -219,11 +215,11 @@
             class="simplex-btn"
              @click="dialogTicket=!dialogTicket"
             >TICKET</p
-          >
+          > -->
           <p
             class="simplex-btn"
-            @click="submit1"
-            >SMS & TICKET</p
+            @click="dialogTicket=!dialogTicket"
+            >VERIFIER</p
           >
         </v-card-actions>
       </v-card>
@@ -237,61 +233,39 @@
           <v-container  id="maketopdf">
             <div class="ticketHeader">
               <div class="profilImg">
-                <!-- <img v-if="profilIMG!='null'" :src="`${axios.defaults.baseURL}${profilIMG}`"/> -->
-                <div ></div>
+                <img v-if="profilIMG!='null'" :src="`${axios.defaults.baseURL}${profilIMG}`"/>
+                <div v-else></div>
               </div>
               <div>
-                <p>ZenWash Pressing <br> <span style="font-weight: normal;">Abatta, careffour BCEAO</span></p>
+                <p><span v-if="compagnieName">{{compagnieName}}</span> <br> <span style="font-weight: normal;"  v-if="compagnieLocation">{{ compagnieLocation }}</span></p>
               </div>
             </div>
             <h3 style="text-align:center; margin-top:30px;margin-bottom:30px;">TICKET DE RETRAIT</h3>
             <div class="rettraitInfo">
-              <p><b>Vendeur:</b> Angoua Victorien </p>
-              <p><b>Date depot:</b> 12/10/2024</p>
-              <p><b>Date retrait: 14/11/2024</b></p>
+              <p><b>Vendeur:</b> <span v-if="EmployerName">{{EmployerName}}</span></p>
+              <p><b>Date depot:</b> <span v-if="new_commande.withdrawal_date">{{ new_commande.withdrawal_date }}</span></p>
+              <p><b>Date retrait: <span v-if="new_commande.delivery_date">{{ new_commande.delivery_date }}</span></b></p>
             </div>
             <h4 style="margin-top:30px;margin-bottom:30px;">COMMANDE :</h4>
             <div class="lingeBox ">
-              <div class="linges">
-                <div style="width:30%">Pantalon</div>
-                <div style="width:40%; line-height:10px">
-                  <p>
-                    Lavage machine : 1200
-                  </p>
+              <div  v-for="(item) in linge_list" :key="item.index" class="linges">
+                <div style="width:30%">{{item.denomination}}</div>
+                  <div style="width:40%; line-height:10px">
+                    <p  v-for="(item1) in item.service" :key="item1.index">
+                      {{item1.service}} : {{item1.price}}
+                    </p>
+                  </div>
+                  <div style="width:15%">
+                    <v-chip small :color="item.color">couleur</v-chip></div>
+                  <div style="width:10%">
+                    <v-btn icon @click="deletelinge(item)">
+                    <v-icon small>mdi-delete</v-icon></v-btn>
+                  </div>
                 </div>
-                <div style="width:15%">
-                  <v-chip small>Blue</v-chip>
-                </div>
-              </div>
-              <div class="linges">
-                <div style="width:30%">Pantalon</div>
-                <div style="width:40%; line-height:10px">
-                  <p>
-                    Lavage machine : 1200
-                  </p>
-                  <p>
-                    Lavage main : 1200
-                  </p>
-                </div>
-                <div style="width:15%">
-                  <v-chip small>Blue</v-chip>
-                </div>
-              </div>
-              <div class="linges">
-                <div style="width:30%">Pantalon</div>
-                <div style="width:40%; line-height:10px">
-                  <p>
-                    Lavage machine : 1200
-                  </p>
-                </div>
-                <div style="width:15%">
-                  <v-chip small>Blue</v-chip>
-                </div>
-              </div>
-              <p style="text-align:right">Remise de : <b>-25%</b></p>
+              <p style="text-align:right">Remise de : <b>{{new_commande.discount}}</b> %</p>
               <div class="resulBox">
                 <p class="price">
-                  5000 fr
+                  {{commandePrice}} fr
                 </p>
                 <p
                   class="simplex-btn simplex-submit-btn"
@@ -299,8 +273,7 @@
                 >
               </div>
               <div class="commentaire">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Exercitationem molestias vel asperiores blanditiis, voluptates culpa qui ullam, in incidunt, 
-                voluptas alias eum corporis suscipit repudiandae eos pariatur doloribus nam! Reprehenderit!
+               {{ new_commande.comment }}
               </div>
             </div>
           </v-container>
@@ -310,13 +283,12 @@
           <!-- <v-spacer></v-spacer> -->
           <p
             class="simplex-btn"
-            style="background:grey"
-            @click="closeRemise"
-            >Annuler</p>
+            @click="exportPaieFile"
+            >imprimer</p>
           <p
             class="simplex-btn"
-            @click="applyRemise"
-            >appliquer</p
+            @click="submit1"
+            >Enregister</p
           >
         </v-card-actions>
       </v-card>
@@ -461,6 +433,10 @@
 import axios from "axios";
 import { mapGetters } from "vuex";
 
+import jsPDF  from "jspdf";
+import html2canvas from "html2canvas";
+
+
 export default {
   name: "Commande",
   components: {
@@ -493,7 +469,9 @@ export default {
     addingfalse: false,
 
     // visitcomponentKey1: 0,
-
+    compagnieName:"",
+    compagnieLocation:"",
+    EmployerName:"",
     // FOR ANALYTICS
     // theNumbervisit = 0,
   }),
@@ -575,13 +553,35 @@ export default {
     },
 
 
+    async exportPaieFile(){
+
+      //Downloading
+      var downloading = document.getElementById("maketopdf");
+      var doc = new jsPDF({
+        orientation: 'portrait',
+        unit: 'mm',
+        format: [80, 148], // Largeur 80mm, Hauteur moitié A4
+      });
+      await html2canvas(downloading, {}).then((canvas) => {
+          const ratio = canvas.height / canvas.width;
+          const hauteurImage = 76 * ratio;
+          doc.addImage(canvas.toDataURL("image/jpeg"), 'JPEG', 2, 5, 76, hauteurImage);
+      })
+      doc.save(`ticket -- ${this.EmployerName}`);
+      // Appel de la fonction autoPrint pour imprimer automatiquement
+      doc.autoPrint();
+      //End of downloading
+      document.getElementById("downloadButton").innerHTML = "Click to download";
+
+    },
+
     submit1() {
       if (this.new_commande.customer){
       this.new_commande.customer_id =this.new_commande.customer.id
       }
       this.new_commande.linge =this.linge_list
       this.new_commande.service_price =this.commandePrice
-
+      if (this.new_commande.linge) {
         axios({ url: "/service/store", data: this.new_commande, method: "POST" })
         .then((response) => {
           this.visiteaAddingResponse = response.data;
@@ -609,8 +609,10 @@ export default {
           console.error("There was an error!", error);
         });
 
-      this.$reset();
-      },
+        this.$reset();
+      }
+        
+    },
     closeSubmit1(){
       this.dialogCreate=false
     },
@@ -627,13 +629,20 @@ export default {
   },
 
   created() {
+    
     this.$store.dispatch("init_articles");
+    
     this.$store.dispatch("init_customers");
 
     this.new_commande.companie_id = localStorage.getItem("user-compagnie");
-    this.new_article.id_user_employer = localStorage.getItem("user-id");
+    // this.new_article.id_user_employer = localStorage.getItem("user-id");
+    // console.log("poulet");
     this.profilIMG = localStorage.getItem("user-logo");
+    this.compagnieName = localStorage.getItem("user-compagniename");
+    this.compagnieLocation = localStorage.getItem("user-compagnieLocation");
+    this.EmployerName = localStorage.getItem("user-name");
 
+    
     
 
   },
