@@ -60,7 +60,7 @@
                 mdi-hanger
                 </v-icon>
             </div>
-            <form  class="updateForm createForm" ref="form1">
+            <v-form  class="updateForm createForm" ref="form1">
               <v-container fluid>
                 <v-row>
                    <v-col cols="12" md="11" lg="11">
@@ -197,7 +197,7 @@
                   </v-col>
                 </v-row>
               </v-container>
-            </form>
+            </v-form>
           </v-container>
         </v-card-text>
 
@@ -582,7 +582,8 @@ export default {
       this.new_commande.linge =this.linge_list
       this.new_commande.service_price =this.commandePrice
       if (this.new_commande.linge) {
-        axios({ url: "/service/store", data: this.new_commande, method: "POST" })
+        if (this.$refs.form1.validate()) {
+          axios({ url: "/service/store", data: this.new_commande, method: "POST" })
         .then((response) => {
           this.visiteaAddingResponse = response.data;
           console.log(this.visiteaAddingResponse);
@@ -609,7 +610,9 @@ export default {
           console.error("There was an error!", error);
         });
 
-        this.$reset();
+        this.$refs.form1.reset();
+        }
+        
       }
         
     },
